@@ -1,15 +1,16 @@
 {
   "manifest_version": 3,
-  "name": "石墨文档导出工具|一键批量导出到本地",
-  "version": "1.0.4",
-  "description": "从石墨文档全量导出文件到本地，多类型导出格式md、docx、pdf、jpg。文件夹层级保留",
+  "name": "幕布导出工具 | 一键批量导出到本地",
+  "version": "0.1.0",
+  "description": "从幕布（mubu.com）批量导出大纲 & 思维导图为 Markdown/OPML/JSON，保留文件夹层级结构。",
   "permissions": [
     "cookies",
     "storage",
     "downloads"
   ],
   "host_permissions": [
-    "https://*.shimo.im/*"
+    "https://*.mubu.com/*",
+    "https://api2.mubu.com/*"
   ],
   "background": {
     "service_worker": "background.js"
@@ -17,7 +18,7 @@
   "options_page": "settings.html",
   "action": {
     "default_popup": "popup.html",
-    "default_title": "石墨文档导出工具"
+    "default_title": "幕布导出工具"
   },
   "icons": {
     "16": "icons/icon16.png",

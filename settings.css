@@ -530,6 +530,17 @@ input:focus {
     font-family: 'Courier New', monospace;
 }
 
+.path-text {
+    display: inline-block;
+    margin-top: 4px;
+    color: var(--text-secondary);
+    font-family: 'Courier New', monospace;
+    background: var(--bg-secondary);
+    padding: 4px 8px;
+    border-radius: var(--radius-sm);
+    user-select: all;
+}
+
 table.perf-table {
     width: 100%;
     border-collapse: collapse;
