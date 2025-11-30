@@ -1,0 +1,8 @@
+对于definition中的 image对象，其中有w参数表示宽度、uri参数表示链接的一部分如：document_image/3016345_91c4f02c-8313-4fab-c4ee-f6e84e5924db.png，可以使用链接https://document-image.mubu.com/document_image/3016345_91c4f02c-8313-4fab-c4ee-f6e84e5924db.png?x-tos-process=image/resize,w_572
+
+此外还需要特殊处理如下标签到markdown，bold italic underline strikethrough highlight-red(以及其他颜色highlight-x) codespan text-color-green(以及其他颜色text-color-x)
+
+下面是一个例子
+{"customStyle":"{}","nodes":[{"id":"4dTD5vElxr","modified":1764505669414,"text":"<span class=\"bold italic underline strikethrough\">1111</span>"},{"id":"xxxbDSQzOY","modified":1764505695304,"text":"<span class=\" highlight-red\">222223</span>"},{"heading":3,"id":"LFW5banFM1","modified":1764505694974,"text":"<span>2333</span>"},{"id":"Ow1xbJnVAO","modified":1764505725658,"text":"<span class=\"codespan\">ssss</span>"},{"id":"OOzAHLuR9m","modified":1764505729806,"text":""}]}
+
+请优化导出为markdown的逻辑
