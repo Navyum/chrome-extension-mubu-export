@@ -7,7 +7,7 @@ const START_BUTTON_DEFAULT_TEXT = '🚀 开始导出';
 const START_BUTTON_DONE_TEXT = '🎉导出完成';
 
 // DOM 元素 (在 DOMContentLoaded 中分配)
-let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, teamFilesSpan, startBtn, pauseBtn, 
+let exportTypeSelect, getInfoBtn, fileInfoDiv, totalFilesSpan, folderCountSpan, startBtn, pauseBtn, 
     retrySection, retryFailedBtn, failedList, progressBar, 
     progressFill, progressText, statusDiv, logContainer, resetBtn,
     settingsBtn, loginBtn, sponsorBtn, sponsorModal, sponsorModalClose, mainContainer;
@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', async function() {
   getInfoBtn = document.getElementById('getInfo');
   fileInfoDiv = document.getElementById('fileInfo');
   totalFilesSpan = document.getElementById('totalFiles');
-  teamFilesSpan = document.getElementById('teamFiles');
+  folderCountSpan = document.getElementById('folderCount');
   startBtn = document.getElementById('startExport');
   pauseBtn = document.getElementById('pauseExport');
   retrySection = document.getElementById('retrySection');
@@ -66,7 +66,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     chrome.runtime.openOptionsPage();
   });
   loginBtn.addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://shimo.im/loginByPassword?from=home' });
+    chrome.tabs.create({ url: 'https://mubu.com/login' });
   });
   if (sponsorBtn) {
     sponsorBtn.addEventListener('click', () => toggleSponsorModal(true));
@@ -106,13 +106,16 @@ function syncUiWithState(state) {
   totalFiles = state.totalFiles;
 
   if (state.fileList && state.fileList.length > 0) {
-    fileInfo = { totalFiles: state.totalFiles, fileList: state.fileList };
+    fileInfo = { totalFiles: state.totalFiles, fileList: state.fileList, folderCount: state.folderCount || 0 };
     totalFilesSpan.textContent = state.totalFiles;
-    updateTeamFilesCount(state.fileList);
+    if (folderCountSpan) {
+      folderCountSpan.textContent = state.folderCount || 0;
+    }
     fileInfoDiv.style.display = 'block';
   } else {
     fileInfo = null;
-    updateTeamFilesCount([]);
+    if (totalFilesSpan) totalFilesSpan.textContent = '0';
+    if (folderCountSpan) folderCountSpan.textContent = '0';
     fileInfoDiv.style.display = 'none';
   }
   
@@ -183,7 +186,7 @@ async function handleGetFileInfo() {
     const response = await chrome.runtime.sendMessage({ action: 'getFileInfo' });
     if (response && response.success) {
       showStatus('文件信息获取成功！', 'success');
-      addLog(`成功找到 ${response.data.totalFiles} 个文件。`);
+      addLog(`成功找到 ${response.data.totalFiles} 个文档。`);
       syncUiWithState({ ...response.data, isExporting: false, isPaused: false });
       setStartButtonLabel(START_BUTTON_DEFAULT_TEXT);
       // 恢复按钮
@@ -198,10 +201,10 @@ async function handleGetFileInfo() {
     showStatus(`获取信息失败: ${error.message}`, 'error');
     addLog(`错误: ${error.message}`);
     // 检查特定错误
-    if (error.message.includes('请确保已登录石墨')) {
-      getInfoBtn.textContent = '点击跳转登录石墨文档';
+    if (error.message.includes('幕布') || error.message.includes('登录')) {
+      getInfoBtn.textContent = '点击跳转登录幕布';
       getInfoBtn.disabled = false;
-      getInfoBtn.onclick = () => { window.open('https://shimo.im', '_blank'); };
+      getInfoBtn.onclick = () => { window.open('https://mubu.com/login', '_blank'); };
       getInfoBtn.setAttribute('data-login', 'true');
     } else {
       getInfoBtn.textContent = '获取文件信息';
@@ -219,7 +222,7 @@ async function handleStart() {
   }
 
   showStatus('开始导出...', 'info');
-  addLog('开始导出石墨文档...');
+  addLog('开始导出幕布文档...');
   
   try {
     const response = await chrome.runtime.sendMessage({
@@ -432,16 +435,6 @@ function updateProgress(exported, total) {
     progressFill.style.width = `${percentage}%`;
     progressText.textContent = `${exported}/${total}`; // 更新居中的文本
   }
-}
-
-function updateTeamFilesCount(fileList = []) {
-  if (!teamFilesSpan) return;
-  const list = Array.isArray(fileList) ? fileList : [];
-  const teamCount = list.filter(file => {
-    const folderPath = file && typeof file.folderPath === 'string' ? file.folderPath : '';
-    return folderPath.startsWith('团队空间');
-  }).length;
-  teamFilesSpan.textContent = teamCount;
 }
 
 // 保存设置和状态到存储

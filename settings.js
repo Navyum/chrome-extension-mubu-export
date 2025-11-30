@@ -212,10 +212,13 @@ function createTreeHtml(node, exportType) {
                 const statusIcon = file.status === 'success' ? '✅' : (file.status === 'failed' ? '❌' : '⏳');
                 const duration = file.duration ? `${(file.duration / 1000).toFixed(2)}s` : '-';
 
-                const suggestedFilename = `${file.title}.${exportType}`;
+                const filename = file.localPath ? file.localPath.split('/').pop() : `${file.title}.${exportType}`;
                 const downloadLink = file.downloadUrl 
-                    ? `<a href="${file.downloadUrl}" download="${suggestedFilename}" target="_blank" rel="noopener noreferrer">点击直接下载</a>` 
+                    ? `<a href="${file.downloadUrl}" download="${filename}" target="_blank" rel="noopener noreferrer">点击直接下载</a>` 
                     : 'N/A';
+                const localPathInfo = file.localPath 
+                    ? `<div><strong>本地路径:</strong> <span class="path-text">${file.localPath}</span></div>` 
+                    : '';
                 
                 li.innerHTML = `
                     <div class="file-tree-file">
@@ -227,7 +230,8 @@ function createTreeHtml(node, exportType) {
                     </div>
                     <div class="file-link">
                         <div><strong>Export URL:</strong> <span class="url-text">${file.exportUrl || 'N/A'}</span></div>
-                        <div><strong>Download URL:</strong> ${downloadLink}</div>
+                        ${localPathInfo}
+                        <div><strong>下载链接:</strong> ${downloadLink}</div>
                     </div>
                 `;
                 ul.appendChild(li);
@@ -269,7 +273,7 @@ function renderSlowestFiles(fileList) {
             ${slowest.map(file => `
                 <tr>
                     <td>${file.title}</td>
-                    <td>${file.folderPath || '/'}</td>
+                    <td>${file.localPath || file.folderPath || '/'}</td>
                     <td>${(file.duration / 1000).toFixed(2)}</td>
                 </tr>
             `).join('')}

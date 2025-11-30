@@ -3,14 +3,14 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=400, height=600, user-scalable=no">
-  <title>石墨文档导出工具</title>
+  <title>幕布导出工具</title>
   <link rel="stylesheet" href="popup.css">
 </head>
 <body>
   
   <div class="container" tabindex="-1" autofocus>
-    <!-- 登录按钮 -->
-  <button id="login-btn" class="top-right-btn login-btn" title="前往登录">
+  <!-- 登录按钮 -->
+  <button id="login-btn" class="top-right-btn login-btn" title="前往幕布登录页">
     <img src="asserts/login.svg" alt="登录" class="login-icon">
   </button>
 
@@ -32,8 +32,8 @@
   
     <div class="header">
       <div class="header-content">
-        <img src="icons/icon48.png" alt="石墨文档导出工具" class="header-icon">
-        <h2>石墨文档导出工具</h2>
+        <img src="icons/icon48.png" alt="幕布导出工具" class="header-icon">
+        <h2>幕布导出工具</h2>
       </div>
     </div>
     
@@ -42,20 +42,20 @@
       <div class="select-container">
         <select id="exportType">
           <option value="md">📝 Markdown (.md)</option>
-          <option value="pdf">📄 PDF (.pdf)</option>
-          <option value="docx">📘 Word (.docx)</option>
-          <option value="jpg">🖼️ 图片 (.jpg)</option>
+          <option value="opml">🧠 OPML (.opml)</option>
+          <option value="json">🧾 原始结构 (.json)</option>
         </select>
       </div>
     </div>
 
     <div id="fileInfo" class="file-info">
       <p>
-        <strong>📁 文件总数:</strong> 
+        <strong>📄 文档总数:</strong> 
         <span id="totalFiles">0</span>
-        <span class="team-files">
-          （团队空间：<span id="teamFiles">0</span>）
-        </span>
+      </p>
+      <p>
+        <strong>🗂️ 文件夹数:</strong>
+        <span id="folderCount">0</span>
       </p>
     </div>
     
@@ -91,10 +91,10 @@
     <div class="log-container" id="logContainer">
       <div class="log-placeholder">
         <p>👏👏👏</p>
-        <p>欢迎使用石墨文档导出工具！</p>
-        <p>✨ 请先 <img src="asserts/login.svg" style="width: 16px; height: 16px;background-color: aliceblue;border-radius: 50%;" alt="登录" class="login-icon"> 前往登录</p>
+        <p>欢迎使用幕布导出工具！</p>
+        <p>✨ 请先 <img src="asserts/login.svg" style="width: 16px; height: 16px;background-color: aliceblue;border-radius: 50%;" alt="登录" class="login-icon"> 前往幕布登录</p>
         <p>✨ 点击获取文件信息按钮开始导出</p>
-        <p>✨ Tips：点击 ⚙️ 可以设置导出文件夹</p>
+        <p>✨ Tips：点击 ⚙️ 可以设置导出目录</p>
         <p>✨ Tips：点击 <img src="asserts/sponsors.png" style="width: 16px; height: 16px;" alt="赞助" class="sponsor-icon"> 可以赞助支持我</p>
       </div>
     </div>
