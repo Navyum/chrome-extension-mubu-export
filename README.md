@@ -1,6 +1,6 @@
 # 幕布导出工具 - Chrome 插件
 
-一个专注于 [幕布 (mubu.com)](https://mubu.com) 的 Chrome 扩展，帮助你一键批量导出所有思维导图/大纲笔记。工具完全在本地运行：读取文档、转换为 Markdown/OPML/JSON、并按照原有文件夹层级保存到下载目录。
+一个专注于 [幕布 (mubu.com)](https://mubu.com) 的 Chrome 扩展，帮助你一键批量导出所有思维导图/大纲笔记。工具完全在本地运行：读取文档、转换为 Markdown / OPML / Freemind (.mm) / HTML / JSON，并按照原有文件夹层级保存到下载目录。
 
 > ⚠️ 免责声明：本项目仅供学习与备份使用，请遵守幕布的服务条款，不要将抓取的数据用于任何商业或违规用途。
 
@@ -8,7 +8,7 @@
 
 ### 🚀 核心能力
 - **一键全量导出**：递归扫描所有文件夹，最多可处理数千份笔记
-- **多格式输出**：Markdown、OPML（兼容 XMind / Logseq / Obsidian）、原始 JSON 定义
+- **多格式输出**：Markdown、OPML（兼容 XMind / Logseq / Obsidian）、Freemind (.mm)、HTML、原始 JSON 定义
 - **结构保留**：还原幕布的文件夹树，下载到本地仍然是层级化目录
 - **节点还原**：将节点文本/备注/嵌套层级转成 Markdown 列表与引用
 
@@ -36,15 +36,17 @@
 ```bash
 git clone https://github.com/Navyum/chrome-extension-mubu-export.git
 cd chrome-extension-mubu-export
+npm install
+npm run build
 ```
 1. 打开 `chrome://extensions/`
 2. 右上角开启「开发者模式」
-3. 点击「加载已解压的扩展程序」，选择仓库根目录
+3. 点击「加载已解压的扩展程序」，选择 `dist/` 目录（无需混淆可直接选择仓库根目录）
 
 ### 方式二：自打包
-1. `pnpm install`（如需构建脚本，可自行添加）
-2. 将仓库打包为 zip
-3. 在扩展管理页点击「加载已解压」或「发布至企业商店」
+1. `npm install && npm run build`
+2. 将 `dist/` 目录打包为 zip
+3. 在扩展管理页点击「加载已解压」或上传到 Chrome Web Store
 
 ## 🚀 快速开始
 
@@ -64,6 +66,8 @@ cd chrome-extension-mubu-export
 5. **选择导出格式并开始**  
    - Markdown：适合内容迁移到 Obsidian、Notion、飞书文档
    - OPML：适合导入 XMind、幕布、Workflowy
+   - Freemind (.mm)：用于导入 Freemind / MindManager 等经典思维导图工具
+   - HTML：生成可直接分享的图文备份页面
    - JSON：保留幕布原始结构，后续可自行二次解析  
    点击「🚀 开始导出」即可静待任务完成。
 
@@ -90,6 +94,8 @@ cd chrome-extension-mubu-export
 | --- | --- | --- |
 | `Markdown (.md)` | 迁移到 Notion / Obsidian / 飞书 | 使用无序列表表示节点，备注转为引用块 |
 | `OPML (.opml)` | 导入 XMind / Logseq / Workflowy | 兼容大部分思维导图与大纲工具 |
+| `Freemind (.mm)` | 导入 Freemind / MindManager | 经典 `.mm` 思维导图格式，保留折叠/备注信息 |
+| `HTML (.html)` | 直接分享/打印 | 生成包含层级结构、备注与图片的静态页面 |
 | `JSON (.json)` | 自定义处理或写脚本 | 直接保存幕布 definition 的原始结构 |
 
 ## 🏗️ 技术架构

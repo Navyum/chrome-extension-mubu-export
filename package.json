@@ -1,0 +1,26 @@
+{
+  "name": "chrome-extension-mubu-export",
+  "version": "1.0.0",
+  "description": "一个专注于 [幕布 (mubu.com)](https://mubu.com) 的 Chrome 扩展，帮助你一键批量导出所有思维导图/大纲笔记。工具完全在本地运行：读取文档、转换为 Markdown / OPML / Freemind (.mm) / HTML / PDF / Word / JSON，并按照原有文件夹层级保存到下载目录。",
+  "main": "src/background.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "cross-env NODE_ENV=production webpack --config webpack.config.js",
+    "build:watch": "cross-env NODE_ENV=development webpack --watch --config webpack.config.js",
+    "pack": "npm run build && mkdir -pv build && cd dist && zip -r ../build/chrome-extension-mubu-export.zip *"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "files": [
+    "dist"
+  ],
+  "dependencies": {},
+  "devDependencies": {
+    "copy-webpack-plugin": "^13.0.1",
+    "cross-env": "^10.1.0",
+    "webpack": "^5.103.0",
+    "webpack-cli": "^6.0.1",
+    "webpack-obfuscator": "^3.5.1"
+  }
+}
