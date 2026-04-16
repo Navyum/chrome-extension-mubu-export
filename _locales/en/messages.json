@@ -1,0 +1,415 @@
+{
+  "extName": {
+    "message": "Mubu Export Tool | Batch Export to Local"
+  },
+  "extDescription": {
+    "message": "Batch export outlines & mind maps from Mubu (mubu.com) to Markdown/OPML/JSON, preserving folder hierarchy."
+  },
+  "popupTitle": {
+    "message": "Mubu Export Tool"
+  },
+  "visitWebsite": {
+    "message": "Visit website"
+  },
+  "loginToMubu": {
+    "message": "Go to Mubu login"
+  },
+  "loginAlt": {
+    "message": "Login"
+  },
+  "sponsorSupport": {
+    "message": "Sponsor"
+  },
+  "sponsorAlt": {
+    "message": "Sponsor"
+  },
+  "openSettings": {
+    "message": "Open settings"
+  },
+  "settingsAlt": {
+    "message": "Settings"
+  },
+  "exitTitle": {
+    "message": "Exit"
+  },
+  "exitAlt": {
+    "message": "Exit"
+  },
+  "exportFormatLabel": {
+    "message": "Export format:"
+  },
+  "exportFormatIconAlt": {
+    "message": "Export format icon"
+  },
+  "formatJson": {
+    "message": "Raw structure (.json)"
+  },
+  "docLabel": {
+    "message": "Documents"
+  },
+  "folderLabel": {
+    "message": "Folders"
+  },
+  "getFileInfo": {
+    "message": "Get file info"
+  },
+  "getFileInfoBtn": {
+    "message": "🔍 Get File Info"
+  },
+  "startExport": {
+    "message": "🚀 Start Export"
+  },
+  "pauseExport": {
+    "message": "⏸️ Pause Export"
+  },
+  "retryFailed": {
+    "message": "🔄 Retry Failed Files"
+  },
+  "welcomeTitle": {
+    "message": "Welcome to Mubu Export Tool!"
+  },
+  "welcomeTip1": {
+    "message": "Please log in to Mubu first"
+  },
+  "welcomeTip2": {
+    "message": "Click 🔍 to get info, then click 🚀 to start export"
+  },
+  "welcomeTip3": {
+    "message": "Tip: Click ⚙️ to set export directory"
+  },
+  "welcomeTip4": {
+    "message": "Tip: You can sponsor to support me"
+  },
+  "sponsorModalTitle": {
+    "message": "Buy me a coffee ☕️"
+  },
+  "sponsorModalDesc": {
+    "message": "If this tool helps you, a small donation to support continued maintenance is welcome."
+  },
+  "sponsorModalCloseLabel": {
+    "message": "Close sponsor QR code"
+  },
+  "sponsorQrAlt": {
+    "message": "Sponsor QR code"
+  },
+  "sponsorTip": {
+    "message": "Scan the QR code, any amount is appreciated!"
+  },
+  "settingsPageTitle": {
+    "message": "Mubu Export Tool - Settings"
+  },
+  "sidebarTitle": {
+    "message": "Mubu Export Tool"
+  },
+  "navGeneral": {
+    "message": "General"
+  },
+  "navPerformance": {
+    "message": "Performance"
+  },
+  "navAbout": {
+    "message": "About"
+  },
+  "generalTitle": {
+    "message": "General Settings"
+  },
+  "generalDesc": {
+    "message": "Manage general settings and basic configuration options."
+  },
+  "subfolderLabel": {
+    "message": "📁 Download subfolder"
+  },
+  "subfolderDesc": {
+    "message": "Files will be saved to the specified subfolder under your browser's Downloads directory. Leave empty to save to Downloads root."
+  },
+  "subfolderPlaceholder": {
+    "message": "e.g. My Mubu Backup"
+  },
+  "settingsSaved": {
+    "message": "✅ Settings saved!"
+  },
+  "authTip": {
+    "message": "Tip: Just stay logged in to mubu.com. The extension automatically reads the Jwt-Token from browser cookies for authentication."
+  },
+  "downloadAskLabel": {
+    "message": "⬇️ Download prompt for each file"
+  },
+  "downloadAskDesc": {
+    "message": "If a save dialog pops up for each file, it's because $BROWSER$ has \"Ask where to save each file before downloading\" enabled. Go to $BROWSER$ Settings → Downloads to disable it for fully automatic batch export.",
+    "placeholders": {
+      "browser": {
+        "content": "$1"
+      }
+    }
+  },
+  "openDownloadSettings": {
+    "message": "Open download settings"
+  },
+  "perfTitle": {
+    "message": "Performance Monitor"
+  },
+  "perfDesc": {
+    "message": "View download details and performance metrics for all files. Data is only available during or after an export task."
+  },
+  "fileTreeTitle": {
+    "message": "🌳 Download Details (File Tree)"
+  },
+  "filterLabel": {
+    "message": "Filter:"
+  },
+  "filterAll": {
+    "message": "📋 All"
+  },
+  "filterSuccess": {
+    "message": "✅ Success"
+  },
+  "filterFailed": {
+    "message": "❌ Failed"
+  },
+  "filterPending": {
+    "message": "⏳ Pending"
+  },
+  "refreshBtn": {
+    "message": "🔄 Refresh"
+  },
+  "refreshTitle": {
+    "message": "Refresh file tree"
+  },
+  "fileTreeTip": {
+    "message": "Click file name for details. Status: ✅ Success, ❌ Failed, ⏳ Pending."
+  },
+  "slowestTitle": {
+    "message": "🐌 Slowest 10 Downloads"
+  },
+  "slowestDesc": {
+    "message": "Shows only successfully downloaded files to help identify network bottlenecks."
+  },
+  "noPerformanceData": {
+    "message": "📊 No performance data available."
+  },
+  "aboutTitle": {
+    "message": "About Mubu Export Tool"
+  },
+  "aboutDesc": {
+    "message": "Thank you for using this tool. For questions or suggestions, feel free to provide feedback."
+  },
+  "aboutProjectTitle": {
+    "message": "📖 Project Info"
+  },
+  "aboutProjectDesc1": {
+    "message": "This extension helps users batch export files from Mubu (mubu.com) while preserving the original folder structure. Supports Markdown, OPML, Freemind, HTML, Word, PDF, JSON and more."
+  },
+  "aboutProjectDesc2": {
+    "message": "If you frequently use Mubu for work or study and need to backup or migrate your data, this tool will save you significant manual effort."
+  },
+  "officialWebsite": {
+    "message": "Official Website"
+  },
+  "contactFeedback": {
+    "message": "Contact & Feedback"
+  },
+  "supportTitle": {
+    "message": "💝 Support & Encouragement"
+  },
+  "supportDesc": {
+    "message": "If you find this tool helpful, consider buying me a coffee! Your support drives continued maintenance and improvement."
+  },
+  "scanQrCode": {
+    "message": "☕️ Scan the QR code with WeChat"
+  },
+  "qrCodeAlt": {
+    "message": "Donation QR code"
+  },
+  "exportDone": {
+    "message": "🎉 Export Complete"
+  },
+  "gettingInfo": {
+    "message": "Loading..."
+  },
+  "gettingFileInfo": {
+    "message": "Fetching file info, please wait..."
+  },
+  "startGettingInfo": {
+    "message": "Fetching file info..."
+  },
+  "fileInfoSuccess": {
+    "message": "File info fetched successfully!"
+  },
+  "foundFiles": {
+    "message": "Found $COUNT$ documents.",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "restoreStateFailed": {
+    "message": "Failed to restore previous state. Please fetch file info again."
+  },
+  "getInfoFailed": {
+    "message": "Failed to get info: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "errorPrefix": {
+    "message": "Error: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "pleaseGetInfoFirst": {
+    "message": "Please get file info first"
+  },
+  "startingExport": {
+    "message": "Starting export..."
+  },
+  "startExportLog": {
+    "message": "Starting Mubu document export..."
+  },
+  "startExportFailed": {
+    "message": "Failed to start export: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "noTaskToToggle": {
+    "message": "No active task. Ignoring pause/resume command."
+  },
+  "exportPaused": {
+    "message": "Export paused"
+  },
+  "exportResumed": {
+    "message": "Export resumed"
+  },
+  "resumeExport": {
+    "message": "Resume Export"
+  },
+  "requestingReset": {
+    "message": "Requesting task reset..."
+  },
+  "resetFailed": {
+    "message": "Reset failed: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "resetNotSuccessful": {
+    "message": "Reset operation was not successful."
+  },
+  "retrying": {
+    "message": "Retrying..."
+  },
+  "retryingFailed": {
+    "message": "Retrying failed files..."
+  },
+  "retryFailed2": {
+    "message": "Retry failed: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "retryFailedFiles": {
+    "message": "Retry failed files"
+  },
+  "clickToLoginMubu": {
+    "message": "Click to log in to Mubu"
+  },
+  "failedFilesLabel": {
+    "message": "Failed files:"
+  },
+  "exportCompleteLog": {
+    "message": "Export process complete."
+  },
+  "exportCompleteStatus": {
+    "message": "Export complete!"
+  },
+  "exportErrorLog": {
+    "message": "Error: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "exportErrorStatus": {
+    "message": "Export error: $ERROR$",
+    "placeholders": {
+      "error": {
+        "content": "$1"
+      }
+    }
+  },
+  "noMatchingFiles": {
+    "message": "No matching files."
+  },
+  "noPerformanceDataShort": {
+    "message": "No performance data available."
+  },
+  "noSuccessRecords": {
+    "message": "No successful download records for ranking."
+  },
+  "showingFiles": {
+    "message": "Showing $FILTERED$ files (of $TOTAL$ total)",
+    "placeholders": {
+      "filtered": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      }
+    }
+  },
+  "clickToDownload": {
+    "message": "Click to download"
+  },
+  "localPath": {
+    "message": "Local path:"
+  },
+  "retryCount": {
+    "message": "$COUNT$ retries",
+    "placeholders": {
+      "count": {
+        "content": "$1"
+      }
+    }
+  },
+  "thFileName": {
+    "message": "File Name"
+  },
+  "thPath": {
+    "message": "Path"
+  },
+  "thDuration": {
+    "message": "Duration (s)"
+  },
+  "addressCopied": {
+    "message": "✅ Address \"$URL$\" copied! Paste it in the address bar and press Enter.",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "copyFailed": {
+    "message": "❌ Cannot copy address. Please manually enter: $URL$",
+    "placeholders": {
+      "url": {
+        "content": "$1"
+      }
+    }
+  },
+  "unknownError": {
+    "message": "Unknown error"
+  }
+}

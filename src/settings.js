@@ -1,4 +1,29 @@
+function applyI18nSettings() {
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (key) el.textContent = chrome.i18n.getMessage(key) || el.textContent;
+    });
+    document.querySelectorAll('[data-i18n-title]').forEach(el => {
+        const key = el.getAttribute('data-i18n-title');
+        if (key) el.title = chrome.i18n.getMessage(key) || el.title;
+    });
+    document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (key) el.placeholder = chrome.i18n.getMessage(key) || el.placeholder;
+    });
+    document.querySelectorAll('[data-i18n-alt]').forEach(el => {
+        const key = el.getAttribute('data-i18n-alt');
+        if (key) el.alt = chrome.i18n.getMessage(key) || el.alt;
+    });
+}
+
+function t(key, substitutions) {
+    return chrome.i18n.getMessage(key, substitutions) || key;
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+    applyI18nSettings();
+
     // --- Section Navigation ---
     const navItems = document.querySelectorAll('.nav-item');
     const contentSections = document.querySelectorAll('.content-section');
@@ -56,6 +81,50 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 2000);
         });
     });
+
+    // --- Download Settings Shortcut ---
+    const openDownloadsBtn = document.getElementById('openDownloadsBtn');
+    const downloadSettingsStatus = document.getElementById('downloadSettingsStatus');
+
+    // Detect browser and set appropriate settings URL
+    const isEdge = navigator.userAgent.includes('Edg/');
+    const isFirefox = typeof browser !== 'undefined' && browser.runtime && browser.runtime.getBrowserInfo;
+    const browserName = isFirefox ? 'Firefox' : (isEdge ? 'Edge' : 'Chrome');
+    const settingsUrl = isFirefox ? 'about:preferences' : (isEdge ? 'edge://settings/downloads' : 'chrome://settings/downloads');
+
+    // Update browser name placeholders
+    document.querySelectorAll('.browser-name').forEach(el => { el.textContent = browserName; });
+
+    function showDownloadSettingsStatus(message, isError = false) {
+        if (!downloadSettingsStatus) return;
+        downloadSettingsStatus.textContent = message;
+        downloadSettingsStatus.style.opacity = '1';
+        downloadSettingsStatus.style.color = isError ? '#ef4444' : '#10b981';
+        clearTimeout(downloadSettingsStatus._hideTimer);
+        downloadSettingsStatus._hideTimer = setTimeout(() => {
+            downloadSettingsStatus.style.opacity = '0';
+        }, 5000);
+    }
+
+    if (openDownloadsBtn) {
+        openDownloadsBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            const fallbackToCopy = () => {
+                navigator.clipboard.writeText(settingsUrl).then(() => {
+                    showDownloadSettingsStatus(t('addressCopied', [settingsUrl]));
+                }).catch(() => {
+                    showDownloadSettingsStatus(t('copyFailed', [settingsUrl]), true);
+                });
+            };
+            if (isFirefox) {
+                fallbackToCopy();
+            } else {
+                chrome.tabs.create({ url: settingsUrl }).catch(() => {
+                    fallbackToCopy();
+                });
+            }
+        });
+    }
 
     // --- File Tree Controls ---
     setupFileTreeControls();
@@ -117,8 +186,8 @@ function loadPerformanceData() {
             } else {
                 currentFileList = [];
                 currentExportType = '';
-                document.getElementById('file-tree-container').innerHTML = '<p>没有可用的性能数据。</p>';
-                document.getElementById('slowest-files-container').innerHTML = '<p>没有可用的性能数据。</p>';
+                document.getElementById('file-tree-container').innerHTML = `<p>${t('noPerformanceDataShort')}</p>`;
+                document.getElementById('slowest-files-container').innerHTML = `<p>${t('noPerformanceDataShort')}</p>`;
             }
             resolve();
         });
@@ -154,7 +223,7 @@ function updateFileCount(filteredCount, totalCount) {
         const countDiv = document.createElement('div');
         countDiv.className = 'file-count';
         countDiv.style.cssText = 'margin-bottom: 12px; font-size: 0.9rem; color: var(--text-secondary);';
-        countDiv.textContent = `显示 ${filteredCount} 个文件 (共 ${totalCount} 个)`;
+        countDiv.textContent = t('showingFiles', [String(filteredCount), String(totalCount)]);
         container.insertBefore(countDiv, container.firstChild);
     }
 }
@@ -164,7 +233,7 @@ function renderFileTree(fileList, exportType) {
     container.innerHTML = ''; // Clear previous content
 
     if (fileList.length === 0) {
-        container.innerHTML = '<p>没有符合条件的文件。</p>';
+        container.innerHTML = `<p>${t('noMatchingFiles')}</p>`;
         return;
     }
 
@@ -213,11 +282,11 @@ function createTreeHtml(node, exportType) {
                 const duration = file.duration ? `${(file.duration / 1000).toFixed(2)}s` : '-';
 
                 const filename = file.localPath ? file.localPath.split('/').pop() : `${file.title}.${exportType}`;
-                const downloadLink = file.downloadUrl 
-                    ? `<a href="${file.downloadUrl}" download="${filename}" target="_blank" rel="noopener noreferrer">点击直接下载</a>` 
+                const downloadLink = file.downloadUrl
+                    ? `<a href="${file.downloadUrl}" download="${filename}" target="_blank" rel="noopener noreferrer">${t('clickToDownload')}</a>`
                     : 'N/A';
-                const localPathInfo = file.localPath 
-                    ? `<div><strong>本地路径:</strong> <span class="path-text">${file.localPath}</span></div>` 
+                const localPathInfo = file.localPath
+                    ? `<div><strong>${t('localPath')}</strong> <span class="path-text">${file.localPath}</span></div>`
                     : '';
                 
                 li.innerHTML = `
@@ -225,13 +294,11 @@ function createTreeHtml(node, exportType) {
                         <span class="file-name">${statusIcon} ${file.title}</span>
                         <span class="file-metrics">
                            <span>${duration}</span>
-                           <span>${file.retryCount || 0}次重试</span>
+                           <span>${t('retryCount', [String(file.retryCount || 0)])}</span>
                         </span>
                     </div>
                     <div class="file-link">
-                        <div><strong>Export URL:</strong> <span class="url-text">${file.exportUrl || 'N/A'}</span></div>
                         ${localPathInfo}
-                        <div><strong>下载链接:</strong> ${downloadLink}</div>
                     </div>
                 `;
                 ul.appendChild(li);
@@ -255,7 +322,7 @@ function renderSlowestFiles(fileList) {
         .slice(0, 10);
 
     if (slowest.length === 0) {
-        container.innerHTML = '<p>没有成功的下载记录可供排名。</p>';
+        container.innerHTML = `<p>${t('noSuccessRecords')}</p>`;
         return;
     }
 
@@ -264,9 +331,9 @@ function renderSlowestFiles(fileList) {
     table.innerHTML = `
         <thead>
             <tr>
-                <th>文件名</th>
-                <th>路径</th>
-                <th>耗时 (秒)</th>
+                <th>${t('thFileName')}</th>
+                <th>${t('thPath')}</th>
+                <th>${t('thDuration')}</th>
             </tr>
         </thead>
         <tbody>

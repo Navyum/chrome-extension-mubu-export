@@ -1,7 +1,7 @@
 幕布导出工具 - 一键批量导出
 
 📝 简短描述：
-高效批量导出幕布文档，支持 Markdown / OPML / JSON，并自动保留文件夹结构
+高效批量导出幕布文档，支持 Markdown / OPML / Freemind (.mm) / HTML / JSON，并自动保留文件夹结构
 
 📖 详细描述：
 
@@ -9,7 +9,7 @@
 
 自动读取浏览器 Cookie，保持登录即可调用官方 API
 批量处理所有文件夹与子节点
-多格式支持：Markdown、OPML、JSON
+多格式支持：Markdown、OPML、Freemind (.mm)、HTML、JSON
 完整保留幕布原有的文件夹/大纲层级
 智能处理文件名特殊字符，避免下载失败
 
@@ -32,7 +32,7 @@
 
 知识工作者：一键迁移到 Obsidian / Notion
 产品/运营：备份项目资料，规避账号风险
-学生群体：导出课堂笔记 → XMind / Logseq
+学生群体：导出课堂笔记 → XMind / OPML / Markdown
 重度幕布用户：定期全量备份
 
 🛠️ 安装使用
@@ -54,10 +54,3 @@
 如需帮助，请联系：yhj2433488839@gmail.com
 
 🎉 立即体验高效的文档管理解决方案！
-
-📒 更新日志
-
-2025-11-30：
-- 适配幕布 API，新增 Markdown / OPML / JSON 导出
-- 自动读取 Jwt-Token Cookie 并支持本地路径展示
-- 性能监控支持显示导出本地路径

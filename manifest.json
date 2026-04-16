@@ -1,24 +1,26 @@
 {
   "manifest_version": 3,
-  "name": "幕布导出工具 | 一键批量导出到本地",
-  "version": "0.1.0",
-  "description": "从幕布（mubu.com）批量导出大纲 & 思维导图为 Markdown/OPML/JSON，保留文件夹层级结构。",
+  "name": "__MSG_extName__",
+  "version": "1.0.1",
+  "description": "__MSG_extDescription__",
+  "default_locale": "zh_CN",
   "permissions": [
     "cookies",
     "storage",
-    "downloads"
+    "downloads",
+    "declarativeNetRequest"
   ],
   "host_permissions": [
-    "https://*.mubu.com/*",
-    "https://api2.mubu.com/*"
+    "https://*.mubu.com/*"
   ],
   "background": {
-    "service_worker": "background.js"
+    "service_worker": "src/background.js",
+    "type": "module"
   },
-  "options_page": "settings.html",
+  "options_page": "src/settings.html",
   "action": {
-    "default_popup": "popup.html",
-    "default_title": "幕布导出工具"
+    "default_popup": "src/popup.html",
+    "default_title": "__MSG_popupTitle__"
   },
   "icons": {
     "16": "icons/icon16.png",
