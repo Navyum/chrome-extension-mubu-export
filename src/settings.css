@@ -74,6 +74,7 @@ body {
 .wrapper {
     display: flex;
     min-height: 100vh;
+    align-items: stretch;
 }
 
 .sidebar {
@@ -158,14 +159,15 @@ body {
 
 .main-content {
     flex-grow: 1;
-    padding: 40px;
+    min-width: 0;
+    padding: 40px 32px;
     display: flex;
-    justify-content: center;
+    justify-content: flex-start;
     background: transparent;
 }
 
 .content-section {
-    max-width: 1080px;
+    max-width: 960px;
     width: 100%;
     display: none;
     opacity: 0;
@@ -358,6 +360,146 @@ code {
     color: var(--text-secondary);
     margin-top: 12px;
     line-height: 1.5;
+}
+
+.settings-aside {
+    width: 280px;
+    flex-shrink: 0;
+    padding: 32px 24px 32px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    align-items: flex-start;
+}
+
+.aside-card {
+    width: 100%;
+    position: sticky;
+    top: 24px;
+    background: var(--bg-card);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    border: 1px solid var(--border-primary);
+    box-shadow: var(--shadow-lg);
+    backdrop-filter: blur(10px);
+    transition: all 0.3s ease;
+}
+
+.aside-card:hover {
+    box-shadow: var(--shadow-xl);
+    transform: translateY(-2px);
+}
+
+.aside-card-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.aside-card-header h3 {
+    margin: 0;
+    font-size: 1.05rem;
+    color: var(--text-primary);
+}
+
+.aside-card-icon {
+    width: 18px;
+    height: 18px;
+    color: var(--primary-color);
+    flex-shrink: 0;
+}
+
+.aside-card-desc {
+    margin: 0 0 18px;
+    font-size: 0.9rem;
+    line-height: 1.65;
+    color: var(--text-secondary);
+}
+
+.sponsor-qr-wrap {
+    position: relative;
+    padding: 28px 18px 18px;
+    background: linear-gradient(180deg, rgba(139, 92, 246, 0.12), rgba(16, 185, 129, 0.06));
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    text-align: center;
+}
+
+.sponsor-qr-badge {
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: white;
+    background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+    border-radius: 999px;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.28);
+    white-space: nowrap;
+}
+
+.sponsor-qr-image {
+    display: block;
+    width: 100%;
+    max-width: 180px;
+    margin: 0 auto;
+    border: 1px solid var(--border-primary);
+    border-radius: var(--radius-md);
+    background: rgba(255, 255, 255, 0.96);
+    padding: 10px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.sponsor-qr-image:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.28);
+}
+
+.aside-card-tip {
+    margin: 14px 0 0;
+    font-size: 0.84rem;
+    line-height: 1.5;
+    color: var(--text-secondary);
+    text-align: center;
+}
+
+.tips-card {
+    background: linear-gradient(180deg, rgba(16, 185, 129, 0.1), rgba(26, 26, 46, 0.82));
+}
+
+.aside-tips-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.aside-tips-list li {
+    position: relative;
+    padding-left: 18px;
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-secondary);
+}
+
+.aside-tips-list li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.65em;
+    width: 7px;
+    height: 7px;
+    border-radius: 999px;
+    background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.08);
 }
 
 /* About Links */
@@ -707,6 +849,15 @@ table.perf-table {
     .main-content {
         padding: 20px;
     }
+
+    .settings-aside {
+        width: 100%;
+        padding: 0 20px 20px;
+    }
+
+    .aside-card {
+        position: static;
+    }
     
     .file-tree-header {
         flex-direction: column;
@@ -716,6 +867,21 @@ table.perf-table {
     .file-tree-controls {
         width: 100%;
         justify-content: space-between;
+    }
+}
+
+@media (max-width: 1200px) {
+    .sidebar {
+        width: 248px;
+    }
+
+    .settings-aside {
+        width: 248px;
+        padding: 32px 20px 32px 0;
+    }
+
+    .main-content {
+        padding: 32px 24px;
     }
 }
 

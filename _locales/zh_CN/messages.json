@@ -18,7 +18,7 @@
     "message": "登录"
   },
   "sponsorSupport": {
-    "message": "赞助支持"
+    "message": "❤️支持开发者"
   },
   "sponsorAlt": {
     "message": "赞助"
@@ -78,7 +78,10 @@
     "message": "Tips：点击 ⚙️ 可以设置导出目录"
   },
   "welcomeTip4": {
-    "message": "Tips：可以赞助支持我"
+    "message": "Tips：点击 ❤️ 支持开发者"
+  },
+  "sponsorBadge": {
+    "message": "❤️ 支持开发者"
   },
   "sponsorModalTitle": {
     "message": "请我喝杯咖啡 ☕️"
@@ -209,16 +212,34 @@
     "message": "联系反馈"
   },
   "supportTitle": {
-    "message": "💝 支持与鼓励"
+    "message": "支持与鼓励"
   },
   "supportDesc": {
     "message": "如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。"
+  },
+  "settingsSponsorBadge": {
+    "message": "💝 赞赏开发者"
   },
   "scanQrCode": {
     "message": "☕️ 请使用微信扫描二维码"
   },
   "qrCodeAlt": {
     "message": "打赏二维码"
+  },
+  "settingsTipsTitle": {
+    "message": "💡 使用提示"
+  },
+  "settingsTip1": {
+    "message": "导出前请确认自己仍处于幕布登录状态。"
+  },
+  "settingsTip2": {
+    "message": "如果系统弹出保存框，请先关闭浏览器“下载前询问”。"
+  },
+  "settingsTip3": {
+    "message": "大批量导出时优先查看性能监控中的失败项。"
+  },
+  "settingsTip4": {
+    "message": "建议定期导出做本地备份，避免内容遗漏。"
   },
   "exportDone": {
     "message": "🎉导出完成"

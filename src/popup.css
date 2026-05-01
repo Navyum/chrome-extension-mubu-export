@@ -916,6 +916,35 @@ body.modal-open .container {
   text-align: center;
 }
 
+.sponsor-qr-wrap {
+  position: relative;
+  display: inline-flex;
+  justify-content: center;
+  padding: 26px 14px 14px;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(139, 92, 246, 0.14), rgba(16, 185, 129, 0.08));
+  border: 1px solid rgba(139, 92, 246, 0.22);
+}
+
+.sponsor-qr-badge {
+  position: absolute;
+  top: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 12px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--primary-color), var(--primary-hover));
+  color: #fff;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.2px;
+  white-space: nowrap;
+  box-shadow: 0 8px 18px rgba(139, 92, 246, 0.28);
+}
+
 .sponsor-qr {
   width: 220px;
   height: 220px;

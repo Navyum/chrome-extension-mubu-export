@@ -132,16 +132,40 @@
                         </a>
                     </div>
                 </div>
-                <div class="form-card">
-                    <h3 data-i18n="supportTitle">💝 支持与鼓励</h3>
-                    <p data-i18n="supportDesc">如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。</p>
-                    <div class="reward-container">
-                        <p data-i18n="scanQrCode">☕️ 请使用微信扫描二维码</p>
-                        <img src="../asserts/sp.jpeg" data-i18n-alt="qrCodeAlt" alt="打赏二维码">
-                    </div>
-                </div>
             </section>
         </main>
+        <aside class="settings-aside">
+            <div class="aside-card sponsor-card">
+                <div class="aside-card-header">
+                    <svg class="aside-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+                    </svg>
+                    <h3 data-i18n="supportTitle">支持与鼓励</h3>
+                </div>
+                <p class="aside-card-desc" data-i18n="supportDesc">如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。</p>
+                <div class="sponsor-qr-wrap">
+                    <span class="sponsor-qr-badge" data-i18n="settingsSponsorBadge">💝 赞赏开发者</span>
+                    <img src="../asserts/sp.jpeg" class="sponsor-qr-image" data-i18n-alt="qrCodeAlt" alt="打赏二维码">
+                </div>
+                <p class="aside-card-tip" data-i18n="scanQrCode">☕️ 请使用微信扫描二维码</p>
+            </div>
+            <div class="aside-card tips-card">
+                <div class="aside-card-header">
+                    <svg class="aside-card-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="10"/>
+                        <path d="M12 16v-4"/>
+                        <path d="M12 8h.01"/>
+                    </svg>
+                    <h3 data-i18n="settingsTipsTitle">💡 使用提示</h3>
+                </div>
+                <ul class="aside-tips-list">
+                    <li data-i18n="settingsTip1">导出前请确认自己仍处于幕布登录状态。</li>
+                    <li data-i18n="settingsTip2">如果系统弹出保存框，请先关闭浏览器“下载前询问”。</li>
+                    <li data-i18n="settingsTip3">大批量导出时优先查看性能监控中的失败项。</li>
+                    <li data-i18n="settingsTip4">建议定期导出做本地备份，避免内容遗漏。</li>
+                </ul>
+            </div>
+        </aside>
     </div>
     <script src="settings.js"></script>
 </body>

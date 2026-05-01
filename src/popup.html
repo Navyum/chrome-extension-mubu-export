@@ -13,7 +13,7 @@
       <button id="login-btn" class="top-right-btn" data-i18n-title="loginToMubu" title="前往幕布登录页">
         <img src="../asserts/login.svg" data-i18n-alt="loginAlt" alt="登录" class="btn-icon login-icon">
       </button>
-      <button id="sponsor-btn" class="top-right-btn" data-i18n-title="sponsorSupport" title="赞助支持">
+      <button id="sponsor-btn" class="top-right-btn" data-i18n-title="sponsorSupport" title="❤️支持开发者">
         <img src="../asserts/sponsors.png" data-i18n-alt="sponsorAlt" alt="赞助" class="btn-icon sponsor-icon">
       </button>
       <button id="settings-btn" class="top-right-btn" data-i18n-title="openSettings" title="打开设置">
@@ -108,13 +108,13 @@
         <p class="log-tip">✨ <span data-i18n="welcomeTip1">请先前往幕布登录</span></p>
         <p class="log-tip">✨ <span data-i18n="welcomeTip2">点击🔍获取信息后，点击🚀按钮开始导出</span></p>
         <p class="log-tip">✨ <span data-i18n="welcomeTip3">Tips：点击 ⚙️ 可以设置导出目录</span></p>
-        <p class="log-tip">✨ <span data-i18n="welcomeTip4">Tips：可以赞助支持我</span></p>
+        <p class="log-tip">✨ <span data-i18n="welcomeTip4">Tips：点击 ❤️ 支持开发者</span></p>
       </div>
     </div>
   </div>
 
   <!-- Sponsor Modal -->
-  <div id="sponsorModal" class="sponsor-modal" aria-hidden="true">
+  <div id="sponsorModal" class="sponsor-modal" aria-hidden="true" inert>
     <div class="sponsor-modal-card" role="dialog" aria-modal="true" aria-labelledby="sponsorTitle">
       <button id="sponsorModalClose" class="sponsor-modal-close" data-i18n-aria-label="sponsorModalCloseLabel" aria-label="关闭赞助二维码">&times;</button>
       <div class="sponsor-modal-header">
@@ -122,7 +122,10 @@
         <p data-i18n="sponsorModalDesc">如果这个工具帮到了你，欢迎小额赞助支持我继续维护。</p>
       </div>
       <div class="sponsor-modal-body">
-        <img src="../asserts/sp.jpeg" data-i18n-alt="sponsorQrAlt" alt="赞助二维码" class="sponsor-qr">
+        <div class="sponsor-qr-wrap">
+          <span class="sponsor-qr-badge" data-i18n="sponsorBadge">❤️ 支持开发者</span>
+          <img src="../asserts/sp.jpeg" data-i18n-alt="sponsorQrAlt" alt="赞助二维码" class="sponsor-qr">
+        </div>
         <p class="sponsor-tip" data-i18n="sponsorTip">长按或扫描二维码，金额随意，感谢支持！</p>
       </div>
     </div>

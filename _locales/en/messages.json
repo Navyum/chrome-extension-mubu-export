@@ -18,7 +18,7 @@
     "message": "Login"
   },
   "sponsorSupport": {
-    "message": "Sponsor"
+    "message": "❤️ Support Developer"
   },
   "sponsorAlt": {
     "message": "Sponsor"
@@ -78,7 +78,10 @@
     "message": "Tip: Click ⚙️ to set export directory"
   },
   "welcomeTip4": {
-    "message": "Tip: You can sponsor to support me"
+    "message": "Tip: Click ❤️ to support the developer"
+  },
+  "sponsorBadge": {
+    "message": "❤️ Support Developer"
   },
   "sponsorModalTitle": {
     "message": "Buy me a coffee ☕️"
@@ -209,16 +212,34 @@
     "message": "Contact & Feedback"
   },
   "supportTitle": {
-    "message": "💝 Support & Encouragement"
+    "message": "Support & Encouragement"
   },
   "supportDesc": {
     "message": "If you find this tool helpful, consider buying me a coffee! Your support drives continued maintenance and improvement."
+  },
+  "settingsSponsorBadge": {
+    "message": "💝 Support Developer"
   },
   "scanQrCode": {
     "message": "☕️ Scan the QR code with WeChat"
   },
   "qrCodeAlt": {
     "message": "Donation QR code"
+  },
+  "settingsTipsTitle": {
+    "message": "💡 Usage Tips"
+  },
+  "settingsTip1": {
+    "message": "Before exporting, make sure you are still logged in to Mubu."
+  },
+  "settingsTip2": {
+    "message": "If a save dialog appears, disable the browser option to ask before each download."
+  },
+  "settingsTip3": {
+    "message": "For large exports, check failed items first in the performance panel."
+  },
+  "settingsTip4": {
+    "message": "Export regularly for local backups so no content is missed."
   },
   "exportDone": {
     "message": "🎉 Export Complete"
