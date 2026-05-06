@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布导出工具博客 - 分享幕布大纲笔记备份、数据迁移、效率工具使用等实战经验和最佳实践。">
+    <meta name="keywords" content="幕布教程,大纲笔记备份,数据迁移,幕布导出,Markdown转换">
+    <meta name="author" content="幕布导出工具团队">
+
+    <title>博客 - 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script src="blog-components.js"></script>
+    <style>
+        .blog-index-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 2rem 4rem;
+        }
+        .blog-index-header {
+            margin-bottom: 3rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid rgba(132, 0, 255, 0.3);
+        }
+        .blog-index-title {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+        .blog-index-subtitle {
+            color: #888;
+            font-size: 1.1rem;
+        }
+        .blog-index-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .blog-index-card {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1.5rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .blog-index-card:hover {
+            border-color: rgba(132, 0, 255, 0.5);
+            background: rgba(132, 0, 255, 0.05);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 24px rgba(132, 0, 255, 0.15);
+        }
+        .blog-index-card-content { flex: 1; }
+        .blog-index-card-category {
+            display: inline-block;
+            color: rgb(132, 100, 255);
+            font-size: 0.8rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+        .blog-index-card-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 0.6rem;
+            line-height: 1.4;
+        }
+        .blog-index-card-desc {
+            color: #aaa;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 0.5rem;
+        }
+        .blog-index-card-meta {
+            color: #666;
+            font-size: 0.85rem;
+        }
+        .blog-index-card-arrow {
+            font-size: 1.5rem;
+            color: rgba(255,255,255,0.3);
+            transition: all 0.2s;
+            flex-shrink: 0;
+        }
+        .blog-index-card:hover .blog-index-card-arrow {
+            color: rgb(132, 100, 255);
+            transform: translateX(4px);
+        }
+        @media (max-width: 768px) {
+            .blog-index-container { padding: 80px 1rem 3rem; }
+            .blog-index-title { font-size: 1.8rem; }
+            .blog-index-card { padding: 1.5rem; }
+            .blog-index-card-title { font-size: 1.1rem; }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <div class="blog-index-container">
+        <header class="blog-index-header">
+            <h1 class="blog-index-title">博客</h1>
+            <p class="blog-index-subtitle">来自真实用户的使用体验与备份指南</p>
+        </header>
+
+        <div class="blog-index-grid">
+            <a href="blog-first-person.html" class="blog-index-card">
+                <div class="blog-index-card-content">
+                    <span class="blog-index-card-category">用户体验</span>
+                    <h2 class="blog-index-card-title">幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来</h2>
+                    <p class="blog-index-card-desc">从踩坑到完美导出的真实经历，看一个幕布深度用户如何用 20 分钟完成 500 篇笔记的本地备份。</p>
+                    <span class="blog-index-card-meta">文/安哥拉 · 效率工具指南</span>
+                </div>
+                <span class="blog-index-card-arrow">&rarr;</span>
+            </a>
+
+            <a href="blog-third-person.html" class="blog-index-card">
+                <div class="blog-index-card-content">
+                    <span class="blog-index-card-category">方案对比</span>
+                    <h2 class="blog-index-card-title">2024年幕布用户数据备份完全指南：3种方案对比与实操</h2>
+                    <p class="blog-index-card-desc">全面梳理 OPML 命令行、Mubu Dumper、Mubu Exporter 三种方案的优缺点对比与操作步骤。</p>
+                    <span class="blog-index-card-meta">文/效率君 · 效率工具指南</span>
+                </div>
+                <span class="blog-index-card-arrow">&rarr;</span>
+            </a>
+        </div>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

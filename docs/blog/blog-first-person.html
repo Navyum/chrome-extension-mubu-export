@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来。从踩坑到完美导出的真实体验分享。">
+    <meta name="keywords" content="幕布导出,幕布批量导出,幕布备份,幕布转Markdown,幕布导出工具,mubu导出,Obsidian迁移">
+    <meta name="author" content="安哥拉">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-first-person.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来">
+    <meta property="og:description" content="从幕布批量导出500篇笔记到Markdown的真实体验，包括踩过的坑和最终解决方案。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-first-person.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/feat2.webp">
+
+    <title>幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script src="blog-components.js"></script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">5分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            安哥拉 · 效率工具指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p>Hello 大家好，我是安哥。</p>
+                    <p>今天想和大家聊一件让我又爱又恨的事——我在幕布里存了将近四五年的笔记，从读书摘录、项目复盘到每周的会议纪要，零零总总加起来有 500 多篇。直到上个月我决定把一部分内容迁移到 Obsidian 做本地知识库时，才发现：<strong>把自己的数据从幕布里完整拿出来，远比想象中困难。</strong></p>
+
+                    <h2>为什么要导出？</h2>
+                    <p>先说说我的场景。我并不是要「逃离」幕布——幕布的大纲编辑体验依然是我用过最顺手的。但作为一个经历过某云笔记「会员涨价+限制设备数」事件的人，我对所有在线工具都养成了一个习惯：<strong>定期把数据备份到本地。</strong></p>
+                    <p>另一方面，我最近在用 Obsidian 搭建自己的第二大脑，需要把幕布里的一些方法论笔记迁移过去。Obsidian 原生吃 Markdown，所以我需要的是 <code>.md</code> 格式的文件。</p>
+
+                    <h2>官方导出有多难用？</h2>
+                    <p>幕布目前支持的导出格式有：Word、PDF、图片、HTML、OPML 和 Freemind。</p>
+                    <p>注意看，<strong>没有 Markdown。</strong></p>
+                    <img src="../images/feat1.webp" alt="幕布官方支持的导出格式">
+                    <p>更让人头疼的是导出流程：你必须逐篇打开文档，点右上角菜单，选择导出格式，等待生成，然后下载。500 篇文档意味着重复这个流程 500 次。</p>
+                    <p>我粗略算了一下，每篇平均 30 秒，500 篇就是 250 分钟，超过 4 个小时的纯机械操作。这还没算上中途可能遇到的加载失败、网络超时……</p>
+
+                    <h2>我试过的「弯路」</h2>
+                    <h3>方案一：OPML 转 Markdown</h3>
+                    <p>网上搜了一圈，最常见的建议是：先把幕布文档导出为 OPML 格式，再用命令行工具 <code>opml-to-markdown</code> 转换。</p>
+                    <p>我试了。确实能转，但问题一大堆：</p>
+                    <ul>
+                        <li>导出 OPML 本身也是逐篇操作，批量问题没解决</li>
+                        <li>转换后的 Markdown 层级标记不太对，嵌套列表格式混乱</li>
+                        <li>文档里的备注信息（幕布的「笔记」功能）在 OPML 中直接丢失了</li>
+                        <li>图片链接全部丢失</li>
+                    </ul>
+
+                    <h3>方案二：市面上的导出插件</h3>
+                    <p>后来发现了一款叫 Mubu Dumper 的浏览器插件，XMind 团队出品。我满怀期待装上之后：</p>
+                    <ul>
+                        <li>只支持 Markdown 和 XMind 两种格式</li>
+                        <li>导出 Markdown 的时候直接卡死了（讽刺的是导出自家 XMind 格式倒是很流畅）</li>
+                        <li>没有进度提示，不知道跑到哪里了</li>
+                        <li>失败了没有重试机制，只能从头再来</li>
+                    </ul>
+                    <p>折腾了整个下午，我的 500 篇笔记还是安静地躺在云端，纹丝不动。</p>
+
+                    <h2>最终方案：一款真正好用的批量导出插件</h2>
+                    <p>后来在 GitHub 上偶然发现了一个开源项目——<strong>Mubu Exporter</strong>，试了一下，居然完美解决了我所有的痛点。</p>
+                    <h3>安装过程（3分钟）</h3>
+                    <ol>
+                        <li>从 Chrome 应用商店直接安装（搜索「幕布导出工具」）</li>
+                        <li>打开 mubu.com 保持登录</li>
+                        <li>点击插件图标，界面就出来了</li>
+                    </ol>
+
+                    <h3>使用体验</h3>
+                    <p>点击「获取文件信息」，插件会自动扫描我所有的文件夹和文档——几秒钟后显示：527 篇文档，38 个文件夹。</p>
+                    <p>选择导出格式为 Markdown，点击「开始导出」。</p>
+                    <img src="../images/feat2.webp" alt="批量导出进度界面">
+                    <p>然后就是见证奇迹的时刻了：</p>
+                    <ul>
+                        <li>进度条实时跳动，能看到正在处理第几篇</li>
+                        <li>导出速度大概每秒 1-2 篇，全程不到 10 分钟</li>
+                        <li>中途有 3 篇因为网络波动失败了，点了下「重试」按钮，秒过</li>
+                        <li>导出的文件自动按照幕布的文件夹结构保存，不用我手动整理</li>
+                    </ul>
+                    <p>打开导出的 Markdown 文件检查了一下：</p>
+                    <ul>
+                        <li>大纲层级完美还原为无序列表嵌套</li>
+                        <li>备注内容转换为引用块（<code>&gt;</code>）</li>
+                        <li>文件夹结构和幕布上一模一样</li>
+                    </ul>
+
+                    <h2>几个让我惊喜的细节</h2>
+                    <p>除了核心的批量导出功能，这个插件有几个细节让我觉得作者是真的在「用心做工具」：</p>
+                    <p><strong>多格式支持</strong>：除了 Markdown，还支持 OPML、Freemind（.mm）、HTML、JSON。OPML 可以直接导入 XMind 和 Logseq，HTML 可以当静态备份页分享给别人。</p>
+                    <p><strong>暂停和恢复</strong>：导出过程中临时有事可以暂停，回来继续，不用从头开始。甚至浏览器意外关闭了，重新打开还能接着上次的进度继续。</p>
+                    <p><strong>性能面板</strong>：设置页里能看到每个文件的导出耗时、最慢的 TOP10 文件。对于排查问题很有帮助。</p>
+                    <img src="../images/feat3.webp" alt="设置与性能监控面板">
+                    <p><strong>纯本地运行</strong>：所有数据直接从幕布 API 拉取到本地，不经过任何第三方服务器。对于在意数据安全的人来说，这一点很重要。</p>
+                    <img src="../images/feat4.webp" alt="数据安全，本地执行">
+
+                    <h2>导出后我做了什么</h2>
+                    <p>拿到 500 多个 Markdown 文件后，我做了这些事：</p>
+                    <ol>
+                        <li>直接把整个文件夹拖进 Obsidian 的 vault 目录，所有笔记立刻可以被全文检索和双向链接</li>
+                        <li>挑选了几篇方法论相关的文档发到了飞书知识库，供团队参考</li>
+                        <li>用 Git 做了版本管理，以后每个月跑一次导出，增量备份</li>
+                    </ol>
+                    <p>整个过程从安装插件到完成迁移，大概花了 20 分钟。比起我之前折腾了整个下午还颗粒无收，这个效率提升是质的飞跃。</p>
+
+                    <h2>写在最后</h2>
+                    <p>我一直觉得，好的工具应该让你「用完即走」，而不是把你的数据锁在里面。幕布的编辑体验很好，但在数据导出这件事上确实还有进步空间。</p>
+                    <p>好在社区总有人愿意用技术填补这些空白。如果你也是幕布的深度用户，建议趁现在把数据备份一份到本地——不是因为幕布不好，而是给自己的知识资产多买一份保险。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li>Mubu Exporter 插件：<a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank">Chrome 应用商店</a></li>
+                        <li>开源地址：<a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布导出</span>
+                        <span class="article-tag">Markdown</span>
+                        <span class="article-tag">Obsidian</span>
+                        <span class="article-tag">数据备份</span>
+                        <span class="article-tag">Chrome 插件</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>
