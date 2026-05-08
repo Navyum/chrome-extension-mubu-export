@@ -414,6 +414,15 @@
   "thDuration": {
     "message": "耗时 (秒)"
   },
+  "thStatus": {
+    "message": "状态"
+  },
+  "thFolderPath": {
+    "message": "文件夹路径"
+  },
+  "thDetectedPath": {
+    "message": "识别到的目录"
+  },
   "addressCopied": {
     "message": "✅ 地址 \"$URL$\" 已复制！请在地址栏粘贴并回车。",
     "placeholders": {

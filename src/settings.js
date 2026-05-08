@@ -348,4 +348,6 @@ function renderSlowestFiles(fileList) {
     `;
     container.innerHTML = '';
     container.appendChild(table);
-} 
+}
+
+ 

@@ -5,7 +5,6 @@ import { sanitizePathComponent } from './utils.js';
 export async function fetchAllDocuments(jwtToken) {
   const folders = new Map();
   const documents = new Map();
-  let rootRelation = null;
   let start = '';
   let guard = 0;
 
@@ -16,10 +15,6 @@ export async function fetchAllDocuments(jwtToken) {
     }
 
     const data = await requestMubuJson(MUBU_API.LIST, jwtToken, { start });
-
-    if (!rootRelation && data.root_relation) {
-      rootRelation = data.root_relation;
-    }
 
     (Array.isArray(data.folders) ? data.folders : []).forEach(folder => {
       folders.set(folder.id, folder);
@@ -37,19 +32,11 @@ export async function fetchAllDocuments(jwtToken) {
     start = nextStart;
   }
 
-  const { files, folderCount, seenIds } = buildFlatDocumentList(rootRelation, folders, documents);
+  // 构建文件夹路径映射（通过 folderId 建立父子关系）
+  const folderPathMap = buildFolderPathMap(folders);
 
-  for (const doc of documents.values()) {
-    if (!seenIds.has(doc.id)) {
-      files.push({
-        id: doc.id,
-        title: doc.name || '未命名文档',
-        type: doc.type,
-        folderPath: '',
-        localPath: ''
-      });
-    }
-  }
+  // 直接遍历所有文档，根据 folderId 构建路径（不依赖 rootRelation）
+  const { files, folderCount } = buildFlatDocumentList(folders, documents, folderPathMap);
 
   return { files, folderCount };
 }
@@ -149,57 +136,82 @@ export async function fetchRemoteExportBlob(definition, exportType, jwtToken, fi
   return blob;
 }
 
-function buildFlatDocumentList(rootRelation, folderMap, docMap) {
-  const files = [];
-  const seenIds = new Set();
-  let folderCount = 0;
+/**
+ * 构建文件夹 ID 到路径的映射
+ * 直接从 folders 数组的 folderId 字段建立父子关系，递归构建完整路径
+ * @param {Map} folderMap - 文件夹 ID 到文件夹对象的映射
+ * @returns {Map} 文件夹 ID 到路径的映射
+ */
+function buildFolderPathMap(folderMap) {
+  const pathMap = new Map();
 
-  const walk = (relationInput, currentPath) => {
-    const relation = parseRelation(relationInput);
-    if (!relation.length) {
-      return;
+  // 递归构建文件夹路径
+  const buildPath = (folderId) => {
+    // 已经有路径了，直接返回
+    if (pathMap.has(folderId)) {
+      return pathMap.get(folderId);
     }
 
-    relation.forEach(item => {
-      if (item.type === 'folder') {
-        const folder = folderMap.get(item.id);
-        if (!folder) return;
+    const folder = folderMap.get(folderId);
+    if (!folder) {
+      return '';
+    }
 
-        folderCount += 1;
-        const folderName = sanitizePathComponent(folder.name || `文件夹${folderCount}`) || `folder-${folderCount}`;
-        const nextPath = currentPath ? `${currentPath}/${folderName}` : folderName;
-        walk(folder.relation, nextPath);
-      } else {
-        const doc = docMap.get(item.id);
-        if (!doc || seenIds.has(doc.id)) {
-          return;
-        }
-        seenIds.add(doc.id);
-        files.push({
-          id: doc.id,
-          title: doc.name || '未命名文档',
-          type: doc.type,
-          folderPath: currentPath || '',
-          localPath: ''
-        });
-      }
-    });
+    // 如果没有父文件夹（folderId 为空、"0" 或根目录），则该文件夹为根目录
+    if (!folder.folderId || folder.folderId === '0') {
+      const folderName = sanitizePathComponent(folder.name) || folder.name;
+      pathMap.set(folderId, folderName);
+      return folderName;
+    }
+
+    // 递归获取父文件夹路径
+    const parentPath = buildPath(folder.folderId);
+    const folderName = sanitizePathComponent(folder.name) || folder.name;
+    const fullPath = parentPath ? `${parentPath}/${folderName}` : folderName;
+
+    pathMap.set(folderId, fullPath);
+    return fullPath;
   };
 
-  if (rootRelation) {
-    walk(rootRelation, '');
+  // 遍历所有文件夹，构建路径
+  for (const folderId of folderMap.keys()) {
+    buildPath(folderId);
   }
 
-  return { files, folderCount, seenIds };
+  return pathMap;
 }
 
-function parseRelation(relationInput) {
-  if (!relationInput) return [];
-  if (Array.isArray(relationInput)) return relationInput;
-  try {
-    return JSON.parse(relationInput);
-  } catch (error) {
-    return [];
+/**
+ * 直接遍历所有文档，根据 folderId 构建路径
+ * 不依赖 rootRelation，而是直接从 documents 和 folders 数据中提取信息
+ */
+function buildFlatDocumentList(folderMap, docMap, folderPathMap) {
+  const files = [];
+  let folderCount = 0;
+
+  // 遍历所有文档
+  for (const [docId, doc] of docMap) {
+    const folderId = doc.folderId;
+    let folderPath = '';
+
+    if (folderId && folderMap.has(folderId)) {
+      // 文档在已知的文件夹中
+      folderPath = folderPathMap.get(folderId) || '';
+    }
+
+    files.push({
+      id: doc.id,
+      title: doc.name || '未命名文档',
+      type: doc.type,
+      folderPath: folderPath,
+      localPath: ''
+    });
   }
+
+  folderCount = folderMap.size;
+
+  return { files, folderCount };
 }
+
+
 

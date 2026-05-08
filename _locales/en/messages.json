@@ -414,6 +414,15 @@
   "thDuration": {
     "message": "Duration (s)"
   },
+  "thStatus": {
+    "message": "Status"
+  },
+  "thFolderPath": {
+    "message": "Folder Path"
+  },
+  "thDetectedPath": {
+    "message": "Detected Path"
+  },
   "addressCopied": {
     "message": "✅ Address \"$URL$\" copied! Paste it in the address bar and press Enter.",
     "placeholders": {
