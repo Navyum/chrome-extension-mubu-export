@@ -21,6 +21,8 @@ function t(key, substitutions) {
     return chrome.i18n.getMessage(key, substitutions) || key;
 }
 
+const DEFAULT_DOWNLOAD_SUBFOLDER = '幕布备份';
+
 document.addEventListener('DOMContentLoaded', () => {
     applyI18nSettings();
 
@@ -60,9 +62,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Load the saved setting
     chrome.storage.local.get(['subfolder'], (result) => {
-        if (result.subfolder) {
-            subfolderInput.value = result.subfolder;
-        }
+        subfolderInput.value = result.subfolder || DEFAULT_DOWNLOAD_SUBFOLDER;
     });
 
     // Save the setting on input
@@ -348,4 +348,4 @@ function renderSlowestFiles(fileList) {
     `;
     container.innerHTML = '';
     container.appendChild(table);
-} 
+}

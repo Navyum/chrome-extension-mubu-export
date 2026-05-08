@@ -123,10 +123,10 @@
     "message": "📁 Download subfolder"
   },
   "subfolderDesc": {
-    "message": "Files will be saved to the specified subfolder under your browser's Downloads directory. Leave empty to save to Downloads root."
+    "message": "Files will be saved to the specified subfolder under your browser's Downloads directory. Leave empty to use the default: 幕布备份."
   },
   "subfolderPlaceholder": {
-    "message": "e.g. My Mubu Backup"
+    "message": "MubuBackup"
   },
   "settingsSaved": {
     "message": "✅ Settings saved!"

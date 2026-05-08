@@ -123,10 +123,10 @@
     "message": "📁 下载子文件夹"
   },
   "subfolderDesc": {
-    "message": "文件将保存到您浏览器「下载」目录下的指定子文件夹中。如果留空，则保存到「下载」目录。"
+    "message": "文件将保存到您浏览器「下载」目录下的指定子文件夹中。如果留空，则默认保存到「幕布备份」。"
   },
   "subfolderPlaceholder": {
-    "message": "例如: 我的幕布备份"
+    "message": "幕布备份"
   },
   "settingsSaved": {
     "message": "✅ 设置已保存!"

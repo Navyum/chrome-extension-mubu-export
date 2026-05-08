@@ -5,7 +5,7 @@ import { buildExportPayload } from './formatters.js';
 import { saveContentToDisk, saveBlobToDisk } from './downloads.js';
 import { delay } from './utils.js';
 import { refreshAbortController, abortActiveTasks } from './task-controller.js';
-import { REMOTE_EXPORT_FORMATS, EXPORT_FORMATS } from './constants.js';
+import { DEFAULT_DOWNLOAD_SUBFOLDER, REMOTE_EXPORT_FORMATS, EXPORT_FORMATS } from './constants.js';
 
 export function registerRuntimeHandlers() {
   chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
@@ -83,7 +83,7 @@ async function handleStartExport(data, sendResponse) {
     exportState.isPaused = false;
     exportState.currentFileIndex = 0;
     exportState.exportType = data?.exportType || 'md';
-    exportState.subfolder = settings.subfolder || '';
+    exportState.subfolder = normalizeSubfolder(settings.subfolder);
     exportState.logs = [];
 
     exportState.fileList.forEach(file => {
@@ -127,7 +127,7 @@ async function handleRetryFailedFiles(sendResponse) {
     exportState.isExporting = true;
     exportState.isPaused = false;
     exportState.currentFileIndex = 0;
-    exportState.subfolder = settings.subfolder || '';
+    exportState.subfolder = normalizeSubfolder(settings.subfolder);
     exportState.logs = [];
 
     refreshAbortController();
@@ -146,6 +146,11 @@ async function handleResetExport(sendResponse) {
   resetExportState();
   await saveState();
   sendResponse({ success: true, data: exportState });
+}
+
+function normalizeSubfolder(subfolder) {
+  const value = typeof subfolder === 'string' ? subfolder.trim() : '';
+  return value || DEFAULT_DOWNLOAD_SUBFOLDER;
 }
 
 async function handleTogglePause(data) {
@@ -279,4 +284,3 @@ async function waitIfPaused() {
   }
   sendLog('检测到继续指令，恢复导出。');
 }
-

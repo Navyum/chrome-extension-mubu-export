@@ -8,6 +8,8 @@ export const MUBU_API = {
   HOME_PAGE: 'https://mubu.com',
 };
 
+export const DEFAULT_DOWNLOAD_SUBFOLDER = '幕布备份';
+
 export const EXPORT_FORMATS = {
   md: { extension: 'md', mime: 'text/markdown' },
   opml: { extension: 'opml', mime: 'text/xml' },
