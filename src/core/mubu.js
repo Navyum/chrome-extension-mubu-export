@@ -5,53 +5,15 @@ import { sanitizePathComponent } from './utils.js';
 export async function fetchAllDocuments(jwtToken) {
   const folders = new Map();
   const documents = new Map();
-  let rootRelation = null;
-  let start = '';
-  let guard = 0;
 
-  while (true) {
-    guard += 1;
-    if (guard > 50) {
-      break;
-    }
+  await fetchDocumentsPageData(jwtToken, folders, documents);
+  await fetchFolderList(jwtToken, folders);
+  await fetchRecursiveListData(jwtToken, folders, documents);
 
-    const data = await requestMubuJson(MUBU_API.LIST, jwtToken, { start });
+  const folderPathMap = buildFolderPathMap(folders);
+  const files = buildFlatDocumentList(folders, documents, folderPathMap);
 
-    if (!rootRelation && data.root_relation) {
-      rootRelation = data.root_relation;
-    }
-
-    (Array.isArray(data.folders) ? data.folders : []).forEach(folder => {
-      folders.set(folder.id, folder);
-    });
-
-    (Array.isArray(data.documents) ? data.documents : []).forEach(doc => {
-      documents.set(doc.id, doc);
-    });
-
-    const hasMore = data.hasMore ?? data.has_more ?? false;
-    const nextStart = data.nextStart ?? data.next_start ?? data.next ?? '';
-    if (!hasMore || !nextStart || nextStart === start) {
-      break;
-    }
-    start = nextStart;
-  }
-
-  const { files, folderCount, seenIds } = buildFlatDocumentList(rootRelation, folders, documents);
-
-  for (const doc of documents.values()) {
-    if (!seenIds.has(doc.id)) {
-      files.push({
-        id: doc.id,
-        title: doc.name || '未命名文档',
-        type: doc.type,
-        folderPath: '',
-        localPath: ''
-      });
-    }
-  }
-
-  return { files, folderCount };
+  return { files, folderCount: folders.size };
 }
 
 export async function fetchDocumentDefinition(docId, jwtToken) {
@@ -149,57 +111,138 @@ export async function fetchRemoteExportBlob(definition, exportType, jwtToken, fi
   return blob;
 }
 
-function buildFlatDocumentList(rootRelation, folderMap, docMap) {
-  const files = [];
-  const seenIds = new Set();
-  let folderCount = 0;
+async function fetchDocumentsPageData(jwtToken, folderMap, docMap) {
+  let start = '';
+  let guard = 0;
 
-  const walk = (relationInput, currentPath) => {
-    const relation = parseRelation(relationInput);
-    if (!relation.length) {
-      return;
+  while (true) {
+    guard += 1;
+    if (guard > 50) {
+      break;
     }
 
-    relation.forEach(item => {
-      if (item.type === 'folder') {
-        const folder = folderMap.get(item.id);
-        if (!folder) return;
+    const data = await requestMubuJson(MUBU_API.LIST, jwtToken, { start });
+    mergeFolders(folderMap, data.folders);
+    mergeDocuments(docMap, data.documents);
 
-        folderCount += 1;
-        const folderName = sanitizePathComponent(folder.name || `文件夹${folderCount}`) || `folder-${folderCount}`;
-        const nextPath = currentPath ? `${currentPath}/${folderName}` : folderName;
-        walk(folder.relation, nextPath);
-      } else {
-        const doc = docMap.get(item.id);
-        if (!doc || seenIds.has(doc.id)) {
-          return;
-        }
-        seenIds.add(doc.id);
-        files.push({
-          id: doc.id,
-          title: doc.name || '未命名文档',
-          type: doc.type,
-          folderPath: currentPath || '',
-          localPath: ''
-        });
+    const nextStart = data.nextStart ?? data.next_start ?? data.next ?? '';
+    if (!nextStart || nextStart === start) {
+      break;
+    }
+    start = nextStart;
+  }
+}
+
+async function fetchFolderList(jwtToken, folderMap) {
+  const data = await requestMubuJson(MUBU_API.LIST_GET_FOLDER, jwtToken, {});
+  mergeFolders(folderMap, Array.isArray(data) ? data : []);
+}
+
+async function fetchRecursiveListData(jwtToken, folderMap, docMap) {
+  const pendingFolderIds = ['0'];
+  const visitedFolderIds = new Set();
+
+  while (pendingFolderIds.length) {
+    const folderId = pendingFolderIds.shift();
+    if (visitedFolderIds.has(folderId)) {
+      continue;
+    }
+    visitedFolderIds.add(folderId);
+
+    const payload = folderId === '0' ? {} : { folderId };
+    const data = await requestMubuJson(MUBU_API.LIST_GET, jwtToken, payload);
+    const folders = Array.isArray(data.folders) ? data.folders : [];
+
+    mergeFolders(folderMap, folders);
+    mergeDocuments(docMap, data.documents);
+
+    folders.forEach(folder => {
+      if (folder?.id && !visitedFolderIds.has(folder.id)) {
+        pendingFolderIds.push(folder.id);
       }
     });
+  }
+}
+
+function mergeFolders(folderMap, folders) {
+  (Array.isArray(folders) ? folders : []).forEach(folder => {
+    if (folder?.id) {
+      folderMap.set(folder.id, folder);
+    }
+  });
+}
+
+function mergeDocuments(docMap, documents) {
+  (Array.isArray(documents) ? documents : []).forEach(doc => {
+    if (doc?.id) {
+      docMap.set(doc.id, doc);
+    }
+  });
+}
+
+function buildFolderPathMap(folderMap) {
+  const pathMap = new Map();
+
+  const buildPath = (folderId, visiting = new Set()) => {
+    if (!folderId || folderId === '0') {
+      return '';
+    }
+    if (pathMap.has(folderId)) {
+      return pathMap.get(folderId);
+    }
+    if (visiting.has(folderId)) {
+      return '';
+    }
+
+    const folder = folderMap.get(folderId);
+    if (!folder) {
+      return '';
+    }
+
+    visiting.add(folderId);
+
+    const parentId = getFolderParentId(folder);
+    const parentPath = buildPath(parentId, visiting);
+    const folderName = sanitizePathComponent(folder.name || '未命名文件夹') || folder.id;
+    const folderPath = parentPath ? `${parentPath}/${folderName}` : folderName;
+
+    visiting.delete(folderId);
+    pathMap.set(folderId, folderPath);
+    return folderPath;
   };
 
-  if (rootRelation) {
-    walk(rootRelation, '');
+  for (const folderId of folderMap.keys()) {
+    buildPath(folderId);
   }
 
-  return { files, folderCount, seenIds };
+  return pathMap;
 }
 
-function parseRelation(relationInput) {
-  if (!relationInput) return [];
-  if (Array.isArray(relationInput)) return relationInput;
-  try {
-    return JSON.parse(relationInput);
-  } catch (error) {
-    return [];
+function buildFlatDocumentList(folderMap, docMap, folderPathMap) {
+  const files = [];
+
+  for (const doc of docMap.values()) {
+    const folderId = getDocumentFolderId(doc);
+    const folderPath = folderId && folderMap.has(folderId)
+      ? folderPathMap.get(folderId) || ''
+      : '';
+
+    files.push({
+      id: doc.id,
+      title: doc.name || '未命名文档',
+      type: doc.type,
+      folderPath,
+      localPath: ''
+    });
   }
+
+  return files;
 }
 
+function getDocumentFolderId(doc) {
+  return doc?.folderId ?? doc?.folder_id ?? '';
+}
+
+function getFolderParentId(folder) {
+  return folder?.folderId ?? folder?.folder_id ?? '';
+}
