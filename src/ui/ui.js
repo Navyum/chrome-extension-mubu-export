@@ -209,18 +209,21 @@ export function updateProgress(exported, total) {
   progressText.textContent = `${exported}/${total}`;
 }
 
-export function toggleSponsorModal(shouldShow) {
+export function toggleSponsorModal(shouldShow, { focusClose = true } = {}) {
   const { sponsorModal, mainContainer, sponsorModalClose, sponsorBtn } = domRefs;
   if (!sponsorModal) return;
 
   if (shouldShow) {
     sponsorModal.classList.add('is-visible');
     sponsorModal.setAttribute('aria-hidden', 'false');
+    sponsorModal.removeAttribute('inert');
     document.body.classList.add('modal-open');
     if (mainContainer) {
       mainContainer.setAttribute('inert', '');
     }
-    setTimeout(() => sponsorModalClose?.focus(), 0);
+    if (focusClose) {
+      setTimeout(() => sponsorModalClose?.focus(), 0);
+    }
   } else {
     if (mainContainer) {
       mainContainer.removeAttribute('inert');
@@ -233,6 +236,7 @@ export function toggleSponsorModal(shouldShow) {
     }
     sponsorModal.classList.remove('is-visible');
     sponsorModal.setAttribute('aria-hidden', 'true');
+    sponsorModal.setAttribute('inert', '');
     sponsorModalClose?.blur();
   }
 }
@@ -483,4 +487,3 @@ export function showConfetti() {
 
   setTimeout(() => container.remove(), 5000);
 }
-

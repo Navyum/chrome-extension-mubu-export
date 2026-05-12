@@ -5,7 +5,7 @@ const MAX_HOVER_SHOWS_PER_DAY = 3;
 let sponsorHoverTimeout = null;
 
 export function initSponsorInteractions() {
-  const { sponsorBtn, sponsorModal, sponsorModalClose } = domRefs;
+  const { sponsorBtn, sponsorModalClose } = domRefs;
 
   if (sponsorBtn) {
     sponsorBtn.addEventListener('click', () => {
@@ -16,25 +16,9 @@ export function initSponsorInteractions() {
     sponsorBtn.addEventListener('mouseleave', handleSponsorHoverLeave);
   }
 
-  if (sponsorModal) {
-    sponsorModal.addEventListener('click', event => {
-      if (event.target === sponsorModal) {
-        toggleSponsorModal(false);
-      }
-    });
-    sponsorModal.addEventListener('mouseenter', clearSponsorHoverTimeout);
-    sponsorModal.addEventListener('mouseleave', handleSponsorHoverLeave);
-  }
-
   if (sponsorModalClose) {
     sponsorModalClose.addEventListener('click', () => toggleSponsorModal(false));
   }
-
-  document.addEventListener('keydown', event => {
-    if (event.key === 'Escape' && sponsorModal?.classList.contains('is-visible')) {
-      toggleSponsorModal(false);
-    }
-  });
 }
 
 function handleSponsorHoverEnter() {
@@ -43,15 +27,12 @@ function handleSponsorHoverEnter() {
   sponsorHoverTimeout = setTimeout(() => {
     if (!canShowHoverToday()) return;
     incrementHoverCount();
-    toggleSponsorModal(true);
+    toggleSponsorModal(true, { focusClose: false });
   }, 400);
 }
 
 function handleSponsorHoverLeave() {
   clearSponsorHoverTimeout();
-  sponsorHoverTimeout = setTimeout(() => {
-    toggleSponsorModal(false);
-  }, 300);
 }
 
 function clearSponsorHoverTimeout() {

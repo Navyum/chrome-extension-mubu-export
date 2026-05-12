@@ -963,22 +963,31 @@ body.modal-open .container {
 
 .sponsor-modal-close {
   position: absolute;
-  top: 12px;
-  right: 12px;
-  width: 28px;
-  height: 28px;
+  top: 14px;
+  right: 14px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
   border-radius: 50%;
   border: none;
   background: rgba(255, 255, 255, 0.08);
   color: var(--text-primary);
-  font-size: 18px;
+  font-size: 24px;
+  line-height: 1;
   cursor: pointer;
+  outline: none;
   transition: background 0.3s ease, transform 0.2s ease;
 }
 
 .sponsor-modal-close:hover {
   background: rgba(255, 255, 255, 0.2);
   transform: rotate(90deg);
+}
+
+.sponsor-modal-close:focus-visible {
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.7), 0 0 0 4px rgba(139, 92, 246, 0.45);
 }
 
 /* 动画效果 */
