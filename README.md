@@ -30,9 +30,9 @@
 
 ## 📸 界面预览
 
-| 弹窗 | 设置页 | 性能监控 |
+| 弹窗 | 设置页 |
 | --- | --- | --- |
-| ![popup](asserts/main.png) | ![settings](asserts/setting1.png) | ![perf](asserts/setting2.png) |
+| ![popup](docs/images/feat1.png) | ![settings](docs/images/feat3.png) |
 
 ## 🛠️ 安装
 
@@ -132,7 +132,7 @@ npm run build
 
 | 微信赞赏 | 支付宝 |
 | :---: | :---: |
-| <img src="asserts/sponsors.png" width="200" alt="微信赞赏码"> | <img src="asserts/alipay.png" width="200" alt="支付宝收款码"> |
+| <img src="asserts/weixin.png" width="200" alt="微信赞赏码"> | <img src="asserts/alipay.png" width="200" alt="支付宝收款码"> |
 
 你的支持是项目持续维护的动力！Star 本项目也是一种支持 ⭐
 
