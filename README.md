@@ -144,5 +144,3 @@ npm run build
 - [问题反馈](https://github.com/Navyum/chrome-extension-mubu-export/issues)
 
 ---
-
-如果这个工具帮到了你，欢迎在弹窗里点击 ☕ 赞助按钮，给作者一点维护动力 ❤️
