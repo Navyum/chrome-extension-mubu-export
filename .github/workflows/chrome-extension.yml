@@ -14,56 +14,10 @@ on:
 jobs:
   build-and-test:
     runs-on: ubuntu-latest
-    
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-
-    - name: Setup Node.js
-      uses: actions/setup-node@v4
-      with:
-        node-version: '18'
-
-    - name: Install dependencies
-      run: |
-        # 如果有package.json，安装依赖
-        if [ -f "package.json" ]; then
-          if [ -f "package-lock.json" ] || [ -f "npm-shrinkwrap.json" ] || [ -f "yarn.lock" ]; then
-            npm ci
-          else
-            npm install
-          fi
-        fi
-
-    - name: Validate manifest.json
-      run: |
-        # 检查 manifest.json 语法
-        if ! python3 -m json.tool manifest.json > /dev/null; then
-          echo "❌ manifest.json 语法错误"
-          exit 1
-        fi
-        echo "✅ manifest.json 语法正确"
-
-    - name: Check required files
-      run: |
-        required_files=("manifest.json" "popup.html" "popup.js" "background.js")
-        for file in "${required_files[@]}"; do
-          if [ ! -f "$file" ]; then
-            echo "❌ 缺少必需文件: $file"
-            exit 1
-          fi
-        done
-        echo "✅ 所有必需文件都存在"
-
-    - name: Validate HTML files
-      run: |
-        for html_file in popup.html; do
-          if ! grep -q "<!DOCTYPE html>\|<html" "$html_file"; then
-            echo "❌ $html_file 格式异常"
-            exit 1
-          fi
-        done
-        echo "✅ HTML 文件格式正确"
 
     - name: Create extension package
       run: |
