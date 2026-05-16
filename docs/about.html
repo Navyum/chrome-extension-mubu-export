@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="关于幕布导出工具团队——一群关注数据自主权的独立开发者，致力于帮助用户自由备份和迁移幕布笔记数据。">
+    <meta name="keywords" content="幕布导出工具,团队介绍,开发者,数据自主权">
+    <meta name="author" content="幕布导出工具">
+    <link rel="canonical" href="https://mubu.toolab.top/about.html">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="关于我们 - 幕布导出工具">
+    <meta property="og:description" content="一群关注数据自主权的独立开发者，致力于帮助用户自由备份和迁移幕布笔记数据。">
+    <meta property="og:url" content="https://mubu.toolab.top/about.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/icon-36x36.png">
+
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="关于我们 - 幕布导出工具">
+    <meta name="twitter:description" content="一群关注数据自主权的独立开发者，致力于帮助用户自由备份和迁移幕布笔记数据。">
+
+    <title>关于我们 - 幕布导出工具</title>
+    <link rel="icon" href="favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" sizes="180x180">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            --stripes: repeating-linear-gradient(100deg, rgba(102, 126, 234, 0.15), rgba(102, 126, 234, 0.15) 7%, transparent 10%, transparent 12%, rgba(102, 126, 234, 0.15) 16%);
+            --rainbow: repeating-linear-gradient(100deg, rgba(96, 165, 250, 0.2) 10%, rgba(232, 121, 249, 0.15) 15%, rgba(96, 165, 250, 0.2) 20%, rgba(94, 234, 212, 0.15) 25%, rgba(96, 165, 250, 0.2) 30%);
+            background-image: var(--stripes), var(--rainbow);
+            background-size: 300%, 200%;
+            background-position: 50% 50%, 50% 50%;
+            filter: blur(10px) opacity(60%) saturate(200%);
+            mask-image: radial-gradient(ellipse at 50% 0, #000 40%, transparent 70%);
+            -webkit-mask-image: radial-gradient(ellipse at 50% 0, #000 40%, transparent 70%);
+            animation: jumbo 15s linear infinite;
+        }
+        @keyframes jumbo {
+            0% { background-position: 50% 50%, 50% 50%; }
+            100% { background-position: 350% 50%, 350% 50%; }
+        }
+        .homepage-nav, .about-container {
+            position: relative;
+            z-index: 1;
+        }
+        .about-container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 120px 2rem 4rem;
+            color: #ccc;
+            line-height: 1.8;
+        }
+        .about-container h1 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 1.5rem;
+        }
+        .about-container h2 {
+            font-size: 1.5rem;
+            color: #fff;
+            margin-top: 3rem;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid rgba(132, 0, 255, 0.3);
+        }
+        .about-container p {
+            margin-bottom: 1.2rem;
+            font-size: 1.05rem;
+        }
+        .about-container a {
+            color: rgb(132, 100, 255);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(132, 0, 255, 0.3);
+        }
+        .about-container a:hover {
+            border-bottom-color: rgb(132, 0, 255);
+        }
+        .author-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 2rem;
+            margin: 1.5rem 0;
+        }
+        .author-card h3 {
+            color: #fff;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+        .author-card .role {
+            color: rgb(132, 100, 255);
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="dot-grid">
+        <div class="dot-grid__wrap">
+            <canvas id="dotCanvas" class="dot-grid__canvas"></canvas>
+        </div>
+    </div>
+
+    <nav class="homepage-nav">
+        <div class="nav-content">
+            <div class="nav-left">
+                <a href="index.html">
+                    <img src="images/icon-36x36.png" alt="幕布导出工具 Logo">
+                    <span class="logo-text">幕布导出工具</span>
+                </a>
+            </div>
+            <div class="nav-center">
+                <a href="index.html#features" class="nav-link">功能特性</a>
+                <a href="index.html#privacy" class="nav-link">隐私保护</a>
+                <a href="blog/index.html" class="nav-link">博客</a>
+                <a href="about.html" class="nav-link" style="color: #fff;">关于</a>
+            </div>
+            <div class="nav-right">
+                <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp?utm_source=about" target="_blank" rel="noopener" class="nav-cta-button">
+                    <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
+                    <span>添加到 Chrome</span>
+                </a>
+            </div>
+        </div>
+    </nav>
+
+    <div class="about-container">
+        <h1>关于幕布导出工具</h1>
+        <p>幕布导出工具（Mubu Exporter）是一个开源的 Chrome 浏览器扩展，帮助幕布用户一键批量导出所有大纲笔记。我们相信：<strong>你的数据应该完全属于你自己。</strong></p>
+
+        <h2>我们的理念</h2>
+        <p>在云服务普及的今天，用户的数据往往被锁定在特定平台中。我们认为，工具应该服务于人，而不是反过来把人绑定在工具上。幕布导出工具的存在，就是为了让幕布用户随时可以把自己的知识资产导出为通用格式，自由地备份、迁移或二次加工。</p>
+        <p>项目完全开源，代码可审计。所有数据处理均在用户本地完成，不经过任何第三方服务器。</p>
+
+        <h2>团队成员</h2>
+        <div class="author-card" id="navyum">
+            <h3>Navyum</h3>
+            <div class="role">核心开发者 · 项目发起人</div>
+            <p>独立开发者，专注于浏览器扩展和效率工具开发。在 Chrome Extension Manifest V3 架构、Web API 逆向工程和数据格式转换方面有深入实践经验。</p>
+            <p>联系方式：<a href="https://github.com/Navyum" target="_blank" rel="noopener">GitHub @Navyum</a> · <a href="mailto:yhj2433488839@gmail.com">Email</a></p>
+        </div>
+
+        <h2>编辑声明</h2>
+        <p>博客中发布的所有文章均基于真实的产品使用经验和技术实践。我们的内容标准：</p>
+        <ul style="margin-left: 1.5rem; margin-bottom: 1.5rem;">
+            <li>所有操作步骤经过实际验证</li>
+            <li>对比评测基于真实使用体验，不捏造数据</li>
+            <li>技术文章中的代码和 API 信息来源于项目实际开发过程</li>
+            <li>引用外部数据时标注来源</li>
+            <li>持续更新内容以保证准确性</li>
+        </ul>
+
+        <h2>开源信息</h2>
+        <p>项目源代码托管在 <a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">GitHub</a>，采用开源协议发布。欢迎社区贡献代码、报告问题或提出功能建议。</p>
+
+        <h2>联系我们</h2>
+        <p>如有任何问题、建议或合作意向：</p>
+        <ul style="margin-left: 1.5rem;">
+            <li>GitHub Issues：<a href="https://github.com/Navyum/chrome-extension-mubu-export/issues" target="_blank" rel="noopener">提交问题</a></li>
+            <li>邮箱：<a href="mailto:yhj2433488839@gmail.com">yhj2433488839@gmail.com</a></li>
+        </ul>
+    </div>
+
+    <script>
+    (function() {
+        const canvas = document.getElementById('dotCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width, height, dots = [];
+        const gap = 32;
+        const mouse = { x: -1000, y: -1000 };
+
+        function initDots() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            dots = [];
+            for (let x = 0; x < width; x += gap) {
+                for (let y = 0; y < height; y += gap) {
+                    dots.push({ x, y, originX: x, originY: y, vx: 0, vy: 0, size: 1.5, opacity: 0.15 + Math.random() * 0.1 });
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            dots.forEach(dot => {
+                const dx = mouse.x - dot.x, dy = mouse.y - dot.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 220) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (220 - dist) / 220;
+                    dot.vx -= Math.cos(angle) * force * 1.8;
+                    dot.vy -= Math.sin(angle) * force * 1.8;
+                    dot.opacity = Math.min(0.9, dot.opacity + 0.1);
+                }
+                dot.vx += (dot.originX - dot.x) * 0.12;
+                dot.vy += (dot.originY - dot.y) * 0.12;
+                dot.vx *= 0.88;
+                dot.vy *= 0.88;
+                dot.x += dot.vx;
+                dot.y += dot.vy;
+                dot.opacity += (0.15 - dot.opacity) * 0.05;
+                ctx.fillStyle = `rgba(255, 255, 255, ${dot.opacity})`;
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', initDots);
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        initDots();
+        animate();
+    })();
+    </script>
+</body>
+</html>
