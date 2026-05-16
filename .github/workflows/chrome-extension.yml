@@ -46,7 +46,7 @@ jobs:
 
     - name: Check required files
       run: |
-        required_files=("manifest.json" "popup.html" "popup.js" "background.js" "settings.html" "settings.js")
+        required_files=("manifest.json" "popup.html" "popup.js" "background.js")
         for file in "${required_files[@]}"; do
           if [ ! -f "$file" ]; then
             echo "❌ 缺少必需文件: $file"
@@ -57,10 +57,9 @@ jobs:
 
     - name: Validate HTML files
       run: |
-        # 简单的 HTML 验证
-        for html_file in popup.html settings.html; do
-          if ! grep -q "<!DOCTYPE html>" "$html_file"; then
-            echo "❌ $html_file 缺少 DOCTYPE 声明"
+        for html_file in popup.html; do
+          if ! grep -q "<!DOCTYPE html>\|<html" "$html_file"; then
+            echo "❌ $html_file 格式异常"
             exit 1
           fi
         done
@@ -68,8 +67,7 @@ jobs:
 
     - name: Create extension package
       run: |
-        # 创建发布包
-        zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "INSTALL.md"
+        zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "docs/*" "asserts/*" "node_modules/*"
         echo "✅ Chrome 扩展打包完成"
 
     - name: Upload build artifacts
@@ -110,62 +108,44 @@ jobs:
         tag_name: ${{ github.ref }}
         release_name: Chrome Extension ${{ steps.get_version.outputs.version }}
         body: |
-          ## 🎉 Chrome 扩展发布
-          
-          ### 版本: ${{ steps.get_version.outputs.version }}
-          
+          ## 🎉 幕布导出工具 ${{ steps.get_version.outputs.version }}
+
           ### 📦 安装方法
-          
-          #### 方法一：开发者模式安装
-          1. 下载 `chrome-extension.zip` 文件
-          2. 解压到本地文件夹
-          3. 打开 Chrome 浏览器，进入 `chrome://extensions/`
-          4. 开启"开发者模式"
-          5. 点击"加载已解压的扩展程序"
-          6. 选择解压后的文件夹
-          
-          #### 方法二：打包安装
-          1. 下载 `chrome-extension.zip` 文件
-          2. 解压到本地文件夹
-          3. 在 `chrome://extensions/` 页面点击"打包扩展程序"
-          4. 选择解压后的文件夹
-          5. 生成 `.crx` 文件后拖拽安装
-          
-          ### 🔧 主要功能
-          - ✅ 自动获取用户认证
-          - ✅ 支持多种导出格式 (MD, PDF, DOCX, JPG)
-          - ✅ 批量导出所有文件
-          - ✅ 保留原始文件夹结构
-          - ✅ 实时进度显示
-          - ✅ 暂停/继续功能
-          - ✅ 失败重试机制
-          - ✅ 性能监控
-          
-          ### 📝 更新内容
-          - 优化了代码结构，移除了不必要的 content script
-          - 改进了错误处理和用户提示
-          - 增强了性能监控功能
-          - 优化了UI界面设计
-          
+
+          #### 方法一：Chrome Web Store（推荐）
+          [Chrome 应用商店安装](https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp)
+
+          #### 方法二：开发者模式加载
+          1. 下载 `chrome-extension.zip` 并解压
+          2. 打开 `chrome://extensions/`，开启「开发者模式」
+          3. 点击「加载已解压的扩展程序」，选择解压目录
+
+          ### 🔧 功能特性
+          - ✅ 一键批量导出所有幕布笔记
+          - ✅ 5 种格式：Markdown / OPML / Freemind / HTML / JSON
+          - ✅ 完整保留文件夹层级结构
+          - ✅ 实时进度显示 + 暂停/继续
+          - ✅ 断点续传 + 失败重试
+          - ✅ 自动 Cookie 鉴权，无需手动配置
+          - ✅ 性能监控面板
+
           ### 🚀 使用方法
-          1. 确保已登录 [石墨文档](https://shimo.im)
-          2. 点击浏览器工具栏中的扩展图标
-          3. 选择导出格式
-          4. 点击"获取文件信息"
-          5. 点击"开始导出"
-          
+          1. 登录 [mubu.com](https://mubu.com)
+          2. 点击浏览器工具栏扩展图标
+          3. 点击「获取文件信息」
+          4. 选择导出格式，点击「开始导出」
+
           ### 📋 系统要求
-          - Chrome 浏览器 88+
-          - 已登录石墨文档账号
-          
+          - Chrome 88+
+          - 已登录幕布账号
+
           ### 🔒 安全说明
-          - 所有操作在本地进行，不上传任何数据
-          - 使用 Chrome 原生 API，安全可靠
-          - 仅用于个人学习和合法用途
-          
+          - 所有操作在本地执行，不经过第三方服务器
+          - 仅读取幕布 Cookie 用于鉴权
+
           ---
-          
-          **注意**: 使用本工具时请遵守石墨文档的使用条款。
+
+          **注意**: 请遵守幕布的服务条款，本工具仅供个人备份使用。
         draft: false
         prerelease: false
 

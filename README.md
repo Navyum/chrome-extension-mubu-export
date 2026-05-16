@@ -1,5 +1,9 @@
 # 幕布导出工具 - Chrome 插件
 
+[![Chrome Web Store](https://img.shields.io/chrome-web-store/v/ddlgkdckclmnfmolnadnjanbnkfepkmp?label=Chrome%20Web%20Store&color=4285F4)](https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp)
+[![GitHub](https://img.shields.io/github/stars/Navyum/chrome-extension-mubu-export?style=social)](https://github.com/Navyum/chrome-extension-mubu-export)
+[![Website](https://img.shields.io/badge/Website-mubu.toolab.top-purple)](https://mubu.toolab.top)
+
 一个专注于 [幕布 (mubu.com)](https://mubu.com) 的 Chrome 扩展，帮助你一键批量导出所有思维导图/大纲笔记。工具完全在本地运行：读取文档、转换为 Markdown / OPML / Freemind (.mm) / HTML / JSON，并按照原有文件夹层级保存到下载目录。
 
 > ⚠️ 免责声明：本项目仅供学习与备份使用，请遵守幕布的服务条款，不要将抓取的数据用于任何商业或违规用途。
@@ -121,6 +125,23 @@ npm run build
 - [chrome-extension-shimo-export](https://github.com/Navyum/chrome-extension-shimo-export) 提供的 UI/交互基础
 - 幕布团队提供的优秀产品
 - 所有提交 Issue / PR 的开发者
+
+## 💖 赞助支持
+
+如果这个工具帮到了你，欢迎请作者喝杯咖啡：
+
+| 微信赞赏 | 支付宝 |
+| :---: | :---: |
+| <img src="asserts/sponsors.png" width="200" alt="微信赞赏码"> | <img src="asserts/alipay.png" width="200" alt="支付宝收款码"> |
+
+你的支持是项目持续维护的动力！Star 本项目也是一种支持 ⭐
+
+## 🔗 相关链接
+
+- [官网 & 博客](https://mubu.toolab.top)
+- [Chrome Web Store](https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp)
+- [使用教程](https://mubu.toolab.top/blog/)
+- [问题反馈](https://github.com/Navyum/chrome-extension-mubu-export/issues)
 
 ---
 
