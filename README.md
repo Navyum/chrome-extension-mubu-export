@@ -31,7 +31,7 @@
 ## 📸 界面预览
 
 | 弹窗 | 设置页 |
-| --- | --- | --- |
+| --- | --- |
 | ![popup](docs/images/feat1.png) | ![settings](docs/images/feat3.png) |
 
 ## 🛠️ 安装
