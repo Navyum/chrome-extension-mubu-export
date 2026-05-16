@@ -1,0 +1,84 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- Style: Blueprint/schematic diagram with hand-drawn feel -->
+  <rect width="800" height="400" fill="#0a192f"/>
+  <!-- Blueprint grid -->
+  <g stroke="#1e3a5f" stroke-width="0.5" opacity="0.5">
+    <line x1="0" y1="50" x2="800" y2="50"/><line x1="0" y1="100" x2="800" y2="100"/>
+    <line x1="0" y1="150" x2="800" y2="150"/><line x1="0" y1="200" x2="800" y2="200"/>
+    <line x1="0" y1="250" x2="800" y2="250"/><line x1="0" y1="300" x2="800" y2="300"/>
+    <line x1="0" y1="350" x2="800" y2="350"/>
+    <line x1="100" y1="0" x2="100" y2="400"/><line x1="200" y1="0" x2="200" y2="400"/>
+    <line x1="300" y1="0" x2="300" y2="400"/><line x1="400" y1="0" x2="400" y2="400"/>
+    <line x1="500" y1="0" x2="500" y2="400"/><line x1="600" y1="0" x2="600" y2="400"/>
+    <line x1="700" y1="0" x2="700" y2="400"/>
+  </g>
+  <!-- Title (blueprint style) -->
+  <text x="400" y="35" font-family="monospace" font-size="14" fill="#64ffda" text-anchor="middle" font-weight="700">[ MUBU EXPORTER — SYSTEM ARCHITECTURE ]</text>
+  <!-- Module: Content Script -->
+  <g transform="translate(50, 70)">
+    <rect width="180" height="90" rx="4" fill="none" stroke="#64ffda" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <text x="90" y="20" font-family="monospace" font-size="9" fill="#64ffda" text-anchor="middle">CONTENT SCRIPT</text>
+    <text x="90" y="42" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">DOM 拦截</text>
+    <text x="90" y="57" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">Cookie 读取</text>
+    <text x="90" y="72" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">页面注入 UI</text>
+  </g>
+  <!-- Module: Service Worker -->
+  <g transform="translate(310, 70)">
+    <rect width="180" height="90" rx="4" fill="none" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <text x="90" y="20" font-family="monospace" font-size="9" fill="#f59e0b" text-anchor="middle">SERVICE WORKER</text>
+    <text x="90" y="42" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">任务调度中心</text>
+    <text x="90" y="57" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">状态机 (idle→run→done)</text>
+    <text x="90" y="72" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">断点续传 checkpoint</text>
+  </g>
+  <!-- Module: API Reverse -->
+  <g transform="translate(570, 70)">
+    <rect width="180" height="90" rx="4" fill="none" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <text x="90" y="20" font-family="monospace" font-size="9" fill="#f472b6" text-anchor="middle">API 逆向层</text>
+    <text x="90" y="42" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">mubu.com/api/*</text>
+    <text x="90" y="57" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">BFS 文件夹遍历</text>
+    <text x="90" y="72" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">限流防护 (300ms delay)</text>
+  </g>
+  <!-- Connections (arrows) -->
+  <g stroke="#64ffda" stroke-width="1" fill="none" opacity="0.6" marker-end="url(#arrow)">
+    <path d="M230 115 L310 115"/>
+    <path d="M490 115 L570 115"/>
+  </g>
+  <defs>
+    <marker id="arrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+      <path d="M0,0 L6,3 L0,6" fill="#64ffda" opacity="0.6"/>
+    </marker>
+  </defs>
+  <!-- Module: Format Converter (bottom center, large) -->
+  <g transform="translate(200, 200)">
+    <rect width="400" height="100" rx="4" fill="none" stroke="#60a5fa" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <text x="200" y="20" font-family="monospace" font-size="9" fill="#60a5fa" text-anchor="middle">FORMAT CONVERTER ENGINE (7 种格式)</text>
+    <!-- Format boxes -->
+    <rect x="15" y="35" width="60" height="24" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+    <text x="45" y="51" font-family="monospace" font-size="8" fill="#93c5fd" text-anchor="middle">.md</text>
+    <rect x="85" y="35" width="60" height="24" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+    <text x="115" y="51" font-family="monospace" font-size="8" fill="#93c5fd" text-anchor="middle">.opml</text>
+    <rect x="155" y="35" width="50" height="24" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+    <text x="180" y="51" font-family="monospace" font-size="8" fill="#93c5fd" text-anchor="middle">.txt</text>
+    <rect x="215" y="35" width="55" height="24" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+    <text x="243" y="51" font-family="monospace" font-size="8" fill="#93c5fd" text-anchor="middle">.html</text>
+    <rect x="280" y="35" width="50" height="24" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+    <text x="305" y="51" font-family="monospace" font-size="8" fill="#93c5fd" text-anchor="middle">.pdf</text>
+    <rect x="340" y="35" width="50" height="24" rx="4" fill="#1e3a5f" stroke="#60a5fa" stroke-width="1"/>
+    <text x="365" y="51" font-family="monospace" font-size="8" fill="#93c5fd" text-anchor="middle">.mm</text>
+    <text x="200" y="82" font-family="monospace" font-size="8" fill="#64748b" text-anchor="middle">tree→flat 递归 · UTF-8 · 备注保留 · ZIP 打包</text>
+  </g>
+  <!-- Vertical connection -->
+  <path d="M400 160 L400 200" stroke="#60a5fa" stroke-width="1" fill="none" opacity="0.6" stroke-dasharray="4,3"/>
+  <!-- Module: File System Output -->
+  <g transform="translate(200, 320)">
+    <rect width="400" height="55" rx="4" fill="none" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="8,4"/>
+    <text x="200" y="18" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">OUTPUT: File System Access API</text>
+    <text x="200" y="38" font-family="monospace" font-size="8" fill="#8892b0" text-anchor="middle">📁 保留原始文件夹结构 · 支持增量导出 · 自动 ZIP 压缩</text>
+  </g>
+  <path d="M400 300 L400 320" stroke="#4ade80" stroke-width="1" fill="none" opacity="0.6" stroke-dasharray="4,3"/>
+  <!-- Version badge -->
+  <rect x="30" y="360" width="100" height="24" rx="4" fill="#1e3a5f" stroke="#64ffda" stroke-width="1"/>
+  <text x="80" y="376" font-family="monospace" font-size="9" fill="#64ffda" text-anchor="middle">Manifest V3</text>
+  <rect x="670" y="360" width="100" height="24" rx="4" fill="#1e3a5f" stroke="#4ade80" stroke-width="1"/>
+  <text x="720" y="376" font-family="monospace" font-size="9" fill="#4ade80" text-anchor="middle">Open Source</text>
+</svg>

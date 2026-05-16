@@ -1,0 +1,81 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- Style: Two worlds connected by a rainbow bridge -->
+  <rect width="800" height="400" fill="#1a0a2e"/>
+  <!-- Left world - warm purple (Mubu) -->
+  <ellipse cx="170" cy="350" rx="200" ry="80" fill="#2e1065" opacity="0.6"/>
+  <!-- Mubu app mockup -->
+  <g transform="translate(80, 80)">
+    <rect width="180" height="220" rx="12" fill="#1e1040" stroke="#a855f7" stroke-width="2"/>
+    <!-- App header -->
+    <rect width="180" height="32" rx="12" fill="#581c87"/>
+    <rect x="0" y="20" width="180" height="12" fill="#581c87"/>
+    <text x="90" y="22" font-family="system-ui" font-size="11" fill="#e9d5ff" text-anchor="middle" font-weight="500">幕布</text>
+    <!-- Outline items -->
+    <circle cx="25" cy="55" r="4" fill="#c084fc"/>
+    <rect x="35" y="51" width="80" height="6" rx="3" fill="#c084fc" opacity="0.7"/>
+    <circle cx="35" cy="75" r="3" fill="#a78bfa"/>
+    <rect x="44" y="72" width="60" height="5" rx="2.5" fill="#a78bfa" opacity="0.5"/>
+    <circle cx="35" cy="93" r="3" fill="#a78bfa"/>
+    <rect x="44" y="90" width="70" height="5" rx="2.5" fill="#a78bfa" opacity="0.5"/>
+    <circle cx="45" cy="111" r="2.5" fill="#8b5cf6" opacity="0.7"/>
+    <rect x="53" y="108" width="45" height="4" rx="2" fill="#8b5cf6" opacity="0.4"/>
+    <circle cx="25" cy="135" r="4" fill="#c084fc"/>
+    <rect x="35" y="131" width="90" height="6" rx="3" fill="#c084fc" opacity="0.7"/>
+    <circle cx="35" cy="155" r="3" fill="#a78bfa"/>
+    <rect x="44" y="152" width="55" height="5" rx="2.5" fill="#a78bfa" opacity="0.5"/>
+    <circle cx="25" cy="180" r="4" fill="#c084fc"/>
+    <rect x="35" y="176" width="75" height="6" rx="3" fill="#c084fc" opacity="0.7"/>
+    <!-- Count badge -->
+    <rect x="55" y="196" width="70" height="20" rx="10" fill="#7c3aed"/>
+    <text x="90" y="210" font-family="system-ui" font-size="9" fill="#fff" text-anchor="middle">300 篇笔记</text>
+  </g>
+  <!-- Right world - cool blue (Obsidian) -->
+  <ellipse cx="630" cy="350" rx="200" ry="80" fill="#0c1631" opacity="0.6"/>
+  <!-- Obsidian app mockup -->
+  <g transform="translate(530, 80)">
+    <rect width="190" height="220" rx="12" fill="#0f1a2e" stroke="#818cf8" stroke-width="2"/>
+    <!-- App header -->
+    <rect width="190" height="32" rx="12" fill="#1e1b4b"/>
+    <rect x="0" y="20" width="190" height="12" fill="#1e1b4b"/>
+    <text x="95" y="22" font-family="system-ui" font-size="11" fill="#c7d2fe" text-anchor="middle" font-weight="500">Obsidian</text>
+    <!-- Knowledge graph visualization -->
+    <circle cx="60" cy="75" r="10" fill="#4f46e5" opacity="0.4" stroke="#818cf8" stroke-width="1.5"/>
+    <circle cx="120" cy="65" r="8" fill="#4f46e5" opacity="0.4" stroke="#818cf8" stroke-width="1.5"/>
+    <circle cx="140" cy="110" r="9" fill="#4f46e5" opacity="0.4" stroke="#818cf8" stroke-width="1.5"/>
+    <circle cx="50" cy="120" r="7" fill="#4f46e5" opacity="0.3" stroke="#818cf8" stroke-width="1"/>
+    <circle cx="95" cy="100" r="12" fill="#4f46e5" opacity="0.5" stroke="#818cf8" stroke-width="1.5"/>
+    <circle cx="80" cy="150" r="8" fill="#4f46e5" opacity="0.3" stroke="#818cf8" stroke-width="1"/>
+    <circle cx="135" cy="155" r="7" fill="#4f46e5" opacity="0.3" stroke="#818cf8" stroke-width="1"/>
+    <circle cx="100" cy="175" r="9" fill="#4f46e5" opacity="0.4" stroke="#818cf8" stroke-width="1.5"/>
+    <!-- Edges -->
+    <line x1="65" y1="82" x2="88" y2="93" stroke="#818cf8" stroke-width="1" opacity="0.5"/>
+    <line x1="113" y1="70" x2="100" y2="90" stroke="#818cf8" stroke-width="1" opacity="0.5"/>
+    <line x1="103" y1="108" x2="132" y2="108" stroke="#818cf8" stroke-width="1" opacity="0.4"/>
+    <line x1="88" y1="105" x2="55" y2="117" stroke="#818cf8" stroke-width="1" opacity="0.4"/>
+    <line x1="55" y1="125" x2="76" y2="145" stroke="#818cf8" stroke-width="1" opacity="0.3"/>
+    <line x1="90" y1="108" x2="87" y2="145" stroke="#818cf8" stroke-width="1" opacity="0.3"/>
+    <line x1="130" y1="117" x2="132" y2="150" stroke="#818cf8" stroke-width="1" opacity="0.3"/>
+    <line x1="87" y1="155" x2="95" y2="170" stroke="#818cf8" stroke-width="1" opacity="0.3"/>
+    <!-- Badge -->
+    <rect x="50" y="196" width="90" height="20" rx="10" fill="#312e81"/>
+    <text x="95" y="210" font-family="system-ui" font-size="9" fill="#c7d2fe" text-anchor="middle">知识图谱就绪</text>
+  </g>
+  <!-- Bridge in the middle - rainbow/gradient arc -->
+  <path d="M270 200 C350 100 450 100 530 200" fill="none" stroke="url(#bridge-grad)" stroke-width="4" stroke-linecap="round"/>
+  <defs>
+    <linearGradient id="bridge-grad" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#a855f7"/>
+      <stop offset="50%" stop-color="#38bdf8"/>
+      <stop offset="100%" stop-color="#818cf8"/>
+    </linearGradient>
+  </defs>
+  <!-- Sparkles on bridge -->
+  <circle cx="350" cy="130" r="3" fill="#fbbf24"/>
+  <circle cx="400" cy="115" r="4" fill="#f472b6"/>
+  <circle cx="450" cy="125" r="3" fill="#34d399"/>
+  <!-- Bridge label -->
+  <rect x="345" y="140" width="110" height="28" rx="14" fill="#1e1b4b" stroke="#818cf8" stroke-width="1"/>
+  <text x="400" y="158" font-family="system-ui" font-size="11" fill="#c7d2fe" text-anchor="middle" font-weight="500">零代码迁移</text>
+  <!-- Time indicator -->
+  <text x="400" y="370" font-family="system-ui" font-size="12" fill="#94a3b8" text-anchor="middle">⏱ 20 分钟完成 · 无损保留层级结构</text>
+</svg>

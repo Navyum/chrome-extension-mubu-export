@@ -1,0 +1,183 @@
+{
+  "seed_keyword": "幕布导出",
+  "generated_at": "2026-05-16T10:00:00Z",
+  "pillar": {
+    "id": "P",
+    "title": "幕布导出完全指南：批量备份、格式转换与数据迁移一站式教程",
+    "primary_keyword": "幕布导出",
+    "secondary_keywords": ["幕布批量导出", "幕布导出工具", "幕布怎么导出", "幕布笔记导出"],
+    "search_volume_estimate": "medium",
+    "template": "pillar-page",
+    "word_count_target": 3000,
+    "cluster": "pillar",
+    "status": "existing",
+    "existing_file": "blog-third-person.html"
+  },
+  "clusters": [
+    {
+      "name": "A: 格式转换",
+      "intent": "transactional",
+      "color": "#4ade80",
+      "posts": [
+        {
+          "id": "A1",
+          "title": "幕布怎么导出Markdown？我找到了最省事的批量方案",
+          "primary_keyword": "幕布导出Markdown",
+          "secondary_keywords": ["幕布转Markdown", "幕布转md", "幕布批量导出md"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 1500,
+          "links_to": ["P", "A2", "B1"],
+          "links_from": ["P", "A2", "B1", "C1"],
+          "status": "existing",
+          "existing_file": "blog-export-markdown-guide.html"
+        },
+        {
+          "id": "A2",
+          "title": "幕布导出XMind思维导图：3种方法对比与实操",
+          "primary_keyword": "幕布导出xmind",
+          "secondary_keywords": ["幕布转xmind", "幕布思维导图导出", "幕布转思维导图"],
+          "search_volume_estimate": "low-medium",
+          "template": "how-to-guide",
+          "word_count_target": 1300,
+          "links_to": ["P", "A1"],
+          "links_from": ["P", "A1"],
+          "status": "gap"
+        },
+        {
+          "id": "A3",
+          "title": "幕布导出PDF/Word：格式保留技巧与常见问题解决",
+          "primary_keyword": "幕布导出pdf",
+          "secondary_keywords": ["幕布转pdf", "幕布导出word", "幕布批量导出pdf"],
+          "search_volume_estimate": "low-medium",
+          "template": "troubleshooting",
+          "word_count_target": 1200,
+          "links_to": ["P", "A1"],
+          "links_from": ["P"],
+          "status": "gap"
+        }
+      ]
+    },
+    {
+      "name": "B: 平台迁移",
+      "intent": "informational",
+      "color": "#818cf8",
+      "posts": [
+        {
+          "id": "B1",
+          "title": "我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录",
+          "primary_keyword": "幕布迁移Obsidian",
+          "secondary_keywords": ["幕布转obsidian", "幕布导出到obsidian", "幕布导入obsidian"],
+          "search_volume_estimate": "medium",
+          "template": "how-to-guide",
+          "word_count_target": 1500,
+          "links_to": ["P", "A1", "B2"],
+          "links_from": ["P", "A1", "B2", "C2"],
+          "status": "existing",
+          "existing_file": "blog-mubu-to-obsidian.html"
+        },
+        {
+          "id": "B2",
+          "title": "幕布笔记迁移到Notion：完整导入方案与格式适配",
+          "primary_keyword": "幕布导入Notion",
+          "secondary_keywords": ["幕布迁移Notion", "幕布转Notion", "幕布数据导入Notion"],
+          "search_volume_estimate": "low-medium",
+          "template": "how-to-guide",
+          "word_count_target": 1400,
+          "links_to": ["P", "B1", "A1"],
+          "links_from": ["P", "B1"],
+          "status": "gap"
+        },
+        {
+          "id": "B3",
+          "title": "幕布迁移到飞书文档：企业团队的批量搬家指南",
+          "primary_keyword": "幕布迁移飞书",
+          "secondary_keywords": ["幕布导出到飞书", "幕布转飞书", "飞书导入幕布笔记"],
+          "search_volume_estimate": "low",
+          "template": "how-to-guide",
+          "word_count_target": 1300,
+          "links_to": ["P", "B1"],
+          "links_from": ["P"],
+          "status": "gap"
+        }
+      ]
+    },
+    {
+      "name": "C: 数据安全与备份",
+      "intent": "informational",
+      "color": "#f59e0b",
+      "posts": [
+        {
+          "id": "C1",
+          "title": "亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布",
+          "primary_keyword": "幕布备份",
+          "secondary_keywords": ["幕布本地备份", "幕布数据安全", "云笔记备份策略"],
+          "search_volume_estimate": "low-medium",
+          "template": "story-driven",
+          "word_count_target": 1500,
+          "links_to": ["P", "A1", "C2"],
+          "links_from": ["P", "C2"],
+          "status": "existing",
+          "existing_file": "blog-backup-strategy.html"
+        },
+        {
+          "id": "C2",
+          "title": "幕布会下架吗？做好这3步，再也不怕云笔记停服",
+          "primary_keyword": "幕布下架",
+          "secondary_keywords": ["幕布停服", "幕布数据安全", "云笔记停服怎么办"],
+          "search_volume_estimate": "low",
+          "template": "listicle",
+          "word_count_target": 1200,
+          "links_to": ["P", "C1", "B1"],
+          "links_from": ["P", "C1"],
+          "status": "gap"
+        }
+      ]
+    },
+    {
+      "name": "D: 工具对比与选择",
+      "intent": "commercial",
+      "color": "#f472b6",
+      "posts": [
+        {
+          "id": "D1",
+          "title": "用了4款大纲笔记工具后，我的真实感受和选择建议",
+          "primary_keyword": "大纲笔记工具对比",
+          "secondary_keywords": ["幕布替代品", "幕布vs Obsidian", "大纲笔记软件推荐"],
+          "search_volume_estimate": "low-medium",
+          "template": "comparison",
+          "word_count_target": 1800,
+          "links_to": ["P", "B1", "D2"],
+          "links_from": ["P", "B1", "D2"],
+          "status": "existing",
+          "existing_file": "blog-outline-tools-compare.html"
+        },
+        {
+          "id": "D2",
+          "title": "幕布免费版有什么限制？付费值不值得？省钱替代方案",
+          "primary_keyword": "幕布免费版限制",
+          "secondary_keywords": ["幕布会员值得买吗", "幕布免费替代", "幕布收费"],
+          "search_volume_estimate": "low-medium",
+          "template": "explainer",
+          "word_count_target": 1300,
+          "links_to": ["P", "D1", "A1"],
+          "links_from": ["P", "D1"],
+          "status": "gap"
+        }
+      ]
+    }
+  ],
+  "total_posts": 12,
+  "existing_posts": 7,
+  "gap_posts": 5,
+  "total_interlinks": 38,
+  "estimated_total_words": 18000,
+  "gap_keywords": [
+    "幕布导出xmind",
+    "幕布导出pdf",
+    "幕布导入Notion",
+    "幕布迁移飞书",
+    "幕布下架",
+    "幕布免费版限制"
+  ]
+}

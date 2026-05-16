@@ -15,12 +15,12 @@
                 </div>
                 <div class="nav-center">
                     <a href="../index.html#features" class="nav-link">功能特性</a>
-                    <a href="index.html" class="nav-link" style="color: #fff;">博客</a>
                     <a href="../index.html#privacy" class="nav-link">隐私保护</a>
-                    <a href="../privacy.html" class="nav-link">隐私政策</a>
+                    <a href="index.html" class="nav-link" style="color: #fff;">博客</a>
+                    <a href="../about.html" class="nav-link">关于</a>
                 </div>
                 <div class="nav-right">
-                    <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp?utm_source=blog" target="_blank" class="nav-cta-button">
+                    <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp?utm_source=blog" target="_blank" rel="noopener" class="nav-cta-button">
                         <svg stroke="currentColor" fill="currentColor" stroke-width="0" viewBox="0 0 496 512" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M131.5 217.5L55.1 100.1c47.6-59.2 119-91.8 192-92.1 42.3-.3 85.5 10.5 124.8 33.2 43.4 25.2 76.4 61.4 97.4 103L264 133.4c-58.1-3.4-113.4 29.3-132.5 84.1zm32.9 38.5c0 46.2 37.4 83.6 83.6 83.6s83.6-37.4 83.6-83.6-37.4-83.6-83.6-83.6-83.6 37.3-83.6 83.6zm314.9-89.2L339.6 174c37.9 44.3 38.5 108.2 6.6 157.2L234.1 503.6c46.5 2.5 94.4-7.7 137.8-32.9 107.4-62 150.9-192 107.4-303.9zM133.7 303.6L40.4 120.1C14.9 159.1 0 205.9 0 256c0 124 90.8 226.7 209.5 244.9l63.7-124.8c-57.6 10.8-113.2-20.8-139.5-72.5z"></path></svg>
                         <span>添加到 Chrome</span>
                     </a>
@@ -70,13 +70,14 @@
                             <li><a href="index.html">博客</a></li>
                             <li><a href="../index.html#privacy">隐私保护</a></li>
                             <li><a href="../privacy.html">隐私政策</a></li>
+                            <li><a href="../about.html">关于我们</a></li>
                         </ul>
                     </div>
                     <div class="footer-column">
                         <h3 class="footer-heading">支持</h3>
                         <ul class="footer-links">
                             <li><a href="mailto:yhj2433488839@gmail.com">联系我们</a></li>
-                            <li><a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank">GitHub</a></li>
+                            <li><a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">GitHub</a></li>
                         </ul>
                     </div>
                 </div>
@@ -92,14 +93,120 @@
         'blog-first-person.html': {
             title: '幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来',
             shortTitle: '500篇笔记导出实录',
-            related: ['blog-third-person.html']
+            related: ['blog-export-markdown-guide.html', 'blog-backup-strategy.html']
         },
         'blog-third-person.html': {
             title: '2024年幕布用户数据备份完全指南：3种方案对比与实操',
             shortTitle: '3种备份方案对比指南',
-            related: ['blog-first-person.html']
+            related: ['blog-outline-tools-compare.html', 'blog-first-person.html']
+        },
+        'blog-mubu-to-obsidian.html': {
+            title: '我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录',
+            shortTitle: '幕布迁移Obsidian教程',
+            related: ['blog-export-markdown-guide.html', 'blog-outline-tools-compare.html']
+        },
+        'blog-export-markdown-guide.html': {
+            title: '幕布怎么导出Markdown？我找到了最省事的批量方案',
+            shortTitle: '幕布导出Markdown指南',
+            related: ['blog-mubu-to-obsidian.html', 'blog-first-person.html']
+        },
+        'blog-backup-strategy.html': {
+            title: '亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布',
+            shortTitle: '笔记备份策略',
+            related: ['blog-third-person.html', 'blog-export-markdown-guide.html']
+        },
+        'blog-outline-tools-compare.html': {
+            title: '用了4款大纲笔记工具后，我的真实感受和选择建议',
+            shortTitle: '大纲工具横评对比',
+            related: ['blog-mubu-to-obsidian.html', 'blog-backup-strategy.html']
+        },
+        'blog-technical-deep-dive.html': {
+            title: '开源一个Chrome插件的技术复盘：如何实现幕布全量导出',
+            shortTitle: '技术架构深度解析',
+            related: ['blog-first-person.html', 'blog-export-markdown-guide.html']
+        },
+        'blog-mubu-to-notion.html': {
+            title: '幕布笔记迁移到Notion：完整导入方案与格式适配',
+            shortTitle: '幕布迁移Notion教程',
+            related: ['blog-mubu-to-obsidian.html', 'blog-export-markdown-guide.html']
+        },
+        'blog-export-xmind.html': {
+            title: '幕布导出XMind思维导图：3种方法对比与实操',
+            shortTitle: '幕布导出XMind指南',
+            related: ['blog-export-markdown-guide.html', 'blog-third-person.html']
+        },
+        'blog-mubu-shutdown.html': {
+            title: '幕布会下架吗？做好这3步，再也不怕云笔记停服',
+            shortTitle: '停服应对方案',
+            related: ['blog-backup-strategy.html', 'blog-mubu-to-obsidian.html']
+        },
+        'blog-mubu-to-feishu.html': {
+            title: '幕布迁移到飞书文档：企业团队的批量搬家指南',
+            shortTitle: '幕布迁移飞书教程',
+            related: ['blog-mubu-to-obsidian.html', 'blog-mubu-to-notion.html']
+        },
+        'blog-mubu-free-limits.html': {
+            title: '幕布免费版有什么限制？付费值不值得？省钱替代方案',
+            shortTitle: '免费版限制与替代',
+            related: ['blog-outline-tools-compare.html', 'blog-export-markdown-guide.html']
         }
     };
+
+    // 插入点阵水波纹背景
+    function insertDotGrid() {
+        const wrap = document.createElement('div');
+        wrap.className = 'dot-grid';
+        wrap.innerHTML = '<div class="dot-grid__wrap"><canvas id="dotCanvas" class="dot-grid__canvas"></canvas></div>';
+        document.body.insertBefore(wrap, document.body.firstChild);
+
+        const canvas = document.getElementById('dotCanvas');
+        if (!canvas) return;
+        const ctx = canvas.getContext('2d');
+        let width, height, dots = [];
+        const gap = 32;
+        const mouse = { x: -1000, y: -1000 };
+
+        function initDots() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            dots = [];
+            for (let x = 0; x < width; x += gap) {
+                for (let y = 0; y < height; y += gap) {
+                    dots.push({ x, y, originX: x, originY: y, vx: 0, vy: 0, size: 1.5, opacity: 0.15 + Math.random() * 0.1 });
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            dots.forEach(dot => {
+                const dx = mouse.x - dot.x, dy = mouse.y - dot.y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                if (dist < 220) {
+                    const angle = Math.atan2(dy, dx);
+                    const force = (220 - dist) / 220;
+                    dot.vx -= Math.cos(angle) * force * 1.8;
+                    dot.vy -= Math.sin(angle) * force * 1.8;
+                    dot.opacity = Math.min(0.9, dot.opacity + 0.1);
+                }
+                dot.vx += (dot.originX - dot.x) * 0.12;
+                dot.vy += (dot.originY - dot.y) * 0.12;
+                dot.vx *= 0.88; dot.vy *= 0.88;
+                dot.x += dot.vx; dot.y += dot.vy;
+                dot.opacity += (0.15 - dot.opacity) * 0.05;
+                ctx.fillStyle = `rgba(255, 255, 255, ${dot.opacity})`;
+                ctx.beginPath();
+                ctx.arc(dot.x, dot.y, dot.size, 0, Math.PI * 2);
+                ctx.fill();
+            });
+            requestAnimationFrame(animate);
+        }
+
+        window.addEventListener('resize', initDots);
+        window.addEventListener('mousemove', e => { mouse.x = e.clientX; mouse.y = e.clientY; });
+        initDots();
+        animate();
+    }
 
     // 插入导航栏
     function insertNavbar() {
@@ -136,7 +243,7 @@
 
     // 插入Footer
     function insertFooter() {
-        const layout = document.querySelector('.blog-layout');
+        const layout = document.querySelector('.blog-layout') || document.querySelector('.blog-grid-section');
         if (layout) {
             const temp = document.createElement('div');
             temp.innerHTML = footerHTML;
@@ -150,6 +257,7 @@
             document.addEventListener('DOMContentLoaded', initComponents);
             return;
         }
+        insertDotGrid();
         insertNavbar();
         insertSidebar();
         insertFooter();

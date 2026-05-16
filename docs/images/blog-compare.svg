@@ -1,0 +1,69 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 400">
+  <!-- Style: Podium / rating bars - horizontal comparison chart -->
+  <rect width="800" height="400" fill="#0f172a"/>
+  <!-- Title area -->
+  <text x="400" y="45" font-family="system-ui" font-size="18" fill="#e2e8f0" text-anchor="middle" font-weight="700">3 种导出方案对比</text>
+  <!-- Rating bars - horizontal -->
+  <!-- Headers -->
+  <text x="200" y="80" font-family="system-ui" font-size="10" fill="#94a3b8" text-anchor="middle">方案</text>
+  <text x="450" y="80" font-family="system-ui" font-size="10" fill="#94a3b8" text-anchor="middle">易用性</text>
+  <text x="650" y="80" font-family="system-ui" font-size="10" fill="#94a3b8" text-anchor="middle">综合评分</text>
+  <!-- Option 1: Manual Export (worst) -->
+  <g transform="translate(50, 95)">
+    <rect width="700" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Icon -->
+    <circle cx="45" cy="40" r="22" fill="#7f1d1d" opacity="0.5"/>
+    <text x="45" y="47" font-family="system-ui" font-size="20" fill="#fca5a5" text-anchor="middle">✋</text>
+    <!-- Name -->
+    <text x="90" y="30" font-family="system-ui" font-size="13" fill="#fca5a5" font-weight="600">手动逐篇导出</text>
+    <text x="90" y="50" font-family="system-ui" font-size="10" fill="#64748b">复制粘贴 · 耗时 3+ 小时</text>
+    <!-- Bar -->
+    <rect x="280" y="28" width="250" height="14" rx="7" fill="#1e1b4b"/>
+    <rect x="280" y="28" width="50" height="14" rx="7" fill="#ef4444"/>
+    <!-- Score -->
+    <text x="600" y="42" font-family="system-ui" font-size="20" fill="#ef4444" font-weight="700">2/10</text>
+    <!-- Tag -->
+    <rect x="88" y="55" width="60" height="18" rx="9" fill="#450a0a" stroke="#ef4444" stroke-width="0.5"/>
+    <text x="118" y="67" font-family="system-ui" font-size="9" fill="#fca5a5" text-anchor="middle">不推荐</text>
+  </g>
+  <!-- Option 2: CLI (middle) -->
+  <g transform="translate(50, 190)">
+    <rect width="700" height="80" rx="12" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <!-- Icon -->
+    <circle cx="45" cy="40" r="22" fill="#713f12" opacity="0.5"/>
+    <text x="45" y="46" font-family="monospace" font-size="14" fill="#fde68a" text-anchor="middle">&gt;_</text>
+    <!-- Name -->
+    <text x="90" y="30" font-family="system-ui" font-size="13" fill="#fde68a" font-weight="600">OPML 命令行工具</text>
+    <text x="90" y="50" font-family="system-ui" font-size="10" fill="#64748b">需安装 Node.js · 配置 Token</text>
+    <!-- Bar -->
+    <rect x="280" y="28" width="250" height="14" rx="7" fill="#1e1b4b"/>
+    <rect x="280" y="28" width="125" height="14" rx="7" fill="#f59e0b"/>
+    <!-- Score -->
+    <text x="600" y="42" font-family="system-ui" font-size="20" fill="#f59e0b" font-weight="700">5/10</text>
+    <!-- Tag -->
+    <rect x="88" y="55" width="60" height="18" rx="9" fill="#451a03" stroke="#f59e0b" stroke-width="0.5"/>
+    <text x="118" y="67" font-family="system-ui" font-size="9" fill="#fde68a" text-anchor="middle">有门槛</text>
+  </g>
+  <!-- Option 3: Extension (best, highlighted) -->
+  <g transform="translate(50, 285)">
+    <rect width="700" height="85" rx="12" fill="#052e16" stroke="#4ade80" stroke-width="2"/>
+    <!-- Glow -->
+    <rect width="700" height="85" rx="12" fill="none" stroke="#4ade80" stroke-width="4" opacity="0.1"/>
+    <!-- Icon -->
+    <circle cx="45" cy="42" r="24" fill="#14532d"/>
+    <path d="M35 42 l7 7 l14-14" stroke="#4ade80" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+    <!-- Name -->
+    <text x="90" y="30" font-family="system-ui" font-size="14" fill="#86efac" font-weight="700">Mubu Exporter 扩展</text>
+    <text x="90" y="50" font-family="system-ui" font-size="10" fill="#6ee7b7">一键安装 · 批量导出 · 5 种格式</text>
+    <!-- Bar -->
+    <rect x="280" y="28" width="250" height="16" rx="8" fill="#052e16"/>
+    <rect x="280" y="28" width="230" height="16" rx="8" fill="#4ade80"/>
+    <!-- Score -->
+    <text x="600" y="44" font-family="system-ui" font-size="24" fill="#4ade80" font-weight="700">9/10</text>
+    <!-- Tag -->
+    <rect x="88" y="56" width="52" height="18" rx="9" fill="#14532d" stroke="#4ade80" stroke-width="1"/>
+    <text x="114" y="68" font-family="system-ui" font-size="9" fill="#4ade80" text-anchor="middle">⭐推荐</text>
+    <!-- Crown -->
+    <text x="670" y="50" font-family="system-ui" font-size="22">👑</text>
+  </g>
+</svg>

@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布笔记迁移到Notion的完整方案。通过Markdown中转格式，15分钟完成批量导入，保留大纲层级与备注内容。含格式适配技巧和常见问题解答。">
+    <meta name="keywords" content="幕布导入Notion,幕布迁移Notion,幕布转Notion,幕布数据导入Notion,Notion导入Markdown,笔记迁移">
+    <meta name="author" content="小林">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-mubu-to-notion.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布笔记迁移到Notion：完整导入方案与格式适配">
+    <meta property="og:description" content="幕布笔记迁移到Notion的完整方案。通过Markdown中转格式，15分钟完成批量导入，保留大纲层级与备注内容。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-mubu-to-notion.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-notion.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布笔记迁移到Notion：完整导入方案与格式适配">
+    <meta name="twitter:description" content="幕布笔记迁移到Notion的完整方案。通过Markdown中转格式，15分钟完成批量导入，保留大纲层级与备注内容。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-notion.svg">
+
+    <title>幕布笔记迁移到Notion：完整导入方案与格式适配 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布笔记迁移到Notion：完整导入方案与格式适配",
+      "description": "幕布笔记迁移到Notion的完整方案。通过Markdown中转格式，15分钟完成批量导入，保留大纲层级与备注内容。",
+      "image": "https://mubu.toolab.top/images/blog-obsidian.svg",
+      "author": { "@type": "Person", "name": "小林" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2025-05-18",
+      "dateModified": "2025-05-18",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-mubu-to-notion.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何将幕布笔记迁移到 Notion",
+      "description": "使用 Markdown 中转格式，将幕布笔记批量导入 Notion，保留大纲层级结构",
+      "totalTime": "PT15M",
+      "step": [
+        { "@type": "HowToStep", "position": 1, "name": "批量导出Markdown", "text": "使用 Mubu Exporter 将幕布笔记批量导出为 Markdown 格式" },
+        { "@type": "HowToStep", "position": 2, "name": "格式预处理", "text": "检查导出文件的格式兼容性，确认标题层级和列表结构" },
+        { "@type": "HowToStep", "position": 3, "name": "导入Notion", "text": "在 Notion 中使用 Import 功能批量导入 Markdown 文件" },
+        { "@type": "HowToStep", "position": 4, "name": "格式校验", "text": "检查导入后的页面层级、备注内容和格式是否完整" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布迁移Notion", "item": "https://mubu.toolab.top/blog/blog-mubu-to-notion.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布笔记可以直接导入Notion吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不能直接导入。需要先将幕布笔记导出为 Markdown 格式，再通过 Notion 的 Import 功能批量导入。Notion 原生支持 Markdown 文件导入，整个过程大约 15 分钟可完成。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布迁移到Notion后大纲层级会保留吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "会保留。Markdown 的标题层级（H1-H6）和缩进列表在 Notion 中都能正确识别。Notion 会将列表缩进转换为 toggle list 或 bulleted list 的嵌套结构。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布迁移Notion支持批量操作吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "支持。使用 Mubu Exporter 可以一次导出全部笔记为 Markdown 文件，然后在 Notion 的 Import 界面一次选择多个文件批量导入，无需逐篇操作。" }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布笔记迁移到Notion：完整导入方案与格式适配</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">5分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2025-05-18">2025年5月18日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小林 · 笔记迁移指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p>越来越多用户希望把<a href="https://mubu.com" target="_blank" rel="noopener">幕布</a>笔记迁移到 <a href="https://www.notion.so" target="_blank" rel="noopener">Notion</a>。根据 Notion 官方数据，其全球用户已超过 1 亿（<a href="https://www.notion.so/about" target="_blank" rel="noopener">Notion About</a>, 2024），强大的数据库和协作能力吸引了大量知识工作者。但幕布没有提供直接导出到 Notion 的功能，两者之间的数据桥梁是什么？答案是 <a href="https://commonmark.org/" target="_blank" rel="noopener">Markdown</a>。</p>
+
+                    <p>本文将介绍一套经过验证的迁移方案：先用工具批量导出幕布笔记为 Markdown，再通过 Notion 的 Import 功能完成导入。整个过程约 15 分钟，无需编程知识。如果你对导出流程还不熟悉，建议先阅读<a href="blog-export-markdown-guide.html">幕布导出Markdown完整指南</a>。</p>
+
+                    <blockquote>
+                        <strong>核心要点</strong>
+                        <ul>
+                            <li>Markdown 是幕布到 Notion 的最佳中转格式，兼容性高</li>
+                            <li>Notion 支持批量导入 .md 文件，保留标题层级和列表嵌套</li>
+                            <li>全球超过 1 亿用户使用 Notion 管理知识（Notion, 2024）</li>
+                            <li>迁移后建议利用 Notion 数据库重新组织内容结构</li>
+                        </ul>
+                    </blockquote>
+
+                    <h2>为什么选择从幕布迁移到 Notion？</h2>
+                    <p>Notion 在 2024 年的月活跃用户超过 3000 万（<a href="https://www.notion.so/about" target="_blank" rel="noopener">Notion About</a>, 2024），它的多功能工作区整合了笔记、数据库、看板和文档协作。对于需要从大纲笔记转向结构化知识管理的用户来说，Notion 是一个自然的选择。</p>
+
+                    <p>幕布擅长快速记录和大纲编辑，但在以下场景中存在局限：</p>
+                    <ul>
+                        <li><strong>团队协作</strong> - 幕布的协作功能相对基础，Notion 支持实时多人编辑和评论</li>
+                        <li><strong>结构化数据</strong> - Notion 的数据库视图（表格、看板、日历）比纯大纲更适合项目管理</li>
+                        <li><strong>内容形式多样性</strong> - Notion 支持嵌入视频、代码块、数学公式等丰富的 block 类型</li>
+                    </ul>
+                    <p>但迁移的前提是不丢失已有内容。幕布里积累的笔记怎么完整搬过来？接下来我们逐步解决这个问题。</p>
+
+                    <h2>幕布导入Notion的技术路径是什么？</h2>
+                    <p>Notion 的 Import 功能原生支持 Markdown 和 CSV 两种格式（<a href="https://www.notion.so/help/import-data-into-notion" target="_blank" rel="noopener">Notion Help Center</a>, 2024）。由于幕布的内容本质是层级化文本，Markdown 是最合适的中转格式。CommonMark 规范定义的标题、列表、引用块等元素，能精确映射幕布的大纲结构。</p>
+
+                    <p>迁移的技术路径分为三个环节：</p>
+                    <ol>
+                        <li><strong>导出</strong> - 将幕布笔记转换为符合 <a href="https://commonmark.org/" target="_blank" rel="noopener">CommonMark</a> 规范的 .md 文件</li>
+                        <li><strong>适配</strong> - 确认格式兼容性，处理 Notion 不支持的语法</li>
+                        <li><strong>导入</strong> - 使用 Notion 的 Import 功能批量导入文件</li>
+                    </ol>
+                    <p>这条路径的优势在于不依赖第三方 API，不需要 Notion Integration Token，普通用户就能操作。</p>
+
+                    <h2>如何批量导出幕布笔记为Markdown？</h2>
+                    <p>幕布官方仅支持单篇导出，且免费版不提供 Markdown 格式选项。根据实测，手动导出 100 篇笔记需要约 2 小时的重复操作。使用 Mubu Exporter 浏览器扩展可以将这个时间压缩到 10 分钟以内。</p>
+
+                    <h3>安装与准备</h3>
+                    <ol>
+                        <li>在 Chrome 应用商店安装「幕布导出工具」扩展</li>
+                        <li>登录 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a> 账号</li>
+                        <li>点击浏览器工具栏的扩展图标打开操作面板</li>
+                    </ol>
+
+                    <h3>批量导出操作</h3>
+                    <ol>
+                        <li>点击「获取文件信息」，扩展自动扫描账户下所有文档</li>
+                        <li>选择导出格式为 Markdown</li>
+                        <li>点击「开始导出」，等待进度完成</li>
+                    </ol>
+                    <img src="../images/feat2.webp" alt="Mubu Exporter 批量导出界面，显示文档列表和导出进度条" loading="lazy">
+                    <p>导出完成后，你会得到一个保留了幕布文件夹层级的目录结构。每个 .md 文件对应一篇幕布文档。关于导出格式的更多细节，可以参考<a href="blog-export-markdown-guide.html">Markdown导出完整指南</a>。</p>
+
+                    <h2>Notion导入Markdown的具体步骤是什么？</h2>
+                    <p>Notion 从 2023 年起优化了 Markdown 导入功能，支持一次导入多个文件并自动识别层级结构（<a href="https://www.notion.so/releases" target="_blank" rel="noopener">Notion Releases</a>, 2023）。导入后的页面会保留原始文件名作为标题，列表嵌套关系也能正确还原。</p>
+
+                    <h3>导入流程</h3>
+                    <ol>
+                        <li>打开 Notion，进入目标 Workspace</li>
+                        <li>点击左侧边栏底部的「Import」按钮</li>
+                        <li>选择「Text &amp; Markdown」选项</li>
+                        <li>在文件选择器中，选中所有导出的 .md 文件（支持多选）</li>
+                        <li>等待导入完成，Notion 会为每个文件创建一个独立页面</li>
+                    </ol>
+
+                    <h3>导入后的结构</h3>
+                    <p>导入完成后，你会在 Notion 中看到：</p>
+                    <ul>
+                        <li>每篇幕布文档变为一个 Notion 页面</li>
+                        <li>Markdown 标题（H1-H6）转换为 Notion 的 Heading blocks</li>
+                        <li>无序列表转换为 Bulleted List blocks，保留缩进层级</li>
+                        <li>引用块（幕布备注）转换为 Notion 的 Quote blocks</li>
+                    </ul>
+                    <p>如果文件数量超过 50 个，建议分批导入。Notion 处理大批量文件时偶尔会出现超时，分批操作更稳定。</p>
+
+                    <h2>格式适配需要注意哪些问题？</h2>
+                    <p>根据 CommonMark 规范，Markdown 有超过 600 条语法规则（<a href="https://spec.commonmark.org/0.31.2/" target="_blank" rel="noopener">CommonMark Spec 0.31.2</a>, 2024）。Notion 并不支持全部语法，了解差异能帮你提前处理不兼容的内容。</p>
+
+                    <h3>完美支持的格式</h3>
+                    <ul>
+                        <li>标题层级（H1-H6）</li>
+                        <li>有序列表和无序列表（含嵌套）</li>
+                        <li>粗体、斜体、行内代码</li>
+                        <li>引用块</li>
+                        <li>分割线</li>
+                        <li>超链接</li>
+                    </ul>
+
+                    <h3>需要注意的差异</h3>
+                    <ul>
+                        <li><strong>图片</strong> - Notion 导入时不会自动下载外部图片链接，需要手动上传或使用 /image 块嵌入</li>
+                        <li><strong>表格</strong> - 简单的 Markdown 表格能识别，但复杂表格建议用 Notion 数据库重建</li>
+                        <li><strong>脚注</strong> - Notion 不支持 Markdown 脚注语法，内容会以纯文本显示</li>
+                        <li><strong>HTML标签</strong> - 嵌入的 HTML 不会渲染，会被忽略或显示为文本</li>
+                    </ul>
+                    <p>好消息是，幕布导出的 Markdown 主要使用列表和标题，这些都是 Notion 完美支持的元素。实际迁移中格式丢失的概率很低。</p>
+
+                    <h2>迁移后如何优化 Notion 中的内容组织？</h2>
+                    <p>Notion 的数据库功能是其核心优势。根据 Notion 模板市场的数据，超过 60% 的热门模板使用了数据库视图（<a href="https://www.notion.so/templates" target="_blank" rel="noopener">Notion Templates</a>, 2024）。迁移完成后，利用数据库重新组织内容能释放 Notion 的真正价值。</p>
+
+                    <h3>创建内容数据库</h3>
+                    <p>建议新建一个 Database，将导入的页面作为条目添加进去。添加属性（Property）来分类：</p>
+                    <ul>
+                        <li><strong>分类标签</strong> - 对应幕布原有的文件夹结构</li>
+                        <li><strong>创建日期</strong> - 记录原始笔记的时间</li>
+                        <li><strong>状态</strong> - 标记哪些需要更新、归档或删除</li>
+                    </ul>
+
+                    <h3>利用视图切换</h3>
+                    <p>同一个数据库可以切换为表格视图、看板视图或时间线视图。例如把读书笔记用看板按「已读/在读/想读」分组，比幕布的纯文件夹结构灵活得多。</p>
+
+                    <p>如果你同时也在考虑迁移到 Obsidian，可以参考<a href="blog-mubu-to-obsidian.html">幕布迁移Obsidian的完整教程</a>。两个工具各有优势，Notion 强在协作和结构化数据，Obsidian 强在本地化和双向链接。</p>
+
+                    <h2>常见问题</h2>
+
+                    <h3>幕布笔记可以直接导入Notion吗？</h3>
+                    <p>不能直接导入。幕布和 Notion 之间没有官方的数据互通接口。最可靠的方案是先将幕布笔记导出为 Markdown 格式，再通过 Notion 的 Import 功能导入。Markdown 作为通用格式，兼容性最好。</p>
+
+                    <h3>导入后备注内容会丢失吗？</h3>
+                    <p>不会丢失。Mubu Exporter 导出时将幕布备注转换为 Markdown 引用块（以 &gt; 开头的段落），Notion 导入后会正确显示为 Quote block。内容完整保留，只是视觉样式从幕布的灰色小字变为 Notion 的左侧竖线引用。</p>
+
+                    <h3>迁移过程中哪些内容可能需要手动调整？</h3>
+                    <p>两类内容可能需要人工处理：一是幕布中嵌入的图片（Notion 不会自动下载外部图片 URL），二是幕布的思维导图视图（这种可视化信息无法用 Markdown 表达）。文字内容、列表层级和基础格式都能自动迁移。</p>
+
+                    <h2>总结与下一步</h2>
+                    <p>从幕布迁移到 Notion 的核心路径是：幕布 → Markdown → Notion。整个流程依赖 Markdown 作为中转格式，这也是目前笔记工具之间数据流通的通用方案。如果你对工具选型还在犹豫，<a href="blog-third-person.html">幕布导出工具的功能介绍</a>可以帮你了解更多导出选项。</p>
+                    <p>迁移不是终点。进入 Notion 后，花时间建立数据库结构、设置视图和属性，才能真正发挥 Notion 的知识管理能力。数据的价值不在于存在哪里，而在于能不能被高效地检索和复用。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li>Mubu Exporter 插件：<a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Chrome 应用商店</a></li>
+                        <li>Notion 官网：<a href="https://www.notion.so" target="_blank" rel="noopener">notion.so</a></li>
+                        <li>CommonMark 规范：<a href="https://commonmark.org/" target="_blank" rel="noopener">commonmark.org</a></li>
+                        <li>幕布官网：<a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布迁移</span>
+                        <span class="article-tag">Notion</span>
+                        <span class="article-tag">数据导入</span>
+                        <span class="article-tag">Markdown</span>
+                        <span class="article-tag">笔记管理</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

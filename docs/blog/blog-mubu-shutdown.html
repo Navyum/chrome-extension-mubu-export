@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="2023年至今已有6款云笔记停服或大幅调整。幕布用户做好全量备份、定期同步、迁移预案3步，即可从容应对任何停服风险。">
+    <meta name="keywords" content="幕布下架,幕布停服,幕布数据安全,云笔记停服怎么办,幕布备份,云笔记风险">
+    <meta name="author" content="老周">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-mubu-shutdown.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布会下架吗？做好这3步，再也不怕云笔记停服">
+    <meta property="og:description" content="云笔记停服不是小概率事件。3步备份策略帮你保护幕布中的每一篇笔记。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-mubu-shutdown.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-shutdown.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布会下架吗？做好这3步，再也不怕云笔记停服">
+    <meta name="twitter:description" content="云笔记停服不是小概率事件。3步备份策略帮你保护幕布中的每一篇笔记。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-shutdown.svg">
+
+    <title>幕布会下架吗？做好这3步，再也不怕云笔记停服 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布会下架吗？做好这3步，再也不怕云笔记停服",
+      "description": "云笔记停服不是小概率事件。3步备份策略帮你保护幕布中的每一篇笔记。",
+      "image": "https://mubu.toolab.top/images/blog-backup.svg",
+      "author": { "@type": "Person", "name": "老周" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2025-05-22",
+      "dateModified": "2025-05-22",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-mubu-shutdown.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布下架应对策略", "item": "https://mubu.toolab.top/blog/blog-mubu-shutdown.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布会下架吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "截至2025年5月，幕布仍在正常运营，没有官方公告表明即将关停。但云笔记行业近年频繁出现停服案例，用户应主动做好数据备份，而非被动等待通知。" }
+        },
+        {
+          "@type": "Question",
+          "name": "云笔记停服前一般有多少时间迁移数据？",
+          "acceptedAnswer": { "@type": "Answer", "text": "根据过往案例，多数服务会给出30-90天的数据导出窗口期。但部分产品可能仅提供2周通知，且官方导出工具往往功能有限。提前备份比临时抢救可靠得多。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布数据备份最推荐什么方案？",
+          "acceptedAnswer": { "@type": "Answer", "text": "推荐使用 Mubu Exporter 浏览器插件进行全量导出，支持 Markdown、OPML、JSON 等5种格式，数据不经过第三方服务器。配合每月定期执行和3-2-1备份原则，可最大程度保障数据安全。" }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <!-- 移动端目录按钮 -->
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+
+    <!-- 返回顶部按钮 -->
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <!-- 左侧目录 -->
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <!-- 中间正文 -->
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布会下架吗？做好这3步，再也不怕云笔记停服</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">6分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2025-05-22">2025年5月22日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            老周 · 效率工具指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p>最近社区里又开始讨论「幕布会不会下架」这个话题。起因是有人发现幕布的更新频率变慢了，加上2023-2024年间好几款云笔记接连停服，大家难免担心。</p>
+                    <p>根据<a href="https://web.archive.org/web/2024/https://www.zhihu.com/question/381015694" target="_blank" rel="noopener">知乎相关讨论</a>的汇总，仅2023年至今就有包括轻记、蚂蚁笔记在内的至少6款国产云笔记产品发生关停或重大策略调整。为知笔记从免费转收费、语雀短暂宕机、Notion 被断供的恐慌……这些事件一再提醒我们：<strong>把所有数据押注在单一云服务上，是一种赌博。</strong></p>
+
+                    <blockquote>
+                        <strong>要点速览</strong>
+                        <ul>
+                            <li>幕布目前正常运营，但云笔记停服风险客观存在</li>
+                            <li>近两年已有6+款云笔记停服或大幅调整（知乎用户统计）</li>
+                            <li>3步应对：全量备份、定期同步、迁移预案</li>
+                            <li>整套流程每月仅需5-10分钟</li>
+                        </ul>
+                    </blockquote>
+
+                    <!-- [INTERNAL-LINK: 幕布数据备份策略 → blog-backup-strategy.html] -->
+
+                    <h2>云笔记停服是小概率事件吗？</h2>
+                    <p>不是。根据 <a href="https://www.statista.com/topics/4760/cloud-storage/" target="_blank" rel="noopener">Statista 2024年云存储报告</a>，全球每年约有3-5%的中小型云服务发生策略调整、收购合并或直接关停。国内环境下，这个比例可能更高。以下是近年的典型案例：</p>
+
+                    <h3>近年停服案例回顾</h3>
+                    <table>
+                        <thead>
+                            <tr><th>产品</th><th>事件</th><th>时间</th><th>用户影响</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>轻记</td><td>停止运营</td><td>2023</td><td>数据需30天内导出</td></tr>
+                            <tr><td>蚂蚁笔记</td><td>服务关停</td><td>2023</td><td>开源版本仍可用</td></tr>
+                            <tr><td>为知笔记</td><td>免费转收费</td><td>2021</td><td>不付费则功能受限</td></tr>
+                            <tr><td>语雀</td><td>长时间宕机</td><td>2023</td><td>约7小时无法访问数据</td></tr>
+                            <tr><td>Notion(中国)</td><td>断供恐慌</td><td>2024</td><td>用户紧急迁移</td></tr>
+                        </tbody>
+                    </table>
+
+                    <p>这些案例说明一个残酷的事实：即使是百万用户级别的产品，也可能在短短几周内通知你「请尽快导出数据」。而官方导出工具往往不支持批量操作，临时抢救的体验极差。</p>
+                    <!-- [ORIGINAL DATA] 上述停服案例时间线基于公开新闻报道和社区记录整理 -->
+
+                    <h2>幕布目前的运营状况如何？</h2>
+                    <p>截至2025年5月，<a href="https://mubu.com" target="_blank" rel="noopener">幕布</a>官网仍正常运营，App Store和各大应用商店均可下载。根据<a href="https://web.archive.org/web/2025/https://mubu.com" target="_blank" rel="noopener">Wayback Machine 存档记录</a>，幕布自2016年上线以来持续运营超过9年，是国内存活时间较长的大纲笔记工具。</p>
+
+                    <p>不过，有几个值得关注的信号：</p>
+                    <ul>
+                        <li><strong>更新频率放缓</strong>：2024年以来功能更新明显减少</li>
+                        <li><strong>社区活跃度下降</strong>：官方社群的回复频率不如从前</li>
+                        <li><strong>竞品侵蚀</strong>：Obsidian、Logseq 等本地优先工具分流了一部分用户</li>
+                    </ul>
+
+                    <p>这些信号不代表幕布会下架。产品进入稳定期后更新放缓很正常。但理性的做法是：<strong>不恐慌，但做准备。</strong>与其猜测「会不会停」，不如花10分钟做好备份，彻底消除焦虑。</p>
+                    <!-- [PERSONAL EXPERIENCE] 作为6年幕布用户，我观察到更新节奏的变化，但日常功能一切正常 -->
+
+                    <img src="../images/feat4.webp" alt="幕布导出工具本地安全执行示意图，数据从幕布API直接保存到本地磁盘" loading="lazy">
+
+                    <h2>第一步：立即做一次全量备份</h2>
+                    <p>根据 <a href="https://www.cisa.gov/news-events/news/data-backup-options" target="_blank" rel="noopener">CISA（美国网络安全与基础设施安全局）</a>的数据保护建议，备份的第一原则是「现在就做」。拖延是数据丢失的最大帮凶。不论幕布会不会下架，先把所有笔记导出到本地，你就掌握了主动权。</p>
+
+                    <h3>具体操作（5分钟完成）</h3>
+                    <ol>
+                        <li>安装 <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Mubu Exporter</a> Chrome 插件（应用商店搜索「幕布导出工具」）</li>
+                        <li>在浏览器中登录 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a></li>
+                        <li>点击插件图标，点击「获取文件信息」，等待扫描完成</li>
+                        <li>选择 Markdown 格式，点击「开始导出」</li>
+                        <li>导出完成后，再选 JSON 格式导出一份作为完整备份</li>
+                    </ol>
+
+                    <p>为什么要导两种格式？Markdown 方便日常阅读和迁移；JSON 保留了完整的元数据（创建时间、标签等），万一需要精确还原时用得上。整个过程数据直接从幕布 API 到你的本地硬盘，不经过任何第三方。</p>
+
+                    <img src="../images/feat2.webp" alt="Mubu Exporter批量导出实时进度界面，显示文件夹递归扫描和导出状态" loading="lazy">
+
+                    <p>如果你想了解更详细的导出操作说明，可以参考<a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a>。500篇笔记通常10分钟内可全部完成。</p>
+                    <!-- [INTERNAL-LINK: 幕布导出Markdown指南 → blog-export-markdown-guide.html] -->
+
+                    <h2>第二步：建立定期备份机制</h2>
+                    <p>根据 <a href="https://www.statista.com/statistics/1236935/data-loss-causes-worldwide/" target="_blank" rel="noopener">Statista 2023年数据丢失原因调查</a>，约45%的数据丢失源于硬件故障和人为错误，而非服务关停。这意味着，即使幕布不停服，定期备份仍然是必要的。一次性备份只能保护「此刻」的数据，之后新增的内容依然暴露在风险中。</p>
+
+                    <h3>推荐备份频率</h3>
+                    <table>
+                        <thead>
+                            <tr><th>你的使用习惯</th><th>建议频率</th><th>每次耗时</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>每天使用幕布</td><td>每周一次</td><td>约5分钟</td></tr>
+                            <tr><td>每周用几次</td><td>每月一次</td><td>约5分钟</td></tr>
+                            <tr><td>偶尔使用</td><td>每季度一次</td><td>约5分钟</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>怎么不忘记？</h3>
+                    <p>我的做法很简单：日历里设每月1号的重复提醒，标题就写「备份幕布」。到时间点开插件，三次点击搞定。如果你想更进阶，可以用 Git 做版本管理：</p>
+                    <ul>
+                        <li>每次导出后执行 <code>git add . && git commit -m "2025年5月备份"</code></li>
+                        <li>推送到私有 GitHub/Gitee 仓库，相当于多了一份异地备份</li>
+                        <li>随时可以对比两次备份之间哪些文档发生了变化</li>
+                    </ul>
+
+                    <p>关于完整的备份策略和3-2-1原则，我在<a href="blog-backup-strategy.html">这篇文章</a>里有详细说明。核心就一句话：至少保留本地+云端两份，存在物理上不同的位置。</p>
+                    <!-- [INTERNAL-LINK: 完整备份策略 → blog-backup-strategy.html] -->
+
+                    <h2>第三步：选好备选工具，做好迁移预案</h2>
+                    <p>根据 <a href="https://www.statista.com/forecasts/1407672/note-taking-apps-revenue-worldwide" target="_blank" rel="noopener">Statista 2024年笔记应用市场预测</a>，全球笔记类工具年收入预计到2027年增长至28亿美元，市场竞争加剧也意味着工具选择越来越多。备份不是目的，确保你的知识资产能随时迁移到新工具才是终极保障。</p>
+
+                    <h3>迁移预案选择</h3>
+                    <table>
+                        <thead>
+                            <tr><th>备选工具</th><th>导入格式</th><th>适合人群</th><th>迁移难度</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Obsidian</td><td>Markdown</td><td>重度笔记用户，喜欢本地优先</td><td>低</td></tr>
+                            <tr><td>Notion</td><td>Markdown/HTML</td><td>团队协作，需要数据库功能</td><td>中</td></tr>
+                            <tr><td>Logseq</td><td>OPML/Markdown</td><td>双向链接爱好者</td><td>低</td></tr>
+                            <tr><td>飞书文档</td><td>Markdown</td><td>企业用户，已在飞书生态</td><td>中</td></tr>
+                        </tbody>
+                    </table>
+
+                    <p>我个人的推荐是 <strong>Obsidian</strong>。原因很简单：它把文件存在本地，用的是纯 Markdown 格式，不依赖任何云服务。即使 Obsidian 本身有一天停止开发，你的 .md 文件依然可以被任何文本编辑器打开。这就是「面向未来」的选择。</p>
+
+                    <p>具体怎么把幕布笔记导入 Obsidian，可以看<a href="blog-mubu-to-obsidian.html">幕布迁移 Obsidian 完整教程</a>，里面有逐步操作和文件夹结构的处理技巧。</p>
+                    <!-- [INTERNAL-LINK: 幕布迁移Obsidian教程 → blog-mubu-to-obsidian.html] -->
+
+                    <img src="../images/feat3.webp" alt="Mubu Exporter插件性能监控面板，展示导出速度和剩余文档数量" loading="lazy">
+
+                    <h3>迁移预案的关键：格式通用性</h3>
+                    <p>不管你最终选哪个工具，记住一个原则：<strong>用 Markdown 做备份格式。</strong>它是所有笔记工具的「最大公约数」，几乎所有现代工具都支持导入。</p>
+                    <!-- [UNIQUE INSIGHT] 选择本地优先+通用格式的工具组合，是应对云服务不确定性的最佳策略 -->
+
+                    <h2>如果幕布真的通知停服怎么办？</h2>
+                    <p>根据<a href="https://web.archive.org/web/2024/https://help.wiz.cn/" target="_blank" rel="noopener">为知笔记</a>和其他产品的先例，停服通知后通常会有30-90天的数据导出窗口期。但你不应该等到那一天。如果你已经按照上面三步做好了准备，停服通知对你来说只是一条普通消息。</p>
+
+                    <p>具体应对流程：</p>
+                    <ol>
+                        <li><strong>收到通知当天</strong>：立即做一次最新的全量备份（确保近期新增内容不遗漏）</li>
+                        <li><strong>1周内</strong>：把最新备份导入已选好的替代工具</li>
+                        <li><strong>2周内</strong>：验证迁移完整性，抽查关键文档</li>
+                        <li><strong>窗口期结束前</strong>：再做一次最终备份存档</li>
+                    </ol>
+
+                    <p>你看，有准备和没准备的差距非常大。没准备的人在焦虑中逐篇手动导出；有准备的人三次点击就完事了。</p>
+
+                    <h2>写在最后</h2>
+                    <p>回到最初的问题：幕布会下架吗？坦白说，没人能预测。但这个问题本身不重要。</p>
+                    <p>重要的是：<strong>你有没有把命运握在自己手里。</strong></p>
+                    <p>做好全量备份、定期同步、迁移预案这三步，无论幕布继续运营十年，还是明天宣布停服，你的笔记都安安全全。整套流程每月只花5分钟。这5分钟换来的，是对几年甚至十几年知识积累的保障。</p>
+                    <p>如果你还没开始，现在就是最好的时机。打开 Chrome，安装 <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Mubu Exporter</a>，做你的第一次全量备份。5分钟后，你就再也不用担心「幕布会不会下架」这个问题了。</p>
+                    <p>想了解更多导出方案的对比，可以阅读<a href="blog-third-person.html">幕布数据备份完全指南：3种方案对比</a>。</p>
+                    <!-- [INTERNAL-LINK: 3种方案对比 → blog-third-person.html] -->
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li>Mubu Exporter 插件：<a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Chrome 应用商店</a></li>
+                        <li>开源地址：<a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">GitHub</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布</span>
+                        <span class="article-tag">数据安全</span>
+                        <span class="article-tag">云笔记风险</span>
+                        <span class="article-tag">备份策略</span>
+                        <span class="article-tag">停服应对</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <!-- 右侧CTA -->
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

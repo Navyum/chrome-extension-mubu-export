@@ -4,141 +4,388 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="幕布导出工具博客 - 分享幕布大纲笔记备份、数据迁移、效率工具使用等实战经验和最佳实践。">
-    <meta name="keywords" content="幕布教程,大纲笔记备份,数据迁移,幕布导出,Markdown转换">
+    <meta name="description" content="幕布导出工具博客 - 大纲笔记备份教程、数据迁移指南、效率工具横评，帮你高效管理幕布文档数据。">
+    <meta name="keywords" content="幕布导出教程,大纲笔记备份,幕布Markdown导出,幕布数据迁移,幕布Obsidian,大纲工具对比">
     <meta name="author" content="幕布导出工具团队">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/">
+    <meta name="robots" content="index, follow">
 
-    <title>博客 - 幕布导出工具</title>
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="幕布导出工具博客">
+    <meta property="og:title" content="幕布导出工具博客 - 大纲笔记备份教程与指南">
+    <meta property="og:description" content="大纲笔记备份教程、数据迁移指南、效率工具横评，帮你高效管理幕布文档数据。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/">
+    <meta property="og:locale" content="zh_CN">
+
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-hero-rescue.svg">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布导出工具博客 - 大纲笔记备份教程与指南">
+    <meta name="twitter:description" content="大纲笔记备份教程、数据迁移指南、效率工具横评。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-hero-rescue.svg">
+
+    <meta name="theme-color" content="#060010">
+    <title>博客 - 幕布导出工具 | 大纲笔记备份教程与指南</title>
     <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
     <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="blog-common.css">
-    <script src="blog-components.js"></script>
-    <style>
-        .blog-index-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 100px 2rem 4rem;
+    <link rel="stylesheet" href="blog-index.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Blog",
+      "name": "幕布导出工具博客",
+      "description": "大纲笔记备份教程、数据迁移指南、效率工具横评",
+      "url": "https://mubu.toolab.top/blog/",
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "url": "https://mubu.toolab.top/"
+      },
+      "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来",
+          "url": "https://mubu.toolab.top/blog/blog-first-person.html",
+          "datePublished": "2025-05-10"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "2024年幕布用户数据备份完全指南：3种方案对比与实操",
+          "url": "https://mubu.toolab.top/blog/blog-third-person.html",
+          "datePublished": "2025-05-06"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录",
+          "url": "https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html",
+          "datePublished": "2025-05-12"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "幕布怎么导出Markdown？我找到了最省事的批量方案",
+          "url": "https://mubu.toolab.top/blog/blog-export-markdown-guide.html",
+          "datePublished": "2025-05-08"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布",
+          "url": "https://mubu.toolab.top/blog/blog-backup-strategy.html",
+          "datePublished": "2025-04-28"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "用了4款大纲笔记工具后，我的真实感受和选择建议",
+          "url": "https://mubu.toolab.top/blog/blog-outline-tools-compare.html",
+          "datePublished": "2025-04-25"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "开源一个Chrome插件的技术复盘：如何实现幕布全量导出",
+          "url": "https://mubu.toolab.top/blog/blog-technical-deep-dive.html",
+          "datePublished": "2025-04-20"
         }
-        .blog-index-header {
-            margin-bottom: 3rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 2px solid rgba(132, 0, 255, 0.3);
-        }
-        .blog-index-title {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 0.5rem;
-        }
-        .blog-index-subtitle {
-            color: #888;
-            font-size: 1.1rem;
-        }
-        .blog-index-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 1.5rem;
-        }
-        .blog-index-card {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            gap: 1.5rem;
-            padding: 2rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 12px;
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-        .blog-index-card:hover {
-            border-color: rgba(132, 0, 255, 0.5);
-            background: rgba(132, 0, 255, 0.05);
-            transform: translateY(-3px);
-            box-shadow: 0 8px 24px rgba(132, 0, 255, 0.15);
-        }
-        .blog-index-card-content { flex: 1; }
-        .blog-index-card-category {
-            display: inline-block;
-            color: rgb(132, 100, 255);
-            font-size: 0.8rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            margin-bottom: 0.5rem;
-        }
-        .blog-index-card-title {
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #fff;
-            margin-bottom: 0.6rem;
-            line-height: 1.4;
-        }
-        .blog-index-card-desc {
-            color: #aaa;
-            font-size: 0.95rem;
-            line-height: 1.6;
-            margin-bottom: 0.5rem;
-        }
-        .blog-index-card-meta {
-            color: #666;
-            font-size: 0.85rem;
-        }
-        .blog-index-card-arrow {
-            font-size: 1.5rem;
-            color: rgba(255,255,255,0.3);
-            transition: all 0.2s;
-            flex-shrink: 0;
-        }
-        .blog-index-card:hover .blog-index-card-arrow {
-            color: rgb(132, 100, 255);
-            transform: translateX(4px);
-        }
-        @media (max-width: 768px) {
-            .blog-index-container { padding: 80px 1rem 3rem; }
-            .blog-index-title { font-size: 1.8rem; }
-            .blog-index-card { padding: 1.5rem; }
-            .blog-index-card-title { font-size: 1.1rem; }
-        }
-    </style>
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" }
+      ]
+    }
+    </script>
 </head>
 
 <body>
     <!-- 导航栏由blog-components.js自动插入 -->
 
-    <div class="blog-index-container">
-        <header class="blog-index-header">
-            <h1 class="blog-index-title">博客</h1>
-            <p class="blog-index-subtitle">来自真实用户的使用体验与备份指南</p>
-        </header>
+    <header class="blog-page-header">
+        <h1 class="blog-page-h1">幕布导出工具博客 — 大纲笔记备份教程、数据迁移与效率工具指南</h1>
+    </header>
 
-        <div class="blog-index-grid">
-            <a href="blog-first-person.html" class="blog-index-card">
-                <div class="blog-index-card-content">
-                    <span class="blog-index-card-category">用户体验</span>
-                    <h2 class="blog-index-card-title">幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来</h2>
-                    <p class="blog-index-card-desc">从踩坑到完美导出的真实经历，看一个幕布深度用户如何用 20 分钟完成 500 篇笔记的本地备份。</p>
-                    <span class="blog-index-card-meta">文/安哥拉 · 效率工具指南</span>
-                </div>
-                <span class="blog-index-card-arrow">&rarr;</span>
+    <!-- Hero Section: Main Feature + Sidebar -->
+    <div class="blog-hero-container">
+        <article class="blog-main-feature">
+            <a href="blog-first-person.html" class="blog-main-feature-img">
+                <img src="../images/blog-hero-rescue.svg" alt="幕布笔记批量导出到本地">
             </a>
+            <div class="blog-main-feature-content">
+                <div class="blog-card-category">用户体验</div>
+                <h2 class="blog-main-feature-title">
+                    <a href="blog-first-person.html">幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来</a>
+                </h2>
+                <p class="blog-main-feature-desc">
+                    从踩坑到完美导出的真实经历，看一个幕布深度用户如何用 20 分钟完成 500 篇笔记的本地备份。包括无权限协作文档、收藏夹内容的完整方案。
+                </p>
+                <div class="blog-meta">
+                    <span>文/安哥拉</span>
+                    <span>2025-05-10</span>
+                    <span>10 分钟阅读</span>
+                </div>
+            </div>
+        </article>
 
-            <a href="blog-third-person.html" class="blog-index-card">
-                <div class="blog-index-card-content">
-                    <span class="blog-index-card-category">方案对比</span>
-                    <h2 class="blog-index-card-title">2024年幕布用户数据备份完全指南：3种方案对比与实操</h2>
-                    <p class="blog-index-card-desc">全面梳理 OPML 命令行、Mubu Dumper、Mubu Exporter 三种方案的优缺点对比与操作步骤。</p>
-                    <span class="blog-index-card-meta">文/效率君 · 效率工具指南</span>
-                </div>
-                <span class="blog-index-card-arrow">&rarr;</span>
-            </a>
-        </div>
+        <aside class="blog-featured-list">
+            <h3 class="blog-section-title">热门推荐</h3>
+
+            <article class="blog-list-item">
+                <div class="blog-card-category">方案对比</div>
+                <h4 class="blog-list-title">
+                    <a href="blog-third-person.html">2024年幕布用户数据备份完全指南：3种方案对比</a>
+                </h4>
+                <div class="blog-meta">15分钟阅读</div>
+            </article>
+
+            <article class="blog-list-item">
+                <div class="blog-card-category">迁移教程</div>
+                <h4 class="blog-list-title">
+                    <a href="blog-mubu-to-obsidian.html">幕布笔记搬进 Obsidian——零代码迁移全记录</a>
+                </h4>
+                <div class="blog-meta">12分钟阅读</div>
+            </article>
+
+            <article class="blog-list-item">
+                <div class="blog-card-category">实用教程</div>
+                <h4 class="blog-list-title">
+                    <a href="blog-export-markdown-guide.html">幕布怎么导出Markdown？最省事的批量方案</a>
+                </h4>
+                <div class="blog-meta">8分钟阅读</div>
+            </article>
+
+            <article class="blog-list-item">
+                <div class="blog-card-category">数据安全</div>
+                <h4 class="blog-list-title">
+                    <a href="blog-backup-strategy.html">同事丢了两年笔记后，我决定每月备份一次</a>
+                </h4>
+                <div class="blog-meta">10分钟阅读</div>
+            </article>
+        </aside>
     </div>
+
+    <!-- Grid Section -->
+    <section class="blog-grid-section">
+        <div class="blog-grid-header">
+            <h2 class="blog-grid-title">最新文章</h2>
+        </div>
+
+        <div class="blog-grid">
+            <!-- Card 1 -->
+            <article class="blog-card">
+                <a href="blog-third-person.html" class="blog-card-visual">
+                    <img src="../images/blog-compare.svg" alt="3种备份方案对比">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">方案对比</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-third-person.html">2024年幕布用户数据备份完全指南：3种方案对比与实操</a>
+                    </h3>
+                    <p class="blog-card-desc">全面梳理 OPML 命令行、Mubu Dumper、Mubu Exporter 三种方案的优缺点对比与操作步骤。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-06</span>
+                        <span>15分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 2 -->
+            <article class="blog-card">
+                <a href="blog-mubu-to-obsidian.html" class="blog-card-visual">
+                    <img src="../images/blog-obsidian.svg" alt="幕布迁移到Obsidian">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">迁移教程</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-to-obsidian.html">我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录</a>
+                    </h3>
+                    <p class="blog-card-desc">从幕布到 Obsidian 的完整迁移实操，20 分钟完成 300 篇笔记的无损搬家。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-12</span>
+                        <span>12分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 3 -->
+            <article class="blog-card">
+                <a href="blog-export-markdown-guide.html" class="blog-card-visual">
+                    <img src="../images/blog-markdown.svg" alt="幕布导出Markdown指南">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">实用教程</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-export-markdown-guide.html">幕布怎么导出Markdown？我找到了最省事的批量方案</a>
+                    </h3>
+                    <p class="blog-card-desc">幕布官方不支持 Markdown 导出，但有办法一键把所有笔记转为 .md 文件。验证过的完整方案。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-08</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 4 -->
+            <article class="blog-card">
+                <a href="blog-backup-strategy.html" class="blog-card-visual">
+                    <img src="../images/blog-backup.svg" alt="笔记备份策略">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">数据安全</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-backup-strategy.html">亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布</a>
+                    </h3>
+                    <p class="blog-card-desc">云笔记不是绝对安全的。一套每月 5 分钟的备份策略，让知识资产永远有 Plan B。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-04-28</span>
+                        <span>10分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 5 -->
+            <article class="blog-card">
+                <a href="blog-outline-tools-compare.html" class="blog-card-visual">
+                    <img src="../images/blog-tools-compare.svg" alt="大纲工具横评对比">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">工具横评</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-outline-tools-compare.html">用了4款大纲笔记工具后，我的真实感受和选择建议</a>
+                    </h3>
+                    <p class="blog-card-desc">幕布、Obsidian、Logseq、WorkFlowy 深度横评，附迁移成本分析和分场景选择建议。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-04-25</span>
+                        <span>15分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 6 -->
+            <article class="blog-card">
+                <a href="blog-technical-deep-dive.html" class="blog-card-visual">
+                    <img src="../images/blog-technical.svg" alt="Chrome扩展技术架构">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">技术解析</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-technical-deep-dive.html">开源一个Chrome插件的技术复盘：如何实现幕布全量导出</a>
+                    </h3>
+                    <p class="blog-card-desc">Manifest V3 架构设计、幕布 API 逆向、断点续传状态机、7 种格式转换引擎的实现内幕。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-04-20</span>
+                        <span>18分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+            <!-- Card 7 -->
+            <article class="blog-card">
+                <a href="blog-mubu-to-notion.html" class="blog-card-visual">
+                    <img src="../images/blog-notion.svg" alt="幕布迁移到Notion">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">迁移教程</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-to-notion.html">幕布笔记迁移到Notion：完整导入方案与格式适配</a>
+                    </h3>
+                    <p class="blog-card-desc">Notion 不能直接导入幕布，但通过 Markdown 中转可以无损迁移。完整的 4 步操作流程。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-18</span>
+                        <span>10分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 8 -->
+            <article class="blog-card">
+                <a href="blog-export-xmind.html" class="blog-card-visual">
+                    <img src="../images/blog-xmind.svg" alt="幕布导出XMind">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">格式转换</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-export-xmind.html">幕布导出XMind思维导图：3种方法对比与实操</a>
+                    </h3>
+                    <p class="blog-card-desc">OPML 导出、FreeMind 格式、Markdown 中转——三种路径的完整对比和推荐方案。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-20</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 9 -->
+            <article class="blog-card">
+                <a href="blog-mubu-shutdown.html" class="blog-card-visual">
+                    <img src="../images/blog-shutdown.svg" alt="幕布停服应对">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">数据安全</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-shutdown.html">幕布会下架吗？做好这3步，再也不怕云笔记停服</a>
+                    </h3>
+                    <p class="blog-card-desc">理性分析幕布运营现状，给出 3 步防御方案：全量备份 + 定期机制 + 迁移预案。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-22</span>
+                        <span>7分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 10 -->
+            <article class="blog-card">
+                <a href="blog-mubu-to-feishu.html" class="blog-card-visual">
+                    <img src="../images/blog-feishu.svg" alt="幕布迁移到飞书">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">企业迁移</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-to-feishu.html">幕布迁移到飞书文档：企业团队的批量搬家指南</a>
+                    </h3>
+                    <p class="blog-card-desc">企业团队从幕布转飞书的 3 种路径对比，推荐 Markdown 导出→飞书导入方案。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-24</span>
+                        <span>9分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card 11 -->
+            <article class="blog-card">
+                <a href="blog-mubu-free-limits.html" class="blog-card-visual">
+                    <img src="../images/blog-free-limits.svg" alt="幕布免费版限制">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">省钱攻略</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-free-limits.html">幕布免费版有什么限制？付费值不值得？省钱替代方案</a>
+                    </h3>
+                    <p class="blog-card-desc">免费版 vs 会员版 8 维度对比，不花钱绕过导出限制的方法，以及完全免费的替代品。</p>
+                    <div class="blog-card-meta">
+                        <span>2025-05-26</span>
+                        <span>8分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
 
     <!-- Footer由blog-components.js自动插入 -->
 
-    <script src="blog-common.js"></script>
+    <script>
+    document.querySelectorAll('.blog-card, .blog-main-feature').forEach(card => {
+        card.addEventListener('mousemove', e => {
+            const rect = card.getBoundingClientRect();
+            card.style.setProperty('--glow-x', `${e.clientX - rect.left}px`);
+            card.style.setProperty('--glow-y', `${e.clientY - rect.top}px`);
+        });
+    });
+    </script>
 </body>
 
 </html>

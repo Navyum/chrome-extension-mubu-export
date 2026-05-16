@@ -10,6 +10,29 @@ body {
     background-color: var(--bg-color, #060010);
     color: var(--text-color, #ffffff);
     font-family: 'Figtree', 'Inter', sans-serif;
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    --stripes: repeating-linear-gradient(100deg, rgba(102, 126, 234, 0.15), rgba(102, 126, 234, 0.15) 7%, transparent 10%, transparent 12%, rgba(102, 126, 234, 0.15) 16%);
+    --rainbow: repeating-linear-gradient(100deg, rgba(96, 165, 250, 0.2) 10%, rgba(232, 121, 249, 0.15) 15%, rgba(96, 165, 250, 0.2) 20%, rgba(94, 234, 212, 0.15) 25%, rgba(96, 165, 250, 0.2) 30%);
+    background-image: var(--stripes), var(--rainbow);
+    background-size: 300%, 200%;
+    background-position: 50% 50%, 50% 50%;
+    filter: blur(10px) opacity(60%) saturate(200%);
+    mask-image: radial-gradient(ellipse at 50% 0, #000 40%, transparent 70%);
+    -webkit-mask-image: radial-gradient(ellipse at 50% 0, #000 40%, transparent 70%);
+    animation: jumbo 15s linear infinite;
+}
+
+@keyframes jumbo {
+    0% { background-position: 50% 50%, 50% 50%; }
+    100% { background-position: 350% 50%, 350% 50%; }
 }
 
 /* Navbar Override for Blog Pages - 固定背景 */
@@ -17,6 +40,15 @@ body {
     background: rgba(6, 0, 16, 0.95) !important;
     backdrop-filter: blur(10px) saturate(180%) !important;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    z-index: 10;
+}
+
+/* Ensure content sits above the aurora background */
+.blog-layout,
+.blog-index-container {
+    position: relative;
+    z-index: 1;
 }
 
 /* Footer Fixes */

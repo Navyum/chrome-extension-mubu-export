@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Blog Cluster Map: 幕布导出</title>
+<style>
+body{margin:0;padding:20px;background:#0f172a;font-family:system-ui,sans-serif;color:#e2e8f0}
+h1{text-align:center;font-size:1.4rem;margin-bottom:8px}
+p.sub{text-align:center;color:#64748b;font-size:0.9rem;margin-bottom:24px}
+svg{display:block;margin:0 auto}
+.legend{display:flex;gap:20px;justify-content:center;margin-top:20px;flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:0.8rem;color:#94a3b8}
+.legend-dot{width:12px;height:12px;border-radius:50%}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;max-width:600px;margin:24px auto 0;text-align:center}
+.stat{background:#1e293b;border-radius:8px;padding:12px}
+.stat-num{font-size:1.5rem;font-weight:700;color:#fff}
+.stat-label{font-size:0.75rem;color:#64748b;margin-top:4px}
+.gap-list{max-width:600px;margin:24px auto;background:#1e293b;border-radius:8px;padding:16px}
+.gap-list h3{font-size:0.9rem;color:#f59e0b;margin:0 0 12px}
+.gap-item{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #334155;font-size:0.85rem}
+.gap-item:last-child{border:none}
+.gap-kw{color:#e2e8f0}.gap-intent{color:#64748b}
+</style>
+</head>
+<body>
+<h1>Content Cluster Map: 幕布导出</h1>
+<p class="sub">Hub-and-Spoke Architecture &middot; 4 Clusters &middot; 12 Posts</p>
+
+<svg viewBox="0 0 800 600" width="800" height="600" xmlns="http://www.w3.org/2000/svg">
+  <!-- Links -->
+  <g stroke-width="1.5" fill="none" opacity="0.4">
+    <!-- Pillar to clusters -->
+    <line x1="400" y1="300" x2="200" y2="140" stroke="#4ade80"/>
+    <line x1="400" y1="300" x2="620" y2="120" stroke="#818cf8"/>
+    <line x1="400" y1="300" x2="180" y2="460" stroke="#f59e0b"/>
+    <line x1="400" y1="300" x2="620" y2="480" stroke="#f472b6"/>
+    <!-- Intra-cluster links -->
+    <line x1="140" y1="100" x2="200" y2="160" stroke="#4ade80"/>
+    <line x1="260" y1="90" x2="200" y2="140" stroke="#4ade80"/>
+    <line x1="140" y1="100" x2="260" y2="90" stroke="#4ade80" stroke-dasharray="4,4"/>
+    <line x1="560" y1="80" x2="620" y2="120" stroke="#818cf8"/>
+    <line x1="680" y1="100" x2="620" y2="120" stroke="#818cf8"/>
+    <line x1="700" y1="170" x2="620" y2="120" stroke="#818cf8"/>
+    <line x1="560" y1="80" x2="680" y2="100" stroke="#818cf8" stroke-dasharray="4,4"/>
+    <line x1="120" y1="430" x2="180" y2="460" stroke="#f59e0b"/>
+    <line x1="240" y1="500" x2="180" y2="460" stroke="#f59e0b"/>
+    <line x1="560" y1="450" x2="620" y2="480" stroke="#f472b6"/>
+    <line x1="680" y1="520" x2="620" y2="480" stroke="#f472b6"/>
+  </g>
+
+  <!-- Pillar (center) -->
+  <circle cx="400" cy="300" r="40" fill="#7c3aed" stroke="#a78bfa" stroke-width="2"/>
+  <text x="400" y="295" font-size="11" fill="#fff" text-anchor="middle" font-weight="700">P: 幕布导出</text>
+  <text x="400" y="312" font-size="9" fill="#c4b5fd" text-anchor="middle">完全指南</text>
+  <title>Pillar: 幕布导出完全指南</title>
+
+  <!-- Cluster A: 格式转换 (green) -->
+  <circle cx="200" cy="140" r="24" fill="#166534" stroke="#4ade80" stroke-width="2"/>
+  <text x="200" y="144" font-size="9" fill="#86efac" text-anchor="middle" font-weight="600">A: 格式转换</text>
+  <title>Cluster A: 格式转换</title>
+
+  <circle cx="140" cy="100" r="16" fill="#052e16" stroke="#4ade80" stroke-width="1.5"/>
+  <text x="140" y="104" font-size="7" fill="#86efac" text-anchor="middle">A1:MD</text>
+  <title>A1: 幕布导出Markdown [已有]</title>
+
+  <circle cx="260" cy="90" r="16" fill="#052e16" stroke="#4ade80" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="260" y="94" font-size="7" fill="#86efac" text-anchor="middle">A2:XMind</text>
+  <title>A2: 幕布导出XMind [待写]</title>
+
+  <circle cx="200" cy="60" r="14" fill="#052e16" stroke="#4ade80" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="200" y="64" font-size="7" fill="#86efac" text-anchor="middle">A3:PDF</text>
+  <title>A3: 幕布导出PDF/Word [待写]</title>
+
+  <!-- Cluster B: 平台迁移 (indigo) -->
+  <circle cx="620" cy="120" r="24" fill="#1e1b4b" stroke="#818cf8" stroke-width="2"/>
+  <text x="620" y="124" font-size="9" fill="#c7d2fe" text-anchor="middle" font-weight="600">B: 迁移</text>
+  <title>Cluster B: 平台迁移</title>
+
+  <circle cx="560" cy="80" r="16" fill="#0f0a2e" stroke="#818cf8" stroke-width="1.5"/>
+  <text x="560" y="84" font-size="7" fill="#c7d2fe" text-anchor="middle">B1:Obs</text>
+  <title>B1: 迁移到Obsidian [已有]</title>
+
+  <circle cx="680" cy="100" r="16" fill="#0f0a2e" stroke="#818cf8" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="680" y="104" font-size="7" fill="#c7d2fe" text-anchor="middle">B2:Notion</text>
+  <title>B2: 迁移到Notion [待写]</title>
+
+  <circle cx="700" cy="170" r="14" fill="#0f0a2e" stroke="#818cf8" stroke-width="1" stroke-dasharray="4,3"/>
+  <text x="700" y="174" font-size="7" fill="#c7d2fe" text-anchor="middle">B3:飞书</text>
+  <title>B3: 迁移到飞书 [待写]</title>
+
+  <!-- Cluster C: 数据安全 (amber) -->
+  <circle cx="180" cy="460" r="24" fill="#451a03" stroke="#f59e0b" stroke-width="2"/>
+  <text x="180" y="464" font-size="9" fill="#fde68a" text-anchor="middle" font-weight="600">C: 安全</text>
+  <title>Cluster C: 数据安全与备份</title>
+
+  <circle cx="120" cy="430" r="16" fill="#1c1917" stroke="#f59e0b" stroke-width="1.5"/>
+  <text x="120" y="434" font-size="7" fill="#fde68a" text-anchor="middle">C1:备份</text>
+  <title>C1: 每月备份策略 [已有]</title>
+
+  <circle cx="240" cy="500" r="16" fill="#1c1917" stroke="#f59e0b" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="240" y="504" font-size="7" fill="#fde68a" text-anchor="middle">C2:停服</text>
+  <title>C2: 幕布下架应对 [待写]</title>
+
+  <!-- Cluster D: 工具对比 (pink) -->
+  <circle cx="620" cy="480" r="24" fill="#500724" stroke="#f472b6" stroke-width="2"/>
+  <text x="620" y="484" font-size="9" fill="#fbcfe8" text-anchor="middle" font-weight="600">D: 对比</text>
+  <title>Cluster D: 工具对比与选择</title>
+
+  <circle cx="560" cy="450" r="16" fill="#1c0a14" stroke="#f472b6" stroke-width="1.5"/>
+  <text x="560" y="454" font-size="7" fill="#fbcfe8" text-anchor="middle">D1:横评</text>
+  <title>D1: 4款大纲工具横评 [已有]</title>
+
+  <circle cx="680" cy="520" r="16" fill="#1c0a14" stroke="#f472b6" stroke-width="1.5" stroke-dasharray="4,3"/>
+  <text x="680" y="524" font-size="7" fill="#fbcfe8" text-anchor="middle">D2:免费</text>
+  <title>D2: 幕布免费版限制 [待写]</title>
+
+  <!-- Legend indicators -->
+  <circle cx="30" cy="570" r="6" fill="none" stroke="#94a3b8" stroke-width="1.5"/>
+  <text x="42" y="574" font-size="9" fill="#94a3b8">已有文章</text>
+  <circle cx="130" cy="570" r="6" fill="none" stroke="#94a3b8" stroke-width="1.5" stroke-dasharray="3,2"/>
+  <text x="142" y="574" font-size="9" fill="#94a3b8">待写 (Gap)</text>
+</svg>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:#4ade80"></div>A: 格式转换</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#818cf8"></div>B: 平台迁移</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f59e0b"></div>C: 数据安全</div>
+  <div class="legend-item"><div class="legend-dot" style="background:#f472b6"></div>D: 工具对比</div>
+</div>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num">12</div><div class="stat-label">总文章数</div></div>
+  <div class="stat"><div class="stat-num">7</div><div class="stat-label">已有</div></div>
+  <div class="stat"><div class="stat-num">5</div><div class="stat-label">Gap 待写</div></div>
+  <div class="stat"><div class="stat-num">38</div><div class="stat-label">内部互链</div></div>
+</div>
+
+<div class="gap-list">
+  <h3>Gap Posts (待写文章)</h3>
+  <div class="gap-item"><span class="gap-kw">A2: 幕布导出XMind思维导图</span><span class="gap-intent">transactional</span></div>
+  <div class="gap-item"><span class="gap-kw">A3: 幕布导出PDF/Word格式问题</span><span class="gap-intent">troubleshooting</span></div>
+  <div class="gap-item"><span class="gap-kw">B2: 幕布迁移到Notion</span><span class="gap-intent">informational</span></div>
+  <div class="gap-item"><span class="gap-kw">B3: 幕布迁移到飞书</span><span class="gap-intent">informational</span></div>
+  <div class="gap-item"><span class="gap-kw">C2: 幕布下架/停服应对方案</span><span class="gap-intent">informational</span></div>
+  <div class="gap-item"><span class="gap-kw">D2: 幕布免费版限制与替代</span><span class="gap-intent">commercial</span></div>
+</div>
+
+</body>
+</html>
