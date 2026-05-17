@@ -1,0 +1,60 @@
+1. 幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来
+关键词：RESCUE
+文件：blog-hero-rescue
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant cheerful character with exaggerated proportions (small head, large limbs) sitting closely at a huge modern laptop. Hundreds of colorful outline document cards tightly filling the space, flying from a huge purple cloud into the screen. A massive progress bar showing 87% complete. The giant bold typography "RESCUE" is integrated into the background as a solid graphic element. Pastel lavender background completely filled with geometric shapes and UI elements. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shading, gradient, white space, margins, empty borders, sparse layout, minimalist
+2. 2024年幕布用户数据备份完全指南：3种方案对比与实操
+关键词：COMPARE
+文件：blog-compare
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions pointing confidently at huge colorful UI cards labeled A, B, and C tightly packed together. Card C is emphasized with a giant glowing star badge. The bold typography "COMPARE" spans largely across the top, filling the width of the canvas. Pale cream yellow background fully occupied by abstract geometric shapes and presentation boards. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, shadow, realistic, gradient, white space, margins, empty borders, sparse layout, minimalist
+3. 我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录
+关键词：MIGRATE
+文件：blog-obsidian
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions effortlessly pushing a huge cart overflowing with colorful documents. A massive vibrant bridge filling the frame, connecting a purple node-tree island to a dark blue graph island. A huge bold typography sign reading "MIGRATE" dominates the top area. Light blue background completely filled with floating UI elements, folders, and connection lines. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+4. 幕布怎么导出Markdown？我找到了最省事的批量方案
+关键词：.MD
+文件：blog-markdown
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant futuristic archway dominating the canvas, taking up 80% of the space. Large hierarchical outline documents entering one side, and huge clean markdown code blocks with hash symbols exiting the other. A massive glowing typography sign clearly reading ".MD" is integrated into the archway structure. Dark navy background completely packed with floating code brackets, giant bullet points, and grid patterns. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, white space, margins, empty borders, sparse layout, minimalist
+5. 亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布
+关键词：BACKUP
+文件：blog-backup
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions holding a massive metal security shield. The huge bold typography "BACKUP" is prominently written across the entire shield. A gigantic sturdy green umbrella spans the entire top of the canvas, blocking a tightly packed storm of giant red warning triangles and huge lightning bolts. Warm peach background fully occupied by stacked document folders and abstract shapes. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, photorealistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+6. 用了4款大纲笔记工具后，我的真实感受和选择建议
+关键词：PICK
+文件：blog-tools-compare
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions using an oversized magnifying glass to examine four massive, tightly packed colorful app icons (purple tree, blue diamond, cyan circle, amber dot). The giant bold typography "PICK" acts as a structural element floating above. Light lavender background completely filled with geometric shapes, UI cards, and abstract tool elements. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+7. 开源一个Chrome插件的技术复盘：如何实现幕布全量导出
+关键词：BUILD
+文件：blog-technical
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions and engineer goggles assembling a massive puzzle piece into a huge browser window. The window contains tightly packed architecture diagrams, connected giant module boxes, and oversized flowing arrows. The bold typography "BUILD" spans across a huge floating blueprint banner. Dark slate blue background completely filled with subtle grid lines and oversized geometric tech blocks. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, photorealistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+8. 幕布笔记迁移到Notion：完整导入方案与格式适配
+关键词：IMPORT
+文件：blog-notion
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant split screen completely filling the canvas: the left side is a huge purple notebook with giant bullet points, the right side is a massive white page with organized blocks. A giant character with exaggerated proportions interacts with a massive glowing conversion beam connecting the two sides. The huge bold typography "IMPORT" is integrated directly into the glowing beam. Warm beige background fully packed with floating UI components and abstract data shapes. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+9. 幕布导出XMind思维导图：3种方法对比与实操
+关键词：MINDMAP
+文件：blog-xmind
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant radiating mind map tree with thick colorful branches expanding organically to touch all edges of the canvas. A giant character with exaggerated proportions pruning the massive branches with oversized gardening scissors. The huge bold typography "MINDMAP" is firmly integrated into the giant central root node. Mint green background completely filled with massive colored leaf shapes and abstract connection lines. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, shading, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+10. 幕布会下架吗？做好这3步，再也不怕云笔记停服
+关键词：SAFE
+文件：blog-shutdown
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions standing safely inside a massive protective dome that fills most of the frame. The huge bold typography "SAFE" is vividly integrated into the dome's surface. Giant floating numbered step icons (1, 2, 3) and massive past milestone markers with red X marks are tightly packed around the dome. Warm orange-cream background completely filled with winding timeline roads and abstract geometric obstacles. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+11. 幕布迁移到飞书文档：企业团队的批量搬家指南
+关键词：TEAM
+文件：blog-feishu
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. Three giant diverse team members with exaggerated proportions actively coordinating with oversized tablets. A massive automated robotic crane dominating the scene, lifting a gigantic cargo container overflowing with huge document folders. The huge bold typography "TEAM" is vividly painted across the entire side of the container. Light blue background completely packed with abstract buildings, giant UI flags, and geometric factory elements. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, photorealistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+12. 幕布免费版有什么限制？付费值不值得？省钱替代方案
+关键词：FREE
+文件：blog-free-limits
+Prompt:
+A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions happily hugging a massive open green box overflowing with oversized colorful geometric treasures. Next to it, a huge locked golden treasure chest tightly squeezed into the frame. The huge bold typography "FREE" dominates the top area on a massive floating banner. Light purple background completely packed with oversized price tags, floating coins, and abstract UI shapes. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
