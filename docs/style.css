@@ -1593,7 +1593,7 @@ html, body {
     }
 }
 
-/* Blog Section */
+/* Blog preview section on homepage */
 .blog-section {
     padding: 80px 24px;
     max-width: 900px;
@@ -1603,68 +1603,142 @@ html, body {
 .blog-list {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 16px;
 }
 
-.blog-card {
+.blog-section .blog-card {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 28px 32px;
-    border: 1px solid var(--card-border);
-    border-radius: 16px;
+    padding: 24px 28px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
     background: rgba(255, 255, 255, 0.02);
     text-decoration: none;
     transition: all 0.3s ease;
 }
 
-.blog-card:hover {
+.blog-section .blog-card:hover {
     border-color: rgba(132, 0, 255, 0.4);
     background: rgba(132, 0, 255, 0.05);
     transform: translateY(-2px);
 }
 
-.blog-card-content {
+.blog-section .blog-card-content {
     flex: 1;
 }
 
-.blog-card-title {
-    font-size: 1.2rem;
+.blog-section .blog-card-title {
+    font-size: 1.15rem;
     font-weight: 700;
-    color: var(--text-color);
+    color: #fff;
     margin-bottom: 8px;
     line-height: 1.4;
 }
 
-.blog-card-desc {
-    color: var(--text-muted);
-    font-size: 0.95rem;
+.blog-section .blog-card-desc {
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 0.9rem;
     line-height: 1.6;
-    margin-bottom: 8px;
+    margin-bottom: 6px;
 }
 
-.blog-card-meta {
+.blog-section .blog-card-meta {
     color: rgba(255, 255, 255, 0.4);
     font-size: 0.85rem;
 }
 
-.blog-card-arrow {
+.blog-section .blog-card-arrow {
     font-size: 1.5rem;
-    color: var(--text-muted);
+    color: rgba(255, 255, 255, 0.3);
     margin-left: 20px;
     transition: transform 0.2s;
 }
 
-.blog-card:hover .blog-card-arrow {
+.blog-section .blog-card:hover .blog-card-arrow {
     transform: translateX(4px);
     color: rgb(132, 100, 255);
 }
 
 @media (max-width: 640px) {
-    .blog-card {
-        padding: 20px;
+    .blog-section .blog-card {
+        padding: 18px 20px;
     }
-    .blog-card-title {
-        font-size: 1.05rem;
+    .blog-section .blog-card-title {
+        font-size: 1rem;
+    }
+}
+
+/* FAQ Section */
+.faq-section {
+    padding: 80px 24px;
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.faq-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.faq-item {
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.02);
+    transition: border-color 0.2s;
+}
+
+.faq-item[open] {
+    border-color: rgba(132, 0, 255, 0.4);
+}
+
+.faq-question {
+    padding: 20px 24px;
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #fff;
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background 0.2s;
+}
+
+.faq-question:hover {
+    background: rgba(132, 0, 255, 0.05);
+}
+
+.faq-question::after {
+    content: "+";
+    font-size: 1.4rem;
+    color: rgb(132, 100, 255);
+    transition: transform 0.3s;
+}
+
+.faq-item[open] .faq-question::after {
+    transform: rotate(45deg);
+}
+
+.faq-question::-webkit-details-marker {
+    display: none;
+}
+
+.faq-answer {
+    padding: 0 24px 20px;
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+    line-height: 1.7;
+}
+
+@media (max-width: 640px) {
+    .faq-question {
+        padding: 16px 18px;
+        font-size: 0.95rem;
+    }
+    .faq-answer {
+        padding: 0 18px 16px;
     }
 }

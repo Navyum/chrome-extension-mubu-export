@@ -75,6 +75,20 @@
       }]
     }
     </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        { "@type": "Question", "name": "幕布导出工具是免费的吗？", "acceptedAnswer": { "@type": "Answer", "text": "完全免费且开源。可在 Chrome 应用商店直接安装，无需付费、无广告、无使用次数限制。" } },
+        { "@type": "Question", "name": "支持哪些导出格式？", "acceptedAnswer": { "@type": "Answer", "text": "支持 5 种格式：Markdown、OPML（兼容 XMind/Logseq）、Freemind（.mm 思维导图）、HTML、JSON。所有格式都完整保留文件夹层级和备注内容。" } },
+        { "@type": "Question", "name": "需要幕布会员才能使用吗？", "acceptedAnswer": { "@type": "Answer", "text": "不需要。工具使用你的登录状态直接读取文档数据，和会员等级无关。免费账号即可使用全部导出功能。" } },
+        { "@type": "Question", "name": "导出会影响幕布上的原始数据吗？", "acceptedAnswer": { "@type": "Answer", "text": "完全不会。工具只读取数据并在本地转换格式，不会修改、删除或上传任何内容。" } },
+        { "@type": "Question", "name": "导出过程中断了怎么办？", "acceptedAnswer": { "@type": "Answer", "text": "工具内置断点续传功能。中断后重新打开点击继续即可从上次位置恢复，无需从头开始。" } },
+        { "@type": "Question", "name": "数据安全有保障吗？", "acceptedAnswer": { "@type": "Answer", "text": "所有操作完全在本地浏览器内完成，不经过任何第三方服务器。代码完全开源可审计。" } }
+      ]
+    }
+    </script>
 </head>
 <body>
     <main class="homepage">
@@ -297,6 +311,40 @@
             </div>
             <div style="text-align: center; margin-top: 2rem;">
                 <a href="blog/index.html" style="color: rgb(132, 100, 255); text-decoration: none; font-size: 1rem; border-bottom: 1px solid rgba(132, 0, 255, 0.3);">查看全部文章 &rarr;</a>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section id="faq" class="faq-section">
+            <div class="section-header">
+                <h2 class="section-title">常见问题</h2>
+                <p class="section-subtitle">关于幕布导出工具的疑问解答</p>
+            </div>
+            <div class="faq-list">
+                <details class="faq-item">
+                    <summary class="faq-question">幕布导出工具是免费的吗？</summary>
+                    <div class="faq-answer">完全免费且开源。你可以在 Chrome 应用商店直接安装，无需付费、无广告、无使用次数限制。源码托管在 GitHub，欢迎审查和贡献。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">支持哪些导出格式？</summary>
+                    <div class="faq-answer">支持 5 种格式：Markdown（.md）、OPML（兼容 XMind/Logseq）、Freemind（.mm 思维导图）、HTML（可分享网页）、JSON（原始数据）。所有格式都完整保留文件夹层级和备注内容。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">需要幕布会员才能使用吗？</summary>
+                    <div class="faq-answer">不需要。工具使用你的登录状态直接读取文档数据，和会员等级无关。免费账号即可使用全部导出功能。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">导出会影响幕布上的原始数据吗？</summary>
+                    <div class="faq-answer">完全不会。工具只是读取数据并在本地转换格式，不会修改、删除或上传你在幕布上的任何内容。所有操作都在你的浏览器本地完成。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">导出过程中断了怎么办？</summary>
+                    <div class="faq-answer">工具内置断点续传功能。如果因为网络波动或关闭浏览器导致中断，重新打开后点击继续即可从上次的位置恢复，无需从头开始。</div>
+                </details>
+                <details class="faq-item">
+                    <summary class="faq-question">数据安全有保障吗？</summary>
+                    <div class="faq-answer">所有操作完全在本地浏览器内完成，不经过任何第三方服务器。工具只读取幕布的浏览器 Cookie 用于认证，不存储、不上传任何用户数据。代码完全开源可审计。</div>
+                </details>
             </div>
         </section>
 
