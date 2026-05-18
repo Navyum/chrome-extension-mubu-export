@@ -137,7 +137,7 @@
 
                 <div class="article-content">
                     <p>大家好，我是 Mubu Exporter 的作者。</p>
-                    <p>这个项目从第一行代码到上架 Chrome 应用商店大约花了两周时间。期间踩了不少 Manifest V3 的坑，也在幕布 API 的逆向上投入了相当的精力。这篇文章是一次完整的技术复盘——把架构设计、关键实现和踩过的坑都记录下来，供同样在做浏览器扩展开发的朋友参考。</p>
+                    <p>这个项目从第一行代码到上架 Chrome 应用商店大约花了两周时间。期间踩了不少 Manifest V3 的坑，也在幕布 API 的逆向上投入了相当的精力。这篇文章是一次完整的技术复盘——把架构设计、关键实现和踩过的坑都记录下来，供同样在做浏览器扩展开发的朋友参考。（如果你只是想了解如何使用这个工具导出笔记，建议先看<a href="blog-export-markdown-guide.html">Markdown 导出操作指南</a>或<a href="blog-backup-strategy.html">备份策略文章</a>。）</p>
                     <blockquote>
                         <strong>TL;DR</strong>：Mubu Exporter 是基于 Chrome Manifest V3 的开源浏览器扩展，通过逆向幕布 API 实现全量文档导出。核心挑战：Service Worker 30秒超时的断点续传、BFS 文件夹遍历、HTML 到 7 种格式的转换引擎、1.2-2.0秒随机间隔防限流。
                     </blockquote>
@@ -399,7 +399,7 @@ npm run pack
                         <li><strong>自定义模板</strong>——让用户定义 Markdown 的输出格式（比如标题用 # 而不是列表）</li>
                         <li><strong>定时自动备份</strong>——利用 Chrome Alarms API 实现周期性导出</li>
                     </ul>
-                    <p>如果你对这些功能感兴趣或者想贡献代码，欢迎到 GitHub 提 Issue 或 PR。想了解这个插件的实际使用体验，可以看看<a href="blog-first-person.html">这位用户的 500 篇笔记导出实录</a>。</p>
+                    <p>如果你对这些功能感兴趣或者想贡献代码，欢迎到 GitHub 提 Issue 或 PR。想了解这个插件的实际使用体验，可以看看<a href="blog-first-person.html">这位用户的 500 篇笔记导出实录</a>。对于想要将导出结果迁移到其他工具的用户，我们也有详细的<a href="blog-mubu-to-obsidian.html">幕布迁移 Obsidian 教程</a>、<a href="blog-mubu-to-notion.html">幕布迁移 Notion 指南</a>和<a href="blog-export-xmind.html">XMind 思维导图转换方案</a>。</p>
 
                     <h2>写在最后</h2>
                     <p>做这个项目最大的收获是对 Chrome Manifest V3 有了深入理解。Service Worker 的限制确实逼着开发者写出更健壮的代码——当你不能假设进程一直存活时，你就必须认真对待状态管理和容错设计。</p>
