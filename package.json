@@ -1,6 +1,6 @@
 {
   "name": "chrome-extension-mubu-export",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "一个专注于 [幕布 (mubu.com)](https://mubu.com) 的 Chrome 扩展，帮助你一键批量导出所有思维导图/大纲笔记。工具完全在本地运行：读取文档、转换为 Markdown / OPML / Freemind (.mm) / HTML / PDF / Word / JSON，并按照原有文件夹层级保存到下载目录。",
   "main": "src/background.js",
   "scripts": {

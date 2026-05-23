@@ -444,6 +444,12 @@ code {
     white-space: nowrap;
 }
 
+.sponsor-qr-wrap + .sponsor-qr-wrap { margin-top: 22px; }
+.sponsor-qr-badge.alipay-badge {
+    background: linear-gradient(135deg, #1677ff, #00b4d8);
+    box-shadow: 0 4px 10px rgba(22, 119, 255, 0.28);
+}
+
 .sponsor-qr-image {
     display: block;
     width: 100%;

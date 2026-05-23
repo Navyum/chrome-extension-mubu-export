@@ -15,6 +15,7 @@ import {
   saveSettings
 } from './ui/actions.js';
 import { initSponsorInteractions } from './ui/sponsor.js';
+import { initRatingModal } from './ui/rating.js';
 import { initRuntimeMessaging } from './ui/messaging.js';
 import { applyI18n } from './ui/i18n.js';
 
@@ -30,6 +31,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   bindEventListeners();
   enhanceSelectInteraction();
   initSponsorInteractions();
+  initRatingModal();
   initRuntimeMessaging();
 });
 

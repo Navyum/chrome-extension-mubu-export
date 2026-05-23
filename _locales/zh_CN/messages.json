@@ -218,7 +218,7 @@
     "message": "如果您觉得这个工具对您有帮助，不妨请我喝杯咖啡！您的支持是我持续维护和改进这个项目的最大动力。"
   },
   "settingsSponsorBadge": {
-    "message": "💝 赞赏开发者"
+    "message": "💝 微信赞赏"
   },
   "scanQrCode": {
     "message": "☕️ 请使用微信扫描二维码"
@@ -432,5 +432,26 @@
   },
   "unknownError": {
     "message": "未知错误"
+  },
+  "ratingTitle": {
+    "message": "🎉 导出成功！"
+  },
+  "ratingDesc": {
+    "message": "如果觉得好用，给个五星好评吧"
+  },
+  "ratingReviewBtn": {
+    "message": "⭐ 去评价"
+  },
+  "ratingSponsorLink": {
+    "message": "赞助开发者"
+  },
+  "ratingDismiss": {
+    "message": "不再提醒"
+  },
+  "ratingLater": {
+    "message": "下次再说"
+  },
+  "alipayQrAlt": {
+    "message": "支付宝赞赏二维码"
   }
 }

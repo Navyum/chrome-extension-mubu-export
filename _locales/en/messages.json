@@ -432,5 +432,26 @@
   },
   "unknownError": {
     "message": "Unknown error"
+  },
+  "ratingTitle": {
+    "message": "🎉 Export Successful!"
+  },
+  "ratingDesc": {
+    "message": "If you find this useful, please leave a 5-star review"
+  },
+  "ratingReviewBtn": {
+    "message": "⭐ Rate Now"
+  },
+  "ratingSponsorLink": {
+    "message": "Sponsor Developer"
+  },
+  "ratingDismiss": {
+    "message": "Don't show again"
+  },
+  "ratingLater": {
+    "message": "Maybe later"
+  },
+  "alipayQrAlt": {
+    "message": "Alipay sponsor QR code"
   }
 }

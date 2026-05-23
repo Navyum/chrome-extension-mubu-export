@@ -25,7 +25,14 @@ export const domRefs = {
   selectIcon: null,
   selectTrigger: null,
   selectOptionsList: null,
-  selectLabel: null
+  selectLabel: null,
+  // Rating modal
+  ratingModal: null,
+  ratingModalClose: null,
+  ratingReviewBtn: null,
+  ratingDismissBtn: null,
+  ratingLaterBtn: null,
+  ratingSponsorLink: null,
 };
 
 export function cacheDomElements() {
@@ -56,5 +63,12 @@ export function cacheDomElements() {
   domRefs.selectTrigger = document.getElementById('exportTypeTrigger');
   domRefs.selectOptionsList = document.getElementById('exportTypeOptions');
   domRefs.selectLabel = document.getElementById('exportTypeLabel');
+  // Rating modal
+  domRefs.ratingModal = document.getElementById('ratingModal');
+  domRefs.ratingModalClose = document.getElementById('ratingModalClose');
+  domRefs.ratingReviewBtn = document.getElementById('ratingReviewBtn');
+  domRefs.ratingDismissBtn = document.getElementById('ratingDismissBtn');
+  domRefs.ratingLaterBtn = document.getElementById('ratingLaterBtn');
+  domRefs.ratingSponsorLink = document.getElementById('ratingSponsorLink');
 }
 
