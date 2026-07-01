@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布导出HTML和JSON的完整指南。解释 HTML 适合可视化归档与打印，JSON 适合保留幕布原始节点结构、备注、图片链接和折叠状态，附批量导出步骤、格式对比和二次处理建议。">
+    <meta name="keywords" content="幕布导出HTML,幕布导出JSON,幕布原始数据导出,幕布离线备份,幕布二次处理,幕布结构化备份">
+    <meta name="author" content="小林">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-export-html-json.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布导出HTML/JSON：可视化归档与二次处理指南">
+    <meta property="og:description" content="HTML 适合阅读归档，JSON 适合保留幕布原始结构。一次讲清两种格式怎么选、怎么导出、怎么保存。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-export-html-json.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-html-json.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布导出HTML/JSON：可视化归档与二次处理指南">
+    <meta name="twitter:description" content="HTML 适合阅读归档，JSON 适合保留幕布原始结构。一次讲清两种格式怎么选、怎么导出、怎么保存。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-html-json.webp">
+
+    <title>幕布导出HTML/JSON：可视化归档与二次处理指南 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布导出HTML/JSON：可视化归档与二次处理指南",
+      "description": "幕布导出HTML和JSON的完整指南，覆盖格式选择、批量导出、离线归档边界和二次处理建议。",
+      "image": "https://mubu.toolab.top/images/blog-html-json.webp",
+      "author": { "@type": "Person", "name": "小林" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-export-html-json.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布导出HTML有什么用？",
+          "acceptedAnswer": { "@type": "Answer", "text": "HTML 适合把幕布文档保存成可直接打开的网页备份，能保留层级、备注、基础样式、表格和公式渲染能力，适合阅读、打印和分享。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布导出JSON有什么用？",
+          "acceptedAnswer": { "@type": "Answer", "text": "JSON 适合保留幕布原始 definition 结构，包括节点、备注、折叠状态、完成状态和图片信息，方便开发者后续写脚本转换为其他格式。" }
+        },
+        {
+          "@type": "Question",
+          "name": "HTML导出后完全离线吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "文本和结构在本地文件里，但图片通常仍引用幕布图片地址，公式渲染也可能依赖外部资源。需要长期离线保存时，建议同时保留 JSON，并单独归档图片。" }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布导出HTML和JSON", "item": "https://mubu.toolab.top/blog/blog-export-html-json.html" }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布导出HTML/JSON：可视化归档与二次处理指南</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">7分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-02">2026年7月2日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小林 · 数据归档指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>幕布导出 HTML 和 JSON 的价值不一样：HTML 让人看，JSON 留给机器和未来的你。</strong>HTML 适合打开即读、打印、发给别人预览；JSON 则保留幕布原始节点树，适合做长期备份、版本管理和自定义转换。</p>
+                    <p>很多用户只知道导出 Markdown 或 PDF，却忽略了 HTML/JSON 这两个格式。它们不一定是每天最常用的格式，但在数据迁移和归档里很关键：HTML 保留视觉结构，JSON 保留底层结构。两份一起存，后续选择空间会大很多。</p>
+
+                    <blockquote>
+                        <strong>结论先说</strong>：想把幕布笔记保存成可阅读网页，选 HTML；想保留原始节点、备注、图片字段、折叠状态，选 JSON。需要严肃备份时，建议同时导出 Markdown、HTML、JSON 三份：Markdown 迁移，HTML 查看，JSON 兜底。
+                    </blockquote>
+
+                    <img src="../images/blog-html-json.webp" alt="幕布文档导出为 HTML 页面和 JSON 结构化数据示意图" loading="lazy">
+
+                    <h2>HTML 和 JSON 怎么选？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>需求</th><th>推荐格式</th><th>理由</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>以后直接打开阅读</td><td>HTML</td><td>浏览器即可打开，保留大纲样式和备注</td></tr>
+                            <tr><td>打印或转 PDF</td><td>HTML</td><td>适合走浏览器打印流程</td></tr>
+                            <tr><td>保留幕布原始结构</td><td>JSON</td><td>节点树、备注和状态字段更完整</td></tr>
+                            <tr><td>写脚本转换成自定义格式</td><td>JSON</td><td>比从 Markdown 反解析更可靠</td></tr>
+                            <tr><td>迁移到 Obsidian / Notion</td><td>Markdown</td><td>目标工具兼容性最好</td></tr>
+                        </tbody>
+                    </table>
+                    <p>如果你不是开发者，也可以导出 JSON。你现在不一定会打开它，但它相当于一份更接近幕布内部结构的备份。以后如果工具变了、需求变了，JSON 的可转换空间通常比 PDF/Word 更大。</p>
+
+                    <h2>如何批量导出幕布为HTML？</h2>
+                    <ol>
+                        <li>先在 Chrome 里登录 <a href="https://mubu.com" target="_blank" rel="noopener">幕布网页版</a>。</li>
+                        <li>打开「幕布导出工具」插件。</li>
+                        <li>点击「获取文件信息」，等待文件夹和文档扫描完成。</li>
+                        <li>导出格式选择 <strong>HTML (.html)</strong>。</li>
+                        <li>点击「开始导出」。</li>
+                    </ol>
+                    <p>导出的 HTML 文件会按幕布文件夹结构保存。每篇幕布文档对应一个 <code>.html</code> 文件，双击即可在浏览器中打开。插件会尽量保留幕布节点层级、备注、表格、图片引用和基础样式，并为公式渲染预留能力。</p>
+
+                    <h2>HTML 归档有哪些边界？</h2>
+                    <p>HTML 很适合「人类可读归档」，但它不等于百分百离线包。当前插件生成的 HTML 里，正文文本、节点结构和样式在本地文件中；文档图片通常仍然引用幕布图片地址；公式渲染也可能依赖外部资源。也就是说，只要你未来还能访问对应资源，页面体验会更完整。</p>
+                    <p>如果你要做长期离线备份，建议这样处理：</p>
+                    <ul>
+                        <li>HTML 用来快速查看和打印。</li>
+                        <li>JSON 用来保留原始结构。</li>
+                        <li>重要图片另外手动归档，或后续写脚本从 JSON/HTML 中提取图片链接批量下载。</li>
+                    </ul>
+                    <p>对大多数纯文本笔记来说，HTML 已经足够好用；对大量图片、公式、表格的资料库来说，HTML + JSON 才更稳。</p>
+
+                    <h2>如何批量导出幕布为JSON？</h2>
+                    <p>JSON 的导出步骤和 HTML 一样，只需要在格式下拉框中选择 <strong>原始结构 (.json)</strong>。导出的文件是格式化后的幕布 <code>definition</code> 数据，适合直接交给脚本、编辑器或版本管理系统处理。</p>
+                    <p>一份 JSON 通常会包含这些信息：</p>
+                    <ul>
+                        <li><strong>nodes</strong>：文档的大纲节点树。</li>
+                        <li><strong>text</strong>：节点文本，通常包含幕布编辑器生成的 HTML 片段。</li>
+                        <li><strong>note</strong>：备注内容。</li>
+                        <li><strong>children</strong>：子节点数组。</li>
+                        <li><strong>collapsed</strong>：节点是否折叠。</li>
+                        <li><strong>completed</strong>：节点是否完成。</li>
+                        <li><strong>image / images</strong>：图片相关字段和链接。</li>
+                    </ul>
+                    <p>这也是为什么 JSON 很适合「兜底备份」。如果未来你想把幕布内容转成某个新工具需要的格式，从 JSON 开始写转换脚本，会比从 PDF 或 Word 里抽取内容可靠得多。</p>
+
+                    <h2>HTML/JSON 和 Markdown 有什么关系？</h2>
+                    <p><a href="blog-export-markdown-guide.html">Markdown</a> 是迁移的首选格式，因为 Obsidian、Notion、飞书、GitHub 都更容易接收 <code>.md</code> 文件。但 Markdown 是一个转换结果，不是幕布的完整原始数据。为了让它通用，插件会把幕布节点转换成列表、标题、引用块和表格等 Markdown 表达。</p>
+                    <p>HTML 和 JSON 则分别补上 Markdown 的两个短板：</p>
+                    <table>
+                        <thead>
+                            <tr><th>格式</th><th>优势</th><th>短板</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Markdown</td><td>跨工具迁移最方便</td><td>无法完整表达所有幕布状态</td></tr>
+                            <tr><td>HTML</td><td>视觉还原度高，适合阅读</td><td>不适合机器二次处理</td></tr>
+                            <tr><td>JSON</td><td>结构最完整，适合脚本处理</td><td>普通用户直接阅读不方便</td></tr>
+                        </tbody>
+                    </table>
+                    <p>所以最佳实践不是三选一，而是按用途组合。迁移用 Markdown，归档看 HTML，兜底留 JSON。</p>
+
+                    <h2>适合开发者的二次处理思路</h2>
+                    <p>如果你会写一点脚本，JSON 可以做很多事：</p>
+                    <ul>
+                        <li>统计每个文件夹下的文档数量和字数。</li>
+                        <li>提取所有带图片的节点，生成图片下载清单。</li>
+                        <li>把完成状态转换为任务列表。</li>
+                        <li>把某些标签或关键词提取为知识库索引。</li>
+                        <li>根据文件夹路径生成 Hugo、Hexo 或 Docusaurus 的内容目录。</li>
+                    </ul>
+                    <p>这些需求如果从 PDF 做，几乎不可维护；从 Word 做，会遇到格式噪音；从 Markdown 做，可以但会丢掉一些幕布特有字段。JSON 不是给所有人每天看的，但它是最适合留给自动化流程的格式。</p>
+
+                    <h2>推荐的归档目录结构</h2>
+                    <p>建议在插件设置页把下载子目录设成带日期的路径，例如：</p>
+                    <pre><code>MubuBackup/2026-07</code></pre>
+                    <p>然后按格式导出多轮：</p>
+                    <pre><code>MubuBackup/2026-07/Markdown/
+MubuBackup/2026-07/HTML/
+MubuBackup/2026-07/JSON/</code></pre>
+                    <p>当前插件的设置页支持自定义下载子文件夹。每轮导出前改一次子目录，就能把不同格式分开放，后续同步到网盘、NAS 或 Git 仓库都会清晰很多。完整的备份频率建议可以参考<a href="blog-backup-strategy.html">幕布数据备份策略</a>。</p>
+
+                    <h2>常见问题</h2>
+                    <h3>HTML 是否比 PDF 更适合备份？</h3>
+                    <p>取决于目标。PDF 更适合定稿阅读和发送给别人，HTML 更适合自己归档、搜索和打印。HTML 文件还能用浏览器查看源码，后续处理空间比 PDF 大。</p>
+
+                    <h3>JSON 能直接导入其他笔记软件吗？</h3>
+                    <p>通常不能直接导入。JSON 是幕布原始结构备份，不是通用笔记格式。如果要导入 Obsidian、Notion、飞书，优先用 Markdown；如果要导入自研系统或做批量转换，再从 JSON 写脚本。</p>
+
+                    <h3>导出 HTML/JSON 会修改幕布原文档吗？</h3>
+                    <p>不会。插件只读取文档数据并在本地生成文件，不会修改、删除或上传你的幕布内容。所有导出的文件都保存到你本机的浏览器下载目录。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 指南</a></li>
+                        <li><a href="blog-export-pdf-word.html">幕布导出 PDF/Word 排错指南</a></li>
+                        <li><a href="blog-technical-deep-dive.html">Mubu Exporter 技术架构解析</a></li>
+                        <li><a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">Mubu Exporter GitHub 项目</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布导出HTML</span>
+                        <span class="article-tag">幕布导出JSON</span>
+                        <span class="article-tag">数据归档</span>
+                        <span class="article-tag">二次处理</span>
+                        <span class="article-tag">结构化备份</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

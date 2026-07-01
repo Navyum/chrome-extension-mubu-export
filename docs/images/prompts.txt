@@ -58,3 +58,21 @@ A flat vector illustration in Google Alegria Corporate Memphis style. Three gian
 文件：blog-free-limits
 Prompt:
 A flat vector illustration in Google Alegria Corporate Memphis style. A giant character with exaggerated proportions happily hugging a massive open green box overflowing with oversized colorful geometric treasures. Next to it, a huge locked golden treasure chest tightly squeezed into the frame. The huge bold typography "FREE" dominates the top area on a massive floating banner. Light purple background completely packed with oversized price tags, floating coins, and abstract UI shapes. Edge-to-edge composition, tightly packed dense layout, zero negative space. --ar 16:9 --no 3d, realistic, shadow, gradient, white space, margins, empty borders, sparse layout, minimalist
+
+13. 幕布导出PDF/Word：格式保留技巧与常见问题解决
+关键词：PDF + WORD
+文件：blog-pdf-word
+Prompt:
+A flat vector illustration in Google Alegria / Corporate Memphis style for an article about exporting Mubu outline notes to PDF and Word. A dense, edge-to-edge workspace full of oversized document sheets, print preview panels, and outline bullet trees. A giant cheerful character with exaggerated proportions arranges a large PDF page and a Word document side by side, with clean hierarchy lines flowing from a purple outline document into both formats. The large simple text "PDF + WORD" is integrated as a banner at the top. Colorful geometric shapes, no brand logos, no screenshots, no watermark, no photorealism, tightly packed 16:9 composition.
+
+14. 幕布导出HTML/JSON：可视化归档与二次处理指南
+关键词：HTML + JSON
+文件：blog-html-json
+Prompt:
+A flat vector illustration in Google Alegria / Corporate Memphis style for an article about exporting Mubu notes to HTML and JSON for archives and developer reuse. A packed archive room blended with a browser window and structured data panels. A giant character with exaggerated proportions places colorful outline documents into a large open archive box; clean HTML page cards and JSON braces flow out as organized reusable files. The large simple text "HTML + JSON" is integrated on the archive box. Teal, violet, amber, warm white, and coral highlights, no brand logos, no screenshots, no watermark, no photorealism, dense 16:9 layout.
+
+15. 幕布批量导出失败怎么办？暂停、继续、重试完整排查
+关键词：RETRY
+文件：blog-retry-resume
+Prompt:
+A flat vector illustration in Google Alegria / Corporate Memphis style for an article about fixing failed Mubu batch exports using pause, resume, retry, and download settings. A dense browser extension control room with progress bars, status chips, folder paths, and repair tools. A giant character with exaggerated proportions presses an oversized retry button while a long document export conveyor restarts; failed red file cards turn into green successful file cards. The large simple text "RETRY" is integrated on the central button. Indigo, green, orange, red alert accents, off-white background, no brand logos, no screenshots, no watermark, no photorealism, dense 16:9 layout.

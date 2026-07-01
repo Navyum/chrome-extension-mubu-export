@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布导出PDF和Word的完整排查指南。说明 Mubu Exporter 如何批量导出 .pdf 与 .doc 文件，哪些内容能保留、哪些格式会变化，以及遇到空白、乱码、下载弹窗和导出失败时怎么处理。">
+    <meta name="keywords" content="幕布导出PDF,幕布导出Word,幕布转PDF,幕布转Word,幕布批量导出PDF,幕布导出格式">
+    <meta name="author" content="小周">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-export-pdf-word.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布导出PDF/Word：格式保留技巧与常见问题解决">
+    <meta property="og:description" content="批量导出幕布到 PDF 和 Word 的操作流程、格式保真度对比和失败排查清单。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-export-pdf-word.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-pdf-word.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布导出PDF/Word：格式保留技巧与常见问题解决">
+    <meta name="twitter:description" content="批量导出幕布到 PDF 和 Word 的操作流程、格式保真度对比和失败排查清单。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-pdf-word.webp">
+
+    <title>幕布导出PDF/Word：格式保留技巧与常见问题解决 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布导出PDF/Word：格式保留技巧与常见问题解决",
+      "description": "幕布导出PDF和Word的完整排查指南，覆盖批量导出、格式保留、乱码、空白和失败重试。",
+      "image": "https://mubu.toolab.top/images/blog-pdf-word.webp",
+      "author": { "@type": "Person", "name": "小周" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-export-pdf-word.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布可以批量导出PDF吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。使用 Mubu Exporter Chrome 插件，登录幕布后先获取文件信息，再选择 PDF 格式并开始导出。插件会按幕布文件夹结构保存每个 PDF 文件。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布导出Word是docx还是doc？",
+          "acceptedAnswer": { "@type": "Answer", "text": "当前插件导出的是 Word 可打开的 .doc 文件。它由本地生成的 Office 兼容 HTML 组成，适合继续编辑、打印或提交资料。" }
+        },
+        {
+          "@type": "Question",
+          "name": "PDF导出失败怎么办？",
+          "acceptedAnswer": { "@type": "Answer", "text": "先确认幕布登录状态仍有效，再关闭浏览器的“下载前询问每个文件保存位置”。如果只有少量文件失败，可在插件里点击“重试失败的文件”。" }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布导出PDF和Word", "item": "https://mubu.toolab.top/blog/blog-export-pdf-word.html" }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布导出PDF/Word：格式保留技巧与常见问题解决</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">7分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-02">2026年7月2日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小周 · 格式转换指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>幕布可以通过 Mubu Exporter 批量导出 PDF 和 Word 文件。</strong>PDF 更适合归档、打印和发送给别人查看；Word 更适合后续编辑、复制内容或重新排版。如果你只是要迁移到 Obsidian、Notion、飞书，优先看<a href="blog-export-markdown-guide.html">幕布导出 Markdown 指南</a>；如果目标是交付材料或纸质打印，PDF/Word 会更顺手。</p>
+                    <p>这篇文章不讲概念，直接把操作路径、格式差异和常见失败原因讲清楚。下面的结论基于当前插件实现：Word 在本地转换为 Office 可打开的 <code>.doc</code> 文件，PDF 通过幕布转换接口生成，二者都会按原有文件夹层级保存到浏览器下载目录。</p>
+
+                    <blockquote>
+                        <strong>快速答案</strong>：批量导出 PDF/Word 的流程是：登录幕布网页版 → 打开插件 → 获取文件信息 → 选择 PDF 或 Word → 开始导出。Word 更适合可编辑备份，PDF 更适合定稿归档。遇到失败时，优先检查幕布登录状态、Chrome 下载设置和插件里的失败重试入口。
+                    </blockquote>
+
+                    <img src="../images/blog-pdf-word.webp" alt="幕布大纲批量导出为 PDF 和 Word 文件示意图" loading="lazy">
+
+                    <h2>PDF 和 Word 分别适合什么场景？</h2>
+                    <p>很多人把 PDF 和 Word 都归为「办公格式」，但在幕布导出场景里，它们解决的是两类问题。</p>
+                    <table>
+                        <thead>
+                            <tr><th>目标</th><th>推荐格式</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>提交给老师、客户或同事审阅</td><td>PDF</td><td>版式稳定，别人打开后不容易乱</td></tr>
+                            <tr><td>打印会议纪要、课程笔记</td><td>PDF</td><td>分页和字体更可控</td></tr>
+                            <tr><td>继续改写大纲内容</td><td>Word</td><td>可以在 Word、WPS、Pages 中继续编辑</td></tr>
+                            <tr><td>从幕布复制到报告模板</td><td>Word</td><td>更方便复制段落、表格和层级内容</td></tr>
+                            <tr><td>长期机器可读备份</td><td>Markdown / JSON</td><td>更适合版本管理和二次处理</td></tr>
+                        </tbody>
+                    </table>
+                    <p>如果你只想「看起来像原来的幕布」，PDF 通常更省心。如果你后面还要改字、调格式、合并到报告里，Word 更合适。需要长期迁移时，建议额外导出一份 Markdown 或 JSON，避免把数据只锁在办公文档里。</p>
+
+                    <h2>如何批量导出幕布为PDF？</h2>
+                    <ol>
+                        <li>用桌面 Chrome 打开 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a>，确认账号已登录。</li>
+                        <li>点击浏览器工具栏里的「幕布导出工具」。</li>
+                        <li>点击「获取文件信息」，等待插件扫描文档和文件夹。</li>
+                        <li>在导出格式里选择 <strong>PDF (.pdf)</strong>。</li>
+                        <li>点击「开始导出」，等待进度条完成。</li>
+                    </ol>
+                    <p>导出后，文件会保存在浏览器下载目录下的子文件夹中。默认子文件夹是 <code>幕布备份</code>，也可以在设置页改成例如 <code>MubuBackup/2026-07</code> 这种更好归档的路径。</p>
+
+                    <h2>如何批量导出幕布为Word？</h2>
+                    <p>Word 的步骤和 PDF 基本一样，只是在导出格式中选择 <strong>Word (.doc)</strong>。当前插件生成的是 <code>.doc</code> 文件，不是 <code>.docx</code>。大多数 Word/WPS/Pages 都能直接打开；如果你必须提交 <code>.docx</code>，打开后再「另存为 .docx」即可。</p>
+                    <p>插件在生成 Word 时做了几件清理工作：去掉容易导致 Word 乱码的 emoji，清洗幕布表格里的编辑器按钮，把公式内容转成可读文本，并设置中文字体回退。这样做的目标不是百分百复刻幕布界面，而是让文档更容易打开、编辑和打印。</p>
+
+                    <h2>哪些格式能保留，哪些会变化？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>幕布内容</th><th>PDF</th><th>Word</th><th>说明</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>大纲层级</td><td>保留</td><td>保留</td><td>按节点缩进和标题级别展示</td></tr>
+                            <tr><td>备注</td><td>保留</td><td>保留</td><td>Word 中以左侧边框注释样式显示</td></tr>
+                            <tr><td>表格</td><td>保留</td><td>重建为干净表格</td><td>复杂表格建议导出后检查一遍</td></tr>
+                            <tr><td>图片</td><td>取决于幕布转换结果</td><td>以图片链接方式引用</td><td>彻底离线归档建议再导出 HTML/JSON 备份</td></tr>
+                            <tr><td>emoji</td><td>通常保留</td><td>可能被移除</td><td>为了避免 Word 字符乱码</td></tr>
+                            <tr><td>数学公式</td><td>取决于幕布转换结果</td><td>转为 LaTeX 文本</td><td>适合保留信息，不保证公式排版</td></tr>
+                        </tbody>
+                    </table>
+                    <p>一句话总结：PDF 更偏「视觉定稿」，Word 更偏「可编辑内容」。如果你的文档里有大量公式、图片或复杂表格，不要只导出一种格式，最好同时保留 HTML 或 JSON 版本。具体用法可以看<a href="blog-export-html-json.html">幕布导出 HTML/JSON 归档指南</a>。</p>
+
+                    <h2>导出失败怎么排查？</h2>
+                    <h3>问题一：提示未检测到 Jwt-Token</h3>
+                    <p>这说明插件没有读取到幕布登录态。重新打开 <a href="https://mubu.com/login" target="_blank" rel="noopener">幕布登录页</a> 登录，再回到插件点击「获取文件信息」。不需要手动复制 token，也不要把账号密码输入到任何第三方页面。</p>
+
+                    <h3>问题二：每个文件都弹保存框</h3>
+                    <p>这是 Chrome 下载设置导致的。打开浏览器设置里的「下载内容」，关闭「下载前询问每个文件的保存位置」。否则批量导出 200 篇文档时，你会被迫点 200 次确认。</p>
+
+                    <h3>问题三：只有少量PDF失败</h3>
+                    <p>PDF 需要调用幕布的转换接口，偶发网络波动或接口短暂失败时，少量文档可能会失败。不要直接重置全部任务，先等一会儿，再点击插件里的「重试失败的文件」。插件会只处理失败项，不会重新导出已成功的文件。</p>
+
+                    <h3>问题四：Word 打开后样式和幕布不完全一样</h3>
+                    <p>这是正常现象。Word 导出的目标是内容可编辑和结构清晰，不是逐像素复刻幕布。对视觉还原要求高时，用 PDF；对内容再加工要求高时，用 Word；对迁移和长期备份要求高时，用 Markdown 或 JSON。</p>
+
+                    <h2>推荐的备份组合</h2>
+                    <p>如果你只导出一次，我建议不要只选 PDF/Word。更稳妥的组合是：</p>
+                    <ul>
+                        <li><strong>PDF</strong>：给别人看、打印、留定稿。</li>
+                        <li><strong>Word</strong>：继续编辑、整理成报告。</li>
+                        <li><strong>Markdown</strong>：迁移到 Obsidian、Notion、飞书等工具。</li>
+                        <li><strong>JSON</strong>：保留幕布原始结构，方便以后写脚本二次处理。</li>
+                    </ul>
+                    <p>这套组合比单一 PDF 更抗风险。你既有可读版，也有可编辑版，还有机器可读的结构化备份。关于完整备份节奏，可以继续读<a href="blog-backup-strategy.html">每月备份一次幕布的策略</a>。</p>
+
+                    <h2>常见问题</h2>
+                    <h3>幕布导出PDF需要会员吗？</h3>
+                    <p>使用 Mubu Exporter 时，插件复用你在浏览器里的幕布登录状态来读取文档。能否成功导出取决于当前账号权限、接口状态和文档可访问性。建议先用少量文档测试，再做全量导出。</p>
+
+                    <h3>Word 文件为什么是 .doc 而不是 .docx？</h3>
+                    <p>当前插件生成的是 Office 兼容 HTML，并保存为 <code>.doc</code>，这样可以在浏览器扩展的本地环境里稳定生成。需要 <code>.docx</code> 时，用 Word 或 WPS 打开后另存为即可。</p>
+
+                    <h3>PDF 和 Word 哪个更适合长期备份？</h3>
+                    <p>长期备份不建议只保留 PDF 或 Word。PDF 适合阅读归档，Word 适合编辑，Markdown/JSON 更适合长期迁移和二次处理。至少保留一种办公格式和一种结构化格式。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a></li>
+                        <li><a href="blog-export-html-json.html">幕布导出 HTML/JSON 归档指南</a></li>
+                        <li><a href="blog-export-retry-resume.html">幕布批量导出失败排查指南</a></li>
+                        <li><a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">Mubu Exporter GitHub 项目</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布导出PDF</span>
+                        <span class="article-tag">幕布导出Word</span>
+                        <span class="article-tag">格式转换</span>
+                        <span class="article-tag">批量导出</span>
+                        <span class="article-tag">排错指南</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

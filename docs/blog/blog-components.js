@@ -34,7 +34,7 @@
         <div class="cta-card">
             <img src="../images/icon-36x36.png" alt="幕布导出工具" class="cta-icon-img">
             <h3 class="cta-title">立即备份你的笔记</h3>
-            <p class="cta-description">使用幕布导出工具，一键批量导出所有大纲笔记。支持 Markdown、OPML 等五大格式，完整保留文件夹结构。</p>
+            <p class="cta-description">使用幕布导出工具，一键批量导出所有大纲笔记。支持 Markdown、OPML、PDF、Word 等多种格式，完整保留文件夹结构。</p>
             <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp?utm_source=blog" target="_blank" class="cta-button">
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
@@ -149,6 +149,21 @@
             title: '幕布免费版有什么限制？付费值不值得？省钱替代方案',
             shortTitle: '免费版限制与替代',
             related: ['blog-outline-tools-compare.html', 'blog-export-markdown-guide.html']
+        },
+        'blog-export-pdf-word.html': {
+            title: '幕布导出PDF/Word：格式保留技巧与常见问题解决',
+            shortTitle: 'PDF/Word格式排查',
+            related: ['blog-export-html-json.html', 'blog-export-retry-resume.html']
+        },
+        'blog-export-html-json.html': {
+            title: '幕布导出HTML/JSON：可视化归档与二次处理指南',
+            shortTitle: 'HTML/JSON归档指南',
+            related: ['blog-export-markdown-guide.html', 'blog-export-pdf-word.html']
+        },
+        'blog-export-retry-resume.html': {
+            title: '幕布批量导出失败怎么办？暂停、继续、重试完整排查',
+            shortTitle: '导出失败排查',
+            related: ['blog-export-pdf-word.html', 'blog-technical-deep-dive.html']
         }
     };
 

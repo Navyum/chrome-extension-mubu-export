@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布批量导出失败怎么办？这篇指南从登录状态、Chrome下载设置、暂停继续、失败重试、性能监控和文件夹路径六个角度排查 Mubu Exporter 导出中断、卡住、保存弹窗和少量文件失败的问题。">
+    <meta name="keywords" content="幕布导出失败,幕布批量导出失败,幕布导出中断,幕布导出重试,Mubu Exporter失败,幕布导出卡住">
+    <meta name="author" content="小北">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-export-retry-resume.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布批量导出失败怎么办？暂停、继续、重试完整排查">
+    <meta property="og:description" content="从登录态、下载设置、失败重试和性能监控四个方向排查幕布批量导出失败。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-export-retry-resume.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-retry-resume.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布批量导出失败怎么办？暂停、继续、重试完整排查">
+    <meta name="twitter:description" content="从登录态、下载设置、失败重试和性能监控四个方向排查幕布批量导出失败。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-retry-resume.webp">
+
+    <title>幕布批量导出失败怎么办？暂停、继续、重试完整排查 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布批量导出失败怎么办？暂停、继续、重试完整排查",
+      "description": "幕布批量导出失败的排查指南，覆盖登录状态、Chrome下载设置、暂停继续、失败重试和性能监控。",
+      "image": "https://mubu.toolab.top/images/blog-retry-resume.webp",
+      "author": { "@type": "Person", "name": "小北" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-02",
+      "dateModified": "2026-07-02",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-export-retry-resume.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布批量导出中断后需要从头开始吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "通常不需要。Mubu Exporter 会把任务状态保存在浏览器本地存储里。重新打开插件后，可以继续处理未完成或失败的文件。" }
+        },
+        {
+          "@type": "Question",
+          "name": "为什么幕布导出时一直弹保存窗口？",
+          "acceptedAnswer": { "@type": "Answer", "text": "这是 Chrome 下载设置导致的。关闭“下载前询问每个文件的保存位置”后，插件才能自动把文件保存到指定子目录。" }
+        },
+        {
+          "@type": "Question",
+          "name": "只有几个文件导出失败怎么办？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不要重置全部任务。先确认登录状态有效，再点击插件里的“重试失败的文件”。插件会只处理失败项，不会重复导出已成功文件。" }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布导出失败排查", "item": "https://mubu.toolab.top/blog/blog-export-retry-resume.html" }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布批量导出失败怎么办？暂停、继续、重试完整排查</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">8分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-02">2026年7月2日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小北 · 故障排查指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>幕布批量导出失败时，不要第一时间重置任务。</strong>先看失败范围：如果是全部失败，多半是登录态或下载设置问题；如果只有少量文件失败，通常用「重试失败的文件」即可；如果导出中途被关掉，重新打开插件后先看状态是否恢复。</p>
+                    <p>Mubu Exporter 的设计重点就是长任务可靠性：每个文件有独立状态，导出进度会保存到本地，失败文件可以单独重试，导出间隔也做了节流，尽量避免把几百篇笔记一次性请求得太快。</p>
+
+                    <blockquote>
+                        <strong>排查顺序</strong>：先确认幕布登录状态 → 关闭 Chrome 下载前询问 → 看插件日志里的失败原因 → 少量失败用重试 → 大量失败暂停后检查网络和账号状态 → 设置页查看文件树和最慢 TOP10。
+                    </blockquote>
+
+                    <img src="../images/blog-retry-resume.webp" alt="幕布批量导出失败后通过暂停继续和重试恢复的示意图" loading="lazy">
+
+                    <h2>先判断是哪一种失败</h2>
+                    <table>
+                        <thead>
+                            <tr><th>现象</th><th>常见原因</th><th>优先处理</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>获取文件信息失败</td><td>幕布未登录或登录过期</td><td>重新登录 mubu.com</td></tr>
+                            <tr><td>每个文件都弹保存框</td><td>Chrome 开启了下载前询问</td><td>关闭下载前询问</td></tr>
+                            <tr><td>导出到一半停住</td><td>网络波动、页面关闭、Service Worker 重启</td><td>重新打开插件查看状态</td></tr>
+                            <tr><td>少量文件失败</td><td>单个文档异常或接口短暂失败</td><td>点击重试失败文件</td></tr>
+                            <tr><td>PDF 批量失败</td><td>幕布转换接口不可用或登录态失效</td><td>先测 Word/HTML，再重试 PDF</td></tr>
+                            <tr><td>下载目录很乱</td><td>没有配置下载子文件夹</td><td>在设置页配置子目录</td></tr>
+                        </tbody>
+                    </table>
+                    <p>关键是不要把所有问题都当成「插件坏了」。批量导出涉及幕布登录态、网络、Chrome 下载权限、文件路径、远程转换接口和本地格式转换。按现象拆开排查，速度会快很多。</p>
+
+                    <h2>问题一：未检测到 Jwt-Token</h2>
+                    <p>插件需要读取你在 Chrome 里登录幕布后的 <code>Jwt-Token</code> Cookie 来完成鉴权。如果日志提示未检测到 Jwt-Token，说明当前浏览器没有有效登录态。</p>
+                    <ol>
+                        <li>点击插件右上角登录按钮，或直接打开 <a href="https://mubu.com/login" target="_blank" rel="noopener">mubu.com/login</a>。</li>
+                        <li>确认能正常进入幕布文档列表。</li>
+                        <li>回到插件，重新点击「获取文件信息」。</li>
+                    </ol>
+                    <p>不需要手动复制 token，也不建议把 token 粘贴到任何地方。当前插件只从浏览器本地 Cookie 读取认证信息。</p>
+
+                    <h2>问题二：导出时一直弹保存窗口</h2>
+                    <p>如果每导出一个文件 Chrome 都弹一次保存位置，批量导出会变成手动劳动。原因通常是浏览器开启了「下载前询问每个文件的保存位置」。</p>
+                    <p>处理方法：</p>
+                    <ol>
+                        <li>打开 Chrome 设置。</li>
+                        <li>进入「下载内容」。</li>
+                        <li>关闭「下载前询问每个文件的保存位置」。</li>
+                        <li>回到插件重新开始导出。</li>
+                    </ol>
+                    <p>插件设置页也提供了「打开下载设置」入口。关闭这个选项后，插件才能自动把文件保存到指定子目录，比如 <code>幕布备份/项目A/会议纪要.md</code>。</p>
+
+                    <h2>问题三：导出中途关闭浏览器怎么办？</h2>
+                    <p>Chrome Manifest V3 的后台是 Service Worker，长任务过程中后台有可能被浏览器回收。为了解决这个问题，插件会把任务状态保存到 <code>chrome.storage.local</code>。每个文件都有状态：<code>pending</code>、<code>in_progress</code>、<code>success</code>、<code>failed</code>。</p>
+                    <p>如果导出中途关闭浏览器或插件窗口：</p>
+                    <ol>
+                        <li>重新打开 Chrome 和幕布页面，确认仍然登录。</li>
+                        <li>点击插件图标。</li>
+                        <li>观察进度、日志和失败列表是否恢复。</li>
+                        <li>如果任务没有自动继续，先点击暂停/继续或重新开始，并留意已成功文件不会被直接覆盖。</li>
+                    </ol>
+                    <p>注意：浏览器下载行为可能会给同名文件自动加序号。为了让备份更清晰，建议每次导出前设置一个带日期的下载子目录。</p>
+
+                    <h2>问题四：只有少量文件失败</h2>
+                    <p>少量失败是批量任务里最常见、也最好处理的情况。可能是某篇文档内容过大、接口短暂波动、网络瞬断，或者 PDF 转换接口临时返回异常。</p>
+                    <p>正确处理方式是：</p>
+                    <ol>
+                        <li>不要点击重置。</li>
+                        <li>等待当前导出任务结束。</li>
+                        <li>查看失败列表。</li>
+                        <li>点击「重试失败的文件」。</li>
+                    </ol>
+                    <p>插件会把失败文件重新标记为待处理，再单独导出。这个方式比重新全量导出更稳，也避免重复生成大量已经成功的文件。</p>
+
+                    <h2>问题五：PDF比Markdown更容易失败</h2>
+                    <p>这是正常的技术差异。Markdown、OPML、HTML、Word、JSON 主要在插件本地转换；PDF 则需要调用幕布的转换接口。只要远程接口、登录态或网络其中一环不稳定，PDF 就可能比本地格式更容易失败。</p>
+                    <p>建议的排查顺序：</p>
+                    <ol>
+                        <li>先导出 1-3 篇文档为 HTML 或 Word，确认文档读取正常。</li>
+                        <li>再切换为 PDF 测试同一批文档。</li>
+                        <li>如果只有 PDF 失败，稍后重试，或先保留 HTML/Word 作为替代归档。</li>
+                    </ol>
+                    <p>PDF/Word 的具体差异可以看<a href="blog-export-pdf-word.html">幕布导出 PDF/Word 指南</a>。</p>
+
+                    <h2>如何用性能监控定位问题？</h2>
+                    <p>插件设置页有「性能监控」区域，可以查看文件树、导出状态、耗时和最慢 TOP10。它适合处理这几类问题：</p>
+                    <ul>
+                        <li>想知道哪些文件已经成功导出。</li>
+                        <li>想筛选所有失败文件。</li>
+                        <li>想找出特别慢的大文件。</li>
+                        <li>想确认文件实际保存到了哪个相对路径。</li>
+                    </ul>
+                    <p>如果你导出几百篇笔记，不要只盯着弹窗进度条。完成后打开设置页看文件树，能更快确认有没有遗漏。</p>
+
+                    <h2>减少失败率的导出习惯</h2>
+                    <ul>
+                        <li><strong>先小批量测试</strong>：第一次使用时，先导出一种格式确认流程正常。</li>
+                        <li><strong>保持幕布页面登录</strong>：长时间导出前刷新一下 mubu.com。</li>
+                        <li><strong>关闭下载前询问</strong>：避免每个文件都需要手动确认。</li>
+                        <li><strong>使用日期子目录</strong>：例如 <code>MubuBackup/2026-07-02</code>，避免文件混在一起。</li>
+                        <li><strong>重要资料多格式备份</strong>：Markdown 用于迁移，HTML 用于查看，JSON 用于兜底。</li>
+                        <li><strong>失败项单独重试</strong>：不要为了几篇失败文档重新跑全量任务。</li>
+                    </ul>
+                    <p>如果你的目标是建立长期备份机制，可以把这个流程固定为每月一次。具体策略见<a href="blog-backup-strategy.html">幕布每月备份方案</a>。</p>
+
+                    <h2>常见问题</h2>
+                    <h3>暂停后可以换导出格式继续吗？</h3>
+                    <p>不建议。暂停/继续适合恢复同一个导出任务。如果要换格式，建议等当前任务结束，设置新的下载子目录，再重新选择格式导出。这样目录和文件状态更清楚。</p>
+
+                    <h3>重试失败文件会覆盖已导出的文件吗？</h3>
+                    <p>不会主动覆盖成功文件。插件会只处理失败项，Chrome 下载 API 对同名文件也会使用自动改名策略，避免直接覆盖。</p>
+
+                    <h3>导出很慢是不是异常？</h3>
+                    <p>不一定。插件会在文件之间加入短暂随机间隔，避免请求过快触发限制。文档越多、图片越多、PDF 越多，总耗时越长。真正需要关注的是失败率，而不是单纯速度。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 指南</a></li>
+                        <li><a href="blog-export-pdf-word.html">幕布导出 PDF/Word 排错指南</a></li>
+                        <li><a href="blog-export-html-json.html">幕布导出 HTML/JSON 归档指南</a></li>
+                        <li><a href="blog-technical-deep-dive.html">Mubu Exporter 技术架构解析</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布导出失败</span>
+                        <span class="article-tag">失败重试</span>
+                        <span class="article-tag">暂停继续</span>
+                        <span class="article-tag">性能监控</span>
+                        <span class="article-tag">故障排查</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

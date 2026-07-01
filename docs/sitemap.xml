@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://mubu.toolab.top/</loc>
-    <lastmod>2025-05-18</lastmod>
+    <lastmod>2026-07-02</lastmod>
   </url>
   <url>
     <loc>https://mubu.toolab.top/privacy.html</loc>
@@ -14,7 +14,19 @@
   </url>
   <url>
     <loc>https://mubu.toolab.top/blog/</loc>
-    <lastmod>2025-05-18</lastmod>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://mubu.toolab.top/blog/blog-export-pdf-word.html</loc>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://mubu.toolab.top/blog/blog-export-html-json.html</loc>
+    <lastmod>2026-07-02</lastmod>
+  </url>
+  <url>
+    <loc>https://mubu.toolab.top/blog/blog-export-retry-resume.html</loc>
+    <lastmod>2026-07-02</lastmod>
   </url>
   <url>
     <loc>https://mubu.toolab.top/blog/blog-first-person.html</loc>
