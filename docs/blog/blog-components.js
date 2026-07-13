@@ -108,12 +108,12 @@
         'blog-export-markdown-guide.html': {
             title: '幕布怎么导出Markdown？我找到了最省事的批量方案',
             shortTitle: '幕布导出Markdown指南',
-            related: ['blog-mubu-to-obsidian.html', 'blog-first-person.html']
+            related: ['blog-mubu-to-logseq.html', 'blog-mubu-to-obsidian.html']
         },
         'blog-backup-strategy.html': {
             title: '亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布',
             shortTitle: '笔记备份策略',
-            related: ['blog-third-person.html', 'blog-export-markdown-guide.html']
+            related: ['blog-export-shared-docs.html', 'blog-third-person.html']
         },
         'blog-outline-tools-compare.html': {
             title: '用了4款大纲笔记工具后，我的真实感受和选择建议',
@@ -133,7 +133,7 @@
         'blog-export-xmind.html': {
             title: '幕布导出XMind思维导图：3种方法对比与实操',
             shortTitle: '幕布导出XMind指南',
-            related: ['blog-export-markdown-guide.html', 'blog-third-person.html']
+            related: ['blog-export-opml.html', 'blog-export-markdown-guide.html']
         },
         'blog-mubu-shutdown.html': {
             title: '幕布会下架吗？做好这3步，再也不怕云笔记停服',
@@ -143,7 +143,7 @@
         'blog-mubu-to-feishu.html': {
             title: '幕布迁移到飞书文档：企业团队的批量搬家指南',
             shortTitle: '幕布迁移飞书教程',
-            related: ['blog-mubu-to-obsidian.html', 'blog-mubu-to-notion.html']
+            related: ['blog-export-shared-docs.html', 'blog-mubu-to-notion.html']
         },
         'blog-mubu-free-limits.html': {
             title: '幕布免费版有什么限制？付费值不值得？省钱替代方案',
@@ -158,12 +158,27 @@
         'blog-export-html-json.html': {
             title: '幕布导出HTML/JSON：可视化归档与二次处理指南',
             shortTitle: 'HTML/JSON归档指南',
-            related: ['blog-export-markdown-guide.html', 'blog-export-pdf-word.html']
+            related: ['blog-export-shared-docs.html', 'blog-export-markdown-guide.html']
         },
         'blog-export-retry-resume.html': {
             title: '幕布批量导出失败怎么办？暂停、继续、重试完整排查',
             shortTitle: '导出失败排查',
             related: ['blog-export-pdf-word.html', 'blog-technical-deep-dive.html']
+        },
+        'blog-export-opml.html': {
+            title: '幕布导出OPML怎么用？大纲笔记迁移通用格式指南',
+            shortTitle: '幕布导出OPML指南',
+            related: ['blog-export-xmind.html', 'blog-mubu-to-logseq.html']
+        },
+        'blog-mubu-to-logseq.html': {
+            title: '幕布迁移到Logseq：Markdown与OPML两条路径怎么选',
+            shortTitle: '幕布迁移Logseq教程',
+            related: ['blog-export-markdown-guide.html', 'blog-export-opml.html']
+        },
+        'blog-export-shared-docs.html': {
+            title: '幕布协作文档怎么备份？共享资料导出前的权限检查清单',
+            shortTitle: '协作文档备份清单',
+            related: ['blog-backup-strategy.html', 'blog-export-html-json.html']
         }
     };
 

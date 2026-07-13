@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布导出OPML的完整指南。说明 OPML 适合 XMind、Logseq、WorkFlowy 等大纲工具迁移，如何用 Mubu Exporter 批量导出 .opml 文件，以及备注、图片、层级和格式兼容性的注意事项。">
+    <meta name="keywords" content="幕布导出OPML,幕布转OPML,幕布批量导出OPML,OPML导入XMind,OPML导入Logseq,大纲笔记迁移,幕布导出工具">
+    <meta name="author" content="小周">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-export-opml.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布导出OPML怎么用？大纲笔记迁移通用格式指南">
+    <meta property="og:description" content="OPML 适合把幕布大纲迁移到 XMind、Logseq、WorkFlowy 等工具。一次讲清导出步骤、格式边界和检查清单。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-export-opml.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-opml.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布导出OPML怎么用？大纲笔记迁移通用格式指南">
+    <meta name="twitter:description" content="OPML 适合把幕布大纲迁移到 XMind、Logseq、WorkFlowy 等工具。一次讲清导出步骤、格式边界和检查清单。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-opml.webp">
+
+    <title>幕布导出OPML怎么用？大纲笔记迁移通用格式指南 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布导出OPML怎么用？大纲笔记迁移通用格式指南",
+      "description": "幕布导出OPML的完整指南，覆盖批量导出、目标工具选择、备注和图片兼容性、迁移检查清单。",
+      "image": "https://mubu.toolab.top/images/blog-opml.webp",
+      "author": { "@type": "Person", "name": "小周" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-13",
+      "dateModified": "2026-07-13",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-export-opml.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布可以批量导出OPML吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。使用 Mubu Exporter Chrome 插件，登录幕布后点击获取文件信息，选择 OPML 格式即可批量导出 .opml 文件，并按原有文件夹结构保存到本地。" }
+        },
+        {
+          "@type": "Question",
+          "name": "OPML和Markdown哪个更适合幕布迁移？",
+          "acceptedAnswer": { "@type": "Answer", "text": "如果目标工具是大纲或思维导图工具，优先考虑 OPML；如果目标是 Obsidian、Notion、飞书或长期文本编辑，Markdown 通常更通用。严肃备份建议两种格式都保留。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布导出OPML会保留备注和图片吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "OPML 会保留大纲层级，并把备注写入 note 字段；但不同目标工具对 note 字段支持不一致。图片、表格和富文本样式不适合只依赖 OPML，建议同时导出 Markdown 或 HTML/JSON。" }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布导出OPML", "item": "https://mubu.toolab.top/blog/blog-export-opml.html" }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布导出OPML怎么用？大纲笔记迁移通用格式指南</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">7分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-13">2026年7月13日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小周 · 格式迁移指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>幕布导出 OPML 最适合解决“大纲工具之间怎么搬家”的问题。</strong>如果你要把幕布笔记迁移到 XMind、Logseq、WorkFlowy 或其他支持 OPML 的大纲工具，OPML 通常比 PDF、Word 更轻，也比手动复制更稳定。</p>
+                    <p>但 OPML 不是万能格式。它擅长保留树状层级，不擅长承载图片、复杂表格、富文本样式。本文把它适合什么、不适合什么、如何批量导出和导入前怎么检查讲清楚。</p>
+
+                    <blockquote>
+                        <strong>快速答案</strong>：用 Mubu Exporter 批量导出 OPML 的流程是：登录幕布网页版 → 打开插件 → 获取文件信息 → 选择 OPML → 开始导出。OPML 适合迁移大纲层级；备注会写入 note 字段，但目标工具不一定都显示；图片和复杂样式建议同时保留 Markdown、HTML 或 JSON。
+                    </blockquote>
+
+                    <img src="../images/blog-opml.webp" alt="幕布大纲批量导出为 OPML 并迁移到大纲工具示意图" loading="lazy">
+
+                    <h2>OPML到底是什么？为什么适合大纲迁移？</h2>
+                    <p>OPML 是 Outline Processor Markup Language 的缩写，本质是一种用 XML 表达树状大纲的格式。它的结构很简单：每个节点都是一个 outline，子节点继续嵌套在父节点里。这和幕布的“节点 + 子节点”模型天然接近。</p>
+                    <p>所以，当你的核心诉求是“把层级搬过去”，OPML 很合适。例如课程大纲、读书目录、项目拆解、会议议程、选题清单，这些内容最重要的是父子关系，而不是漂亮排版。</p>
+
+                    <h2>OPML和其他格式怎么选？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>目标</th><th>优先格式</th><th>原因</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>迁移到大纲/思维导图工具</td><td>OPML / FreeMind</td><td>层级结构最容易被目标工具识别</td></tr>
+                            <tr><td>迁移到 Obsidian、Notion、飞书</td><td>Markdown</td><td>文本兼容性最好，备注可转为引用块</td></tr>
+                            <tr><td>打印或交付给别人看</td><td>PDF / HTML</td><td>阅读体验和版式更稳定</td></tr>
+                            <tr><td>长期兜底备份或写脚本</td><td>JSON</td><td>保留更接近幕布原始 definition 的结构</td></tr>
+                        </tbody>
+                    </table>
+                    <p>我的建议很直接：如果你只迁移到一个大纲工具，可以先试 OPML；如果你在做严肃备份，至少同时导出 OPML、Markdown、JSON 三份。这样既能快速导入目标工具，也有可编辑和可二次处理的备份。</p>
+
+                    <h2>如何批量导出幕布为OPML？</h2>
+                    <ol>
+                        <li>用桌面 Chrome 打开 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a>，确认账号已登录。</li>
+                        <li>点击浏览器工具栏里的「幕布导出工具」。</li>
+                        <li>点击「获取文件信息」，等待插件扫描所有文件夹和文档。</li>
+                        <li>在导出格式里选择 <strong>OPML (.opml)</strong>。</li>
+                        <li>点击「开始导出」，等待进度完成。</li>
+                    </ol>
+                    <p>导出后的文件会按幕布原有文件夹结构保存到下载目录。每篇幕布文档对应一个 <code>.opml</code> 文件。你可以在插件设置页把下载子文件夹设成带日期的路径，例如 <code>MubuBackup/2026-07/OPML</code>，便于后续归档。</p>
+
+                    <h2>导出的OPML会保留哪些内容？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>幕布内容</th><th>OPML表现</th><th>注意事项</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>节点层级</td><td>保留</td><td>父子节点会转换为嵌套 outline</td></tr>
+                            <tr><td>节点文本</td><td>保留纯文本</td><td>复杂富文本会被简化</td></tr>
+                            <tr><td>备注</td><td>写入 note 字段</td><td>目标工具可能忽略 note 字段</td></tr>
+                            <tr><td>图片</td><td>不建议依赖</td><td>需要图片归档时同时导出 HTML/JSON</td></tr>
+                            <tr><td>表格和公式</td><td>可能被简化</td><td>适合再用 Markdown 或 HTML 做补充备份</td></tr>
+                        </tbody>
+                    </table>
+                    <p>这也是 OPML 的核心边界：它是大纲格式，不是完整文档格式。只要你的迁移目标是“层级”和“标题”，它很稳；如果你依赖备注、图片、表格，单独保留 OPML 就不够。</p>
+
+                    <h2>导入目标工具前怎么检查？</h2>
+                    <p>导出完成后，不要立刻把所有文件丢进目标工具。建议先抽 3 到 5 篇不同类型的文档做试导入：</p>
+                    <ul>
+                        <li>一篇层级很深的文档，检查缩进是否正确。</li>
+                        <li>一篇有备注的文档，确认目标工具是否显示 note 字段。</li>
+                        <li>一篇包含图片或表格的文档，确认信息是否需要用 Markdown/HTML 补齐。</li>
+                        <li>一篇标题含特殊符号的文档，确认文件名和节点文本没有乱码。</li>
+                    </ul>
+                    <p>如果这几类样本都没有问题，再做全量导入。大批量迁移最怕“全导入后才发现层级错了”，抽样检查能节省很多回滚时间。</p>
+
+                    <h2>OPML适合哪些实际场景？</h2>
+                    <h3>场景一：把幕布资料转成思维导图</h3>
+                    <p>如果一篇幕布文档本来就是方案拆解、课程目录或项目结构，用 OPML 导入思维导图工具后，通常能快速得到一个可继续整理的图形结构。对于图形化汇报，可以进一步看<a href="blog-export-xmind.html">幕布导出 XMind 指南</a>。</p>
+
+                    <h3>场景二：迁移到大纲型知识库</h3>
+                    <p>Logseq、WorkFlowy 这类工具都围绕大纲块工作。OPML 可以作为“结构搬运”的中间格式。不过，如果你还希望保留备注内容并方便全文搜索，Markdown 往往更适合和 OPML 一起保留。</p>
+
+                    <h3>场景三：团队资料先做中转备份</h3>
+                    <p>有些团队还没决定最终迁移到哪里，只是想先把幕布里的目录结构拿出来。OPML 很轻，适合做一份可快速预览的结构化中转备份。等目标平台确定后，再选择 Markdown、HTML 或 JSON 做深度迁移。</p>
+
+                    <h2>常见问题</h2>
+                    <h3>幕布可以批量导出OPML吗？</h3>
+                    <p>可以。Mubu Exporter 会先扫描当前账号可访问的文档列表，再把每篇文档转换为独立的 <code>.opml</code> 文件，并保留原有文件夹层级。相比逐篇手动导出，批量导出更适合几十篇以上的资料库。</p>
+
+                    <h3>OPML和Markdown哪个更适合幕布迁移？</h3>
+                    <p>看目标工具。迁移到大纲和思维导图工具时，OPML 更贴近树状结构；迁移到 Obsidian、Notion、飞书或本地 Markdown 工作流时，Markdown 更实用。长期备份不要二选一，两个都保留成本很低。</p>
+
+                    <h3>导出OPML会修改幕布原文档吗？</h3>
+                    <p>不会。插件只读取当前账号可访问的数据，并在本地生成文件，不会修改、删除或上传幕布原始内容。涉及协作文档时，也只能导出你本来有权限访问的内容。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a></li>
+                        <li><a href="blog-export-xmind.html">幕布导出 XMind 思维导图指南</a></li>
+                        <li><a href="blog-export-html-json.html">幕布导出 HTML/JSON 归档指南</a></li>
+                        <li><a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">Mubu Exporter GitHub 项目</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">幕布导出OPML</span>
+                        <span class="article-tag">大纲迁移</span>
+                        <span class="article-tag">格式转换</span>
+                        <span class="article-tag">批量导出</span>
+                        <span class="article-tag">数据备份</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

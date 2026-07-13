@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="幕布协作文档和共享资料怎么备份？这篇指南说明哪些文档可以导出、哪些不能绕过权限，如何在团队交接、离职、项目归档前用 Mubu Exporter 批量备份可访问文档，并建立权限安全检查清单。">
+    <meta name="keywords" content="幕布协作文档导出,幕布共享文档备份,幕布团队文档导出,幕布权限备份,幕布项目归档,幕布批量导出,协作文档迁移">
+    <meta name="author" content="效率君">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-export-shared-docs.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="幕布协作文档怎么备份？共享资料导出前的权限检查清单">
+    <meta property="og:description" content="团队交接和项目归档前，如何安全备份幕布协作文档。明确可导出边界、权限检查和多格式归档流程。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-export-shared-docs.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-shared-docs.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="幕布协作文档怎么备份？共享资料导出前的权限检查清单">
+    <meta name="twitter:description" content="团队交接和项目归档前，如何安全备份幕布协作文档。明确可导出边界、权限检查和多格式归档流程。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-shared-docs.webp">
+
+    <title>幕布协作文档怎么备份？共享资料导出前的权限检查清单 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "幕布协作文档怎么备份？共享资料导出前的权限检查清单",
+      "description": "幕布协作文档和共享资料备份指南，覆盖可访问边界、权限确认、批量导出、多格式归档和团队交接清单。",
+      "image": "https://mubu.toolab.top/images/blog-shared-docs.webp",
+      "author": { "@type": "Person", "name": "效率君" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-13",
+      "dateModified": "2026-07-13",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-export-shared-docs.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布协作文档可以批量导出吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "只要该协作文档出现在当前账号可访问的文档列表中，并且你能正常打开内容，就可以尝试用 Mubu Exporter 批量导出。导出前建议先抽样检查权限和内容完整性。" }
+        },
+        {
+          "@type": "Question",
+          "name": "没有权限的幕布文档能导出吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不能。Mubu Exporter 不会绕过幕布权限，也不应该用于导出你无权访问的资料。没有权限时，应联系文档所有者授权、转交所有权，或由所有者自行导出。" }
+        },
+        {
+          "@type": "Question",
+          "name": "团队成员离职前怎么备份幕布资料？",
+          "acceptedAnswer": { "@type": "Answer", "text": "建议先列出该成员负责的幕布文件夹和协作文档，确认所有权和访问权限，再统一导出 Markdown、HTML、JSON 三种格式，并将备份交给团队共享盘或知识库管理员保管。" }
+        }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "幕布协作文档备份", "item": "https://mubu.toolab.top/blog/blog-export-shared-docs.html" }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">幕布协作文档怎么备份？共享资料导出前的权限检查清单</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">7分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-13">2026年7月13日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            效率君 · 团队归档指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>幕布协作文档备份的第一原则是：只备份当前账号有权访问的内容，不绕过权限。</strong>如果协作文档已经出现在你的幕布文档列表里，并且你能正常打开，通常可以纳入批量导出；如果链接失效、权限被收回或只是别人发过的临时分享，就需要先找所有者确认。</p>
+                    <p>团队交接、项目结项、成员离职时，最容易丢的不是自己的文档，而是散落在协作关系里的共享资料。这篇文章给出一套权限安全的备份流程，帮助你在合规前提下把可访问文档完整归档。</p>
+
+                    <blockquote>
+                        <strong>快速答案</strong>：协作文档备份流程是：先列出当前账号可访问的幕布文件夹和协作文档 → 确认所有者、权限和归档范围 → 用 Mubu Exporter 批量导出 Markdown、HTML、JSON → 抽查内容完整性 → 放入团队共享盘或知识库。没有权限的文档不能导出，应联系所有者授权或由所有者导出。
+                    </blockquote>
+
+                    <img src="../images/blog-shared-docs.webp" alt="幕布协作文档经过权限检查后安全备份到本地归档文件夹示意图" loading="lazy">
+
+                    <h2>哪些协作文档可以备份？</h2>
+                    <p>先把文档分成四类，后面的操作会清楚很多。</p>
+                    <table>
+                        <thead>
+                            <tr><th>文档类型</th><th>能否纳入备份</th><th>建议处理</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>自己创建并保存在账号下的文档</td><td>可以</td><td>直接批量导出</td></tr>
+                            <tr><td>别人协作给你且可正常打开的文档</td><td>可以尝试</td><td>先确认团队是否允许归档</td></tr>
+                            <tr><td>只有分享链接但未加入自己空间的资料</td><td>视权限而定</td><td>先手动确认能否访问和是否应归档</td></tr>
+                            <tr><td>已失效、无权限或被收回访问的文档</td><td>不可以</td><td>联系所有者授权或转交</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Mubu Exporter 复用的是你当前浏览器里幕布账号的登录状态。它不会也不应该绕过权限。这个边界写清楚很重要，尤其是团队资料和客户项目资料。</p>
+
+                    <h2>团队归档前的权限检查清单</h2>
+                    <h3>1. 确认文档所有者</h3>
+                    <p>项目资料往往不是都在一个人名下。归档前先列出关键文件夹和文档所有者，尤其是产品规划、客户会议、课程资料、运营 SOP 这类长期有价值的内容。无法确认所有者时，不要贸然导出到个人设备长期保存。</p>
+
+                    <h3>2. 确认可访问范围</h3>
+                    <p>用当前账号逐个抽样打开协作文档，确认内容能完整加载。如果页面提示无权限、需要申请访问或内容为空，说明它不应该进入当前账号的自动备份流程。此时应找文档所有者授权，或让所有者在自己的账号下完成导出。</p>
+
+                    <h3>3. 确认归档目的</h3>
+                    <p>归档目的决定导出格式。只是离职交接，Markdown + HTML 通常足够；要做长期知识库迁移，建议加上 JSON；要交付给客户或打印存档，可以额外导出 PDF。</p>
+
+                    <h2>如何批量导出可访问的协作文档？</h2>
+                    <ol>
+                        <li>使用团队授权的账号登录 <a href="https://mubu.com" target="_blank" rel="noopener">幕布网页版</a>。</li>
+                        <li>确认需要备份的协作文档已出现在该账号的文档列表或文件夹中。</li>
+                        <li>打开「幕布导出工具」，点击「获取文件信息」。</li>
+                        <li>先选择 <strong>Markdown</strong> 导出一轮，保留可迁移文本。</li>
+                        <li>再选择 <strong>HTML</strong> 导出一轮，保留可阅读归档。</li>
+                        <li>最后选择 <strong>JSON</strong> 导出一轮，作为结构化兜底备份。</li>
+                    </ol>
+                    <p>建议每一轮导出前在插件设置页修改下载子文件夹，例如：</p>
+                    <pre><code>TeamMubuArchive/2026-07/Markdown
+TeamMubuArchive/2026-07/HTML
+TeamMubuArchive/2026-07/JSON</code></pre>
+                    <p>这样不同格式不会混在一起。导出完成后，再统一移动到团队共享盘、NAS 或受控知识库中，而不是长期放在某个成员的个人下载目录。</p>
+
+                    <h2>为什么建议Markdown、HTML、JSON三份都留？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>格式</th><th>作用</th><th>适合谁使用</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Markdown</td><td>迁移和继续编辑</td><td>知识库管理员、内容维护者</td></tr>
+                            <tr><td>HTML</td><td>打开即读、查阅和打印</td><td>项目成员、交接接收人</td></tr>
+                            <tr><td>JSON</td><td>保留原始结构和后续二次处理</td><td>开发者、数据管理员</td></tr>
+                        </tbody>
+                    </table>
+                    <p>协作文档的风险在于“未来不知道谁还需要它”。单独保留 PDF 或 Word 看似方便，但后续迁移空间有限。Markdown、HTML、JSON 组合更适合团队长期归档。</p>
+
+                    <h2>导出后怎么验收？</h2>
+                    <p>不要只看插件显示“完成”。团队资料建议做一轮轻量验收：</p>
+                    <ul>
+                        <li>随机抽查 10 篇文档，确认标题、层级、备注都在。</li>
+                        <li>专门抽查有图片、表格、公式的文档，确认 HTML 可读。</li>
+                        <li>检查文件夹结构是否和幕布原目录一致。</li>
+                        <li>记录失败文件，使用插件的“重试失败文件”功能单独补跑。</li>
+                        <li>把归档路径、导出日期、执行人写进团队交接记录。</li>
+                    </ul>
+                    <p>如果批量任务中断，可以参考<a href="blog-export-retry-resume.html">导出失败、暂停和重试排查指南</a>，不要立刻重新跑全量任务。</p>
+
+                    <h2>常见问题</h2>
+                    <h3>幕布协作文档可以批量导出吗？</h3>
+                    <p>只要文档出现在当前账号可访问的文档列表中，并且你能正常打开内容，就可以尝试纳入批量导出。导出前建议和团队确认归档范围，尤其是客户资料、合同资料、未公开项目资料。</p>
+
+                    <h3>没有权限的文档能导出吗？</h3>
+                    <p>不能。插件不会绕过幕布权限。没有权限的文档应该联系所有者授权、转交所有权，或由所有者导出后交付。不要把备份流程变成权限绕过流程。</p>
+
+                    <h3>成员离职前应该怎么交接幕布资料？</h3>
+                    <p>建议提前一周处理。先列出该成员名下的关键文件夹、协作文档和共享链接，再确认是否需要转交所有权。离职前完成 Markdown、HTML、JSON 三格式导出，并把归档目录交给团队共享盘或知识库管理员。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-backup-strategy.html">每月备份一次幕布的策略</a></li>
+                        <li><a href="blog-export-html-json.html">幕布导出 HTML/JSON 归档指南</a></li>
+                        <li><a href="blog-export-retry-resume.html">幕布批量导出失败排查指南</a></li>
+                        <li><a href="blog-mubu-to-feishu.html">幕布迁移到飞书文档指南</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">协作文档备份</span>
+                        <span class="article-tag">幕布共享文档</span>
+                        <span class="article-tag">权限检查</span>
+                        <span class="article-tag">团队归档</span>
+                        <span class="article-tag">批量导出</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>
