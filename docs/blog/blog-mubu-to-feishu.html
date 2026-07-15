@@ -4,24 +4,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="企业团队从幕布迁移到飞书文档的3种批量方案对比。据飞书官方数据，85%企业用户选择Markdown导入路径，平均30分钟完成200篇文档迁移。">
-    <meta name="keywords" content="幕布迁移飞书,幕布导出到飞书,幕布转飞书,飞书导入幕布笔记,企业协作,批量导出">
+    <meta name="description" content="幕布迁移飞书文档真实教程：用 Mubu Exporter 批量导出 Markdown 和 JSON，按原文件夹结构迁移到飞书知识库。讲清上传原文件和导入为在线文档的区别，并附权限交接、格式验收和 FAQ。">
+    <meta name="keywords" content="幕布迁移飞书,幕布导出到飞书,幕布转飞书文档,飞书导入Markdown,飞书知识库批量导入,幕布批量导出,飞书上传原文件和导入在线文档区别,飞书文档权限交接">
     <meta name="author" content="效率君">
     <link rel="canonical" href="https://mubu.toolab.top/blog/blog-mubu-to-feishu.html">
     <meta name="robots" content="index, follow, max-image-preview:large">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="幕布迁移到飞书文档：企业团队的批量搬家指南">
-    <meta property="og:description" content="3种幕布迁移飞书的完整路径对比，含Markdown导入、OPML转换和手动迁移方案的详细步骤与格式适配注意事项。">
+    <meta property="og:title" content="幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收">
+    <meta property="og:description" content="企业团队从幕布迁移到飞书知识库：Markdown 批量导出、导入为在线文档、权限交接、图片备注验收和备份留底。">
     <meta property="og:url" content="https://mubu.toolab.top/blog/blog-mubu-to-feishu.html">
-    <meta property="og:image" content="https://mubu.toolab.top/images/blog-feishu.webp">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-mubu-to-feishu-migration.webp">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="幕布迁移到飞书文档：企业团队的批量搬家指南">
-    <meta name="twitter:description" content="3种幕布迁移飞书的完整路径对比，含Markdown导入、OPML转换和手动迁移方案的详细步骤与格式适配注意事项。">
-    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-feishu.webp">
+    <meta name="twitter:title" content="幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收">
+    <meta name="twitter:description" content="企业团队从幕布迁移到飞书知识库：Markdown 批量导出、导入为在线文档、权限交接、图片备注验收和备份留底。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-mubu-to-feishu-migration.webp">
 
-    <title>幕布迁移到飞书文档：企业团队的批量搬家指南 | 幕布导出工具</title>
+    <title>幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收 | 幕布导出工具</title>
     <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
     <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
@@ -33,9 +33,9 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "幕布迁移到飞书文档：企业团队的批量搬家指南",
-      "description": "企业团队从幕布批量迁移到飞书文档的3种方案对比与详细操作步骤。",
-      "image": "https://mubu.toolab.top/images/blog-compare.webp",
+      "headline": "幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收",
+      "description": "幕布迁移飞书文档的企业实操教程，覆盖 Markdown 和 JSON 导出、上传原文件与导入在线文档区别、知识库批量导入、权限交接、格式验收和常见问题。",
+      "image": "https://mubu.toolab.top/images/blog-mubu-to-feishu-migration.webp",
       "author": { "@type": "Person", "name": "效率君" },
       "publisher": {
         "@type": "Organization",
@@ -43,7 +43,7 @@
         "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
       },
       "datePublished": "2025-05-10",
-      "dateModified": "2025-05-10",
+      "dateModified": "2026-07-15",
       "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-mubu-to-feishu.html"
     }
     </script>
@@ -61,22 +61,42 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何把幕布文档迁移到飞书知识库",
+      "description": "将幕布批量导出为 Markdown 和 JSON，按目录分批导入飞书在线文档，并完成团队权限交接与格式验收。",
+      "step": [
+        { "@type": "HowToStep", "name": "规划迁移范围", "text": "冻结编辑窗口，盘点幕布文件夹，确定迁移负责人、飞书知识库目录和权限模型。" },
+        { "@type": "HowToStep", "name": "导出 Markdown 和 JSON", "text": "使用 Mubu Exporter 批量导出 Markdown 用于迁移，同时导出 JSON 作为原始结构备份。" },
+        { "@type": "HowToStep", "name": "小样本试导入", "text": "先选含多级列表、备注、图片和链接的 3 到 5 篇文档，在飞书中选择导入为在线文档测试。" },
+        { "@type": "HowToStep", "name": "分批导入知识库", "text": "按原文件夹或团队目录分批导入 Markdown，导入后移动到对应知识库章节。" },
+        { "@type": "HowToStep", "name": "权限与格式验收", "text": "检查所有者、管理员、编辑者、阅读者，以及标题层级、备注引用块、图片、链接和搜索结果。" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "幕布文档可以批量导入飞书吗？",
-          "acceptedAnswer": { "@type": "Answer", "text": "可以。先使用 Mubu Exporter 批量导出为 Markdown 文件，再通过飞书文档的导入功能逐批上传。飞书单次导入支持最大 20MB 的 Markdown 文件，一般团队 200 篇文档可在 30 分钟内完成迁移。" }
+          "name": "幕布能直接导入飞书吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不能直接一键互通。推荐先用 Mubu Exporter 将幕布导出为 Markdown，再在飞书中选择导入为在线文档。" }
         },
         {
           "@type": "Question",
-          "name": "幕布迁移飞书后大纲层级会丢失吗？",
-          "acceptedAnswer": { "@type": "Answer", "text": "不会完全丢失，但需要注意适配。Markdown 导出保留了完整的层级缩进，飞书导入后会转换为多级列表。超过 5 层的深层嵌套可能显示为平级，建议导入后手动检查深层节点。" }
+          "name": "飞书上传原文件和导入为在线文档有什么区别？",
+          "acceptedAnswer": { "@type": "Answer", "text": "上传原文件更像把本地文件存入飞书云盘，适合归档；导入为在线文档会把内容转换为可编辑、可协作、可评论的飞书文档，更适合团队知识库迁移。" }
         },
         {
           "@type": "Question",
-          "name": "幕布的备注和图片能迁移到飞书吗？",
-          "acceptedAnswer": { "@type": "Answer", "text": "备注内容通过 Markdown 导出会转换为引用块，飞书导入后显示为高亮文本块。图片方面，幕布内嵌图片的 URL 在导出后仍有效，飞书会自动抓取并存储到飞书服务器，但建议迁移后逐一确认图片显示正常。" }
+          "name": "幕布迁移飞书会保留权限和评论吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会。Markdown 迁移只处理内容，幕布里的权限、评论、历史版本和协作关系需要在飞书知识库中重新设置和验收。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布备注和图片导入飞书会丢吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "备注会导出为 Markdown 引用块，导入后需要检查显示效果。图片以 Markdown 图片链接形式保留，飞书导入后能否正常显示要逐批验收，失效图片需要手动补传。" }
         }
       ]
     }
@@ -86,14 +106,10 @@
 <body>
     <!-- 导航栏由blog-components.js自动插入 -->
 
-    <!-- 移动端目录按钮 -->
     <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
-
-    <!-- 返回顶部按钮 -->
     <button class="back-to-top" aria-label="返回顶部">↑</button>
 
     <div class="blog-layout">
-        <!-- 左侧目录 -->
         <aside class="blog-sidebar-left mobile-show">
             <div class="toc-container">
                 <h3 class="toc-title">文章目录</h3>
@@ -103,18 +119,17 @@
             </div>
         </aside>
 
-        <!-- 中间正文 -->
         <main class="blog-main-content">
             <article>
                 <header class="article-header">
-                    <h1 class="article-title">幕布迁移到飞书文档：企业团队的批量搬家指南</h1>
+                    <h1 class="article-title">幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收</h1>
                     <div class="article-meta">
                         <span class="article-meta-item">
                             <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"/>
                                 <polyline points="12 6 12 12 16 14"/>
                             </svg>
-                            <span class="reading-time">7分钟</span>
+                            <span class="reading-time">12分钟</span>
                         </span>
                         <span class="article-meta-item">
                             <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -123,202 +138,191 @@
                                 <line x1="8" y1="2" x2="8" y2="6"/>
                                 <line x1="3" y1="10" x2="21" y2="10"/>
                             </svg>
-                            <time datetime="2025-05-10">2025年5月10日</time>
+                            <time datetime="2026-07-15">2026年7月15日更新</time>
                         </span>
                         <span class="article-meta-item">
                             <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
-                            效率君 · 企业效率指南
+                            效率君 · 企业知识库指南
                         </span>
                     </div>
                 </header>
 
                 <div class="article-content">
-                    <p>越来越多企业团队正在从个人笔记工具向协作平台迁移。据<a href="https://www.feishu.cn/about" target="_blank" rel="noopener">飞书官方</a>2024年数据，飞书文档的企业活跃用户已超过580万，其中约35%的新用户来自其他笔记工具的迁移。幕布作为国内最流行的大纲笔记工具之一，积累了大量企业知识文档。当团队决定统一协作平台时，如何高效、无损地把幕布数据搬进飞书，就成了必须解决的实际问题。</p>
-
-                    <p>本文将对比3种幕布迁移飞书的可行路径，给出推荐方案的详细步骤和格式适配建议。如果你的团队正在评估<a href="blog-third-person.html">幕布数据导出方案</a>，这篇指南能帮你少走弯路。</p>
+                    <p><strong>企业团队把幕布迁移到飞书，推荐路线是：幕布批量导出 Markdown + JSON 备份，然后在飞书中“导入为在线文档”，最后重新做知识库目录、所有者和权限验收。</strong>只把文件“上传到飞书”不等于完成迁移，因为上传原文件和导入为可协作的在线文档是两回事。</p>
+                    <p>根据 <a href="https://www.feishu.cn/hc/zh-CN/articles/360033241654-%E4%B8%8A%E4%BC%A0%E6%88%96%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9" target="_blank" rel="noopener">飞书帮助中心</a>，本地文件可以按原格式上传，也可以导入为飞书在线云文档。做团队知识库迁移时，应优先关注“导入为在线文档”，因为它决定后续能不能编辑、评论、搜索和协作。</p>
 
                     <blockquote>
-                        <strong>Key Takeaways</strong>
-                        <ul>
-                            <li>Markdown 导出再导入是幕布迁移飞书的最优路径，格式保留率最高</li>
-                            <li>200篇文档平均30分钟完成迁移，无需编程技能</li>
-                            <li>超过5层的深层嵌套需要导入后手动调整</li>
-                            <li>据飞书官方数据，单次导入支持最大20MB文件(<a href="https://www.feishu.cn/hc/zh-CN/articles/360049067930" target="_blank" rel="noopener">飞书帮助中心</a>, 2024)</li>
-                        </ul>
+                        <strong>快速答案</strong>：先冻结幕布编辑窗口并盘点文件夹 → 用 Mubu Exporter 导出 Markdown 和 JSON → 在飞书中小样本试导入为在线文档 → 按部门或项目分批导入 → 重新设置知识库管理员、编辑者、阅读者 → 抽查层级、备注、图片、链接和搜索 → 保留本地 Markdown + JSON 备份至少一个迁移周期。
                     </blockquote>
 
-                    <!-- [INTERNAL-LINK: 幕布数据备份方案 → blog-third-person.html] -->
+                    <img src="../images/blog-mubu-to-feishu-migration.webp" alt="幕布文档批量导出后迁移到飞书知识库并完成权限交接和格式验收示意图" loading="lazy">
 
-                    <h2>为什么企业团队要从幕布迁移到飞书？</h2>
-                    <p>据<a href="https://www.iresearch.com.cn/" target="_blank" rel="noopener">艾瑞咨询</a>2024年企业协作工具报告，国内企业在线文档协作渗透率已达72%，同比增长18个百分点。团队从单人笔记工具迁向协作平台，已经是不可逆的趋势。幕布擅长个人大纲梳理，但在多人协作场景下存在明显短板。</p>
+                    <h2>先讲清：上传原文件和导入为在线文档的区别</h2>
+                    <table>
+                        <thead>
+                            <tr><th>操作</th><th>结果</th><th>适合场景</th><th>迁移建议</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>上传原文件</td><td>把 <code>.md</code>、<code>.json</code> 等文件存入飞书</td><td>归档、留底、下载备份</td><td>适合保存原始备份，不适合作为主知识库</td></tr>
+                            <tr><td>导入为在线文档</td><td>转换为飞书可编辑文档</td><td>团队协作、评论、搜索、知识库维护</td><td>迁移正文内容时优先选择</td></tr>
+                            <tr><td>复制粘贴</td><td>把单篇内容贴入飞书</td><td>少量临时迁移</td><td>不适合几十篇以上的历史资料</td></tr>
+                        </tbody>
+                    </table>
+                    <p>如果你的目标是“让团队以后在飞书里继续维护这些资料”，就不要只上传原文件。可以把 Markdown/JSON 原文件上传到归档目录，但正式知识库内容应导入为在线文档。</p>
 
-                    <!-- [CHART: 对比表格 - 幕布 vs 飞书文档功能对比 - 协作、权限、集成维度] -->
+                    <h2>迁移前准备：不要边改边搬</h2>
+                    <p>企业团队迁移最怕两件事：一边有人继续改幕布，一边有人导入飞书；或者导入完成后没人知道哪些文档归谁维护。迁移前建议先做这张表：</p>
+                    <table>
+                        <thead>
+                            <tr><th>准备项</th><th>建议做法</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>迁移窗口</td><td>约定半天或一天冻结编辑，避免导出后又有人改旧文档</td></tr>
+                            <tr><td>负责人</td><td>指定一名迁移负责人和每个目录的业务负责人</td></tr>
+                            <tr><td>目录规划</td><td>把幕布文件夹映射到飞书知识库章节，例如部门、项目、客户、制度</td></tr>
+                            <tr><td>权限模型</td><td>提前确定管理员、编辑者、阅读者和外部分享规则</td></tr>
+                            <tr><td>验收样本</td><td>挑选多级列表、备注、图片、链接、表格各 1 篇做试导入</td></tr>
+                            <tr><td>回滚方案</td><td>保留本地 Markdown 和 JSON，导入失败时可以重新分批处理</td></tr>
+                        </tbody>
+                    </table>
 
-                    <p>企业团队选择飞书的核心原因通常有三个：</p>
-                    <ul>
-                        <li><strong>实时协作</strong> - 飞书文档支持多人同时编辑，评论和@提醒内置在文档中，不需要在工具之间切换</li>
-                        <li><strong>权限管理</strong> - 企业版飞书提供细粒度的文档权限控制，可按部门、角色分配读写权限</li>
-                        <li><strong>生态集成</strong> - 飞书文档与日历、会议、审批等模块原生打通，文档不再是孤岛</li>
-                    </ul>
-
-                    <p>但迁移的最大障碍不是功能对比，而是历史数据。一个20人的团队，幕布里可能积累了500到1000篇文档。逐篇复制粘贴？没人愿意干这事。</p>
-
-                    <!-- [IMAGE: 企业团队协作场景示意图 - team collaboration document workflow] -->
-
-                    <p>好消息是，我们测试了多种路径后发现，批量迁移完全可以在一个下午内搞定。下面逐一拆解。</p>
-
-                    <!-- Citation Capsule: 据艾瑞咨询2024年报告，国内企业在线文档协作渗透率达72%。团队从幕布迁移到飞书的核心驱动力是实时协作和权限管理需求，而最大障碍是历史数据的批量搬运。 -->
-
-                    <h2>幕布迁移飞书有哪几种路径？</h2>
-                    <p>根据<a href="https://www.feishu.cn/hc/zh-CN" target="_blank" rel="noopener">飞书帮助中心</a>的文档导入说明，飞书目前支持 Markdown、Word、HTML 三种格式的文件导入。结合<a href="https://mubu.com" target="_blank" rel="noopener">幕布</a>的导出能力，我们梳理出3条可行的迁移路径。</p>
-
-                    <h3>路径一：Markdown 导出后导入飞书（推荐）</h3>
-                    <p>这是格式保留率最高、操作最简单的方案。流程是：幕布批量导出 Markdown 文件，然后在飞书文档中逐批导入。</p>
-                    <ul>
-                        <li><strong>格式保留率</strong>：约90%，标题层级、加粗、列表均可还原</li>
-                        <li><strong>批量能力</strong>：配合 Mubu Exporter 可一次导出全部文档</li>
-                        <li><strong>适用场景</strong>：大部分企业团队的标准选择</li>
-                    </ul>
-
-                    <h3>路径二：OPML 导出后转换再导入</h3>
-                    <p><a href="https://en.wikipedia.org/wiki/OPML" target="_blank" rel="noopener">OPML</a>（Outline Processor Markup Language）是大纲工具的通用交换格式。幕布原生支持单篇 OPML 导出，但飞书不直接支持 OPML 导入，需要中间多一步转换。</p>
-                    <ul>
-                        <li><strong>格式保留率</strong>：约70%，备注内容可能丢失</li>
-                        <li><strong>批量能力</strong>：幕布官方仅支持逐篇导出，效率低</li>
-                        <li><strong>适用场景</strong>：文档数量少于20篇且不含备注的小团队</li>
-                    </ul>
-
-                    <h3>路径三：手动复制粘贴</h3>
-                    <p>最原始的方案。从幕布页面直接选中内容复制，粘贴到飞书文档中。</p>
-                    <ul>
-                        <li><strong>格式保留率</strong>：约50%，层级结构经常错乱</li>
-                        <li><strong>批量能力</strong>：无，纯手工操作</li>
-                        <li><strong>适用场景</strong>：仅适合5篇以内的紧急迁移</li>
-                    </ul>
-
-                    <!-- [IMAGE: 三种迁移路径流程对比图 - migration path comparison flowchart] -->
-
-                    <p>我们实测对比后的结论很明确：对于超过20篇文档的企业团队，路径一（Markdown导出导入）是唯一值得投入时间的方案。接下来给出详细步骤。</p>
-
-                    <!-- [ORIGINAL DATA] 实测200篇幕布文档通过Markdown路径迁移到飞书，格式保留率90%，总耗时约30分钟 -->
-
-                    <!-- Citation Capsule: 幕布迁移飞书有3条可行路径：Markdown导出导入（格式保留率90%）、OPML转换（70%）和手动复制（50%）。对超过20篇文档的企业团队，Markdown路径是推荐方案。 -->
-
-                    <h2>推荐方案的详细操作步骤是什么？</h2>
-                    <p>据我们对5个企业团队的迁移跟踪，使用 Markdown 路径平均耗时30分钟（200篇文档规模），最快的一个团队15分钟就完成了。以下是经过验证的四步流程。</p>
-
-                    <h3>第一步：批量导出幕布文档为 Markdown</h3>
+                    <h2>第一步：用 Mubu Exporter 导出 Markdown 和 JSON</h2>
                     <ol>
-                        <li>安装 <a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Mubu Exporter</a> Chrome 扩展</li>
-                        <li>登录 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a>，点击扩展图标</li>
-                        <li>点击「获取文件信息」，等待文档列表加载完成</li>
-                        <li>选择导出格式为 Markdown，点击「开始导出」</li>
-                        <li>等待进度完成，所有 .md 文件自动保存到本地文件夹</li>
+                        <li>用桌面 Chrome 登录 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a>。</li>
+                        <li>打开「幕布导出工具」，点击「获取文件信息」。</li>
+                        <li>确认文档数、文件夹数和预期范围一致。</li>
+                        <li>选择 <strong>Markdown (.md)</strong>，导出到 <code>MubuBackup/2026-07/Markdown</code>。</li>
+                        <li>导出完成后查看失败项，先重试再进入下一步。</li>
+                        <li>再选择 <strong>JSON (.json)</strong> 导出到 <code>MubuBackup/2026-07/JSON</code>。</li>
                     </ol>
-                    <p>导出完成后，你会得到一个保留了原始文件夹结构的目录。每篇文档对应一个 .md 文件。如果你需要了解更多导出细节，可参考<a href="blog-export-markdown-guide.html">Markdown 导出格式完整指南</a>。</p>
+                    <p>Markdown 用于导入飞书在线文档，JSON 用于原始结构留底。Mubu Exporter 会尽量保留幕布文件夹结构；备注会导出为引用块，图片会保留为 Markdown 图片链接。具体导出规则可以看<a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a>和<a href="blog-export-html-json.html">HTML/JSON 归档指南</a>。</p>
 
-                    <!-- [PERSONAL EXPERIENCE] 在实际迁移中发现，导出速度约为每秒2-3篇文档，200篇文档实际导出时间约90秒，等待时间主要花在文件信息获取阶段 -->
-
-                    <h3>第二步：整理文件结构</h3>
-                    <p>导出的文件夹结构对应幕布里的目录层级。在导入飞书前，建议做一轮简单整理：</p>
+                    <h2>第二步：先做小样本试导入</h2>
+                    <p>正式导入之前，选 3 到 5 篇典型文档先试：</p>
                     <ul>
-                        <li>删除已废弃的草稿文档</li>
-                        <li>按飞书知识库的空间规划重新分组（如按部门或项目）</li>
-                        <li>检查文件名是否有特殊字符（飞书对文件名中的 / 和 \ 不兼容）</li>
+                        <li>一篇项目方案，检查标题、列表和链接。</li>
+                        <li>一篇会议纪要，检查多级缩进和任务项。</li>
+                        <li>一篇备注很多的文档，检查引用块。</li>
+                        <li>一篇包含图片的文档，检查图片是否显示。</li>
+                        <li>一篇表格或复杂格式文档，检查是否需要人工修复。</li>
                     </ul>
+                    <p>试导入时一定选择“导入为在线文档”这一类入口。只上传原文件无法代表正式迁移效果。</p>
 
-                    <h3>第三步：导入飞书文档</h3>
+                    <h2>第三步：按目录分批导入飞书知识库</h2>
+                    <p>飞书侧建议按业务目录分批导入，而不是一次把所有 Markdown 文件都塞进去。一个可执行的顺序是：</p>
                     <ol>
-                        <li>打开<a href="https://www.feishu.cn" target="_blank" rel="noopener">飞书</a>，进入「文档」或「知识库」模块</li>
-                        <li>点击右上角「+」按钮，选择「导入」</li>
-                        <li>选择「Markdown」格式，上传文件</li>
-                        <li>飞书会自动解析 Markdown 内容并生成文档</li>
-                        <li>对于多个文件，重复上传操作（每次最多可选择多个文件）</li>
+                        <li>在飞书知识库中先建好一级目录，例如「产品」「研发」「运营」「客户项目」「制度流程」。</li>
+                        <li>把幕布导出的本地目录按这些一级目录归类。</li>
+                        <li>每次只导入一个目录下的 Markdown 文件。</li>
+                        <li>导入完成后立即检查页面数量和页面标题。</li>
+                        <li>把失败或格式异常的文档记录到迁移表，不要混在下一批里。</li>
                     </ol>
-                    <p>飞书目前的导入功能不支持一次性上传整个文件夹。如果文档数量较多，建议按文件夹分批导入，每批20到30个文件。每批大约需要1到2分钟。</p>
+                    <p>如果你的飞书版本或导入入口对 Markdown 支持有差异，以飞书当前界面和帮助中心为准。实操上，分批导入比一次性导入更容易定位问题。</p>
 
-                    <h3>第四步：格式校验与修复</h3>
-                    <p>导入完成后，随机抽查10%的文档，重点确认：</p>
+                    <h2>第四步：权限交接要重新做</h2>
+                    <p>幕布里的协作者、分享链接、评论和历史版本不会跟着 Markdown 迁移。飞书知识库需要重新设置：</p>
+                    <table>
+                        <thead>
+                            <tr><th>权限项</th><th>验收问题</th><th>建议</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>所有者</td><td>文档是否归个人还是团队负责人？</td><td>重要知识库避免长期挂在离职风险账号下</td></tr>
+                            <tr><td>管理员</td><td>谁能调整目录和权限？</td><td>至少两名管理员，避免单点风险</td></tr>
+                            <tr><td>编辑者</td><td>哪些成员可以修改内容？</td><td>按部门或项目授权，不要全员可编辑</td></tr>
+                            <tr><td>阅读者</td><td>哪些成员只能查看？</td><td>制度、历史归档默认只读更稳</td></tr>
+                            <tr><td>外部分享</td><td>是否允许外部访问或复制？</td><td>迁移完成前先关闭外部分享</td></tr>
+                            <tr><td>离职交接</td><td>后续所有权能否转移？</td><td>迁移表中记录负责人和维护人</td></tr>
+                        </tbody>
+                    </table>
+                    <p>如果迁移范围包含协作文档，建议先阅读<a href="blog-export-shared-docs.html">幕布协作文档导出前的权限检查清单</a>，明确哪些内容有权导出，哪些需要所有者授权。</p>
+
+                    <h2>第五步：格式验收清单</h2>
+                    <p>导入飞书后，不要只看“页面已经出现”。至少按下面几项验收：</p>
+                    <table>
+                        <thead>
+                            <tr><th>验收项</th><th>通过标准</th><th>异常处理</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>页面数量</td><td>飞书页面数与本批 Markdown 文件数一致</td><td>对照本地目录重新导入缺失项</td></tr>
+                            <tr><td>标题层级</td><td>标题、列表层级没有明显错位</td><td>复杂文档手动修正</td></tr>
+                            <tr><td>备注</td><td>引用块内容完整</td><td>关键备注改成正文小节或高亮块</td></tr>
+                            <tr><td>图片</td><td>关键图片能正常显示或链接可打开</td><td>失效图片手动上传到飞书</td></tr>
+                            <tr><td>链接</td><td>外部链接可点击，内部引用有替代入口</td><td>迁移后补飞书内部链接</td></tr>
+                            <tr><td>表格</td><td>简单表格可读</td><td>复杂表格改成飞书表格或多维表格</td></tr>
+                            <tr><td>搜索</td><td>用关键词能搜到导入页面</td><td>等待索引或检查是否只上传原文件</td></tr>
+                            <tr><td>权限</td><td>管理员、编辑者、阅读者符合预期</td><td>按目录批量修正权限</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>第六步：建立迁移台账</h2>
+                    <p>团队迁移建议保留一张迁移台账。飞书里可以直接建一个表格或多维表格，字段包括：</p>
                     <ul>
-                        <li>标题层级是否正确（H1到H3通常没问题）</li>
-                        <li>列表嵌套是否保留（5层以内一般正常）</li>
-                        <li>加粗、斜体等内联样式是否还原</li>
-                        <li>图片链接是否可访问</li>
+                        <li>幕布原文件夹</li>
+                        <li>飞书目标目录</li>
+                        <li>文档数量</li>
+                        <li>迁移批次</li>
+                        <li>导入负责人</li>
+                        <li>业务验收人</li>
+                        <li>格式状态：未检查、通过、需修复</li>
+                        <li>权限状态：未设置、已设置、需复核</li>
                     </ul>
+                    <p>这张台账比“迁移当天口头确认”更可靠。以后有人问某个目录从哪里来、谁负责、有没有验收，都能查到。</p>
 
-                    <!-- [IMAGE: 飞书文档导入后的格式对比截图 - feishu document import result comparison] -->
-
-                    <!-- Citation Capsule: 使用Markdown导出路径将幕布迁移到飞书，200篇文档平均耗时30分钟。操作流程为：Mubu Exporter批量导出、文件结构整理、飞书逐批导入、格式校验修复四步完成。 -->
-
-                    <h2>格式适配有哪些注意事项？</h2>
-                    <p>据我们测试，Markdown 导入飞书的格式还原率约为90%（<a href="https://www.feishu.cn/hc/zh-CN/articles/360049067930" target="_blank" rel="noopener">飞书帮助中心</a>, 2024）。但仍有几个已知的兼容性问题需要提前了解。</p>
-
-                    <h3>层级深度限制</h3>
-                    <p>幕布支持无限层级嵌套，但飞书文档的列表嵌套在视觉上最多显示到第5层。超过5层的内容不会丢失，但会被压平显示为同一级别。建议在导出前就对超深层级做合并处理。</p>
-
-                    <h3>备注内容的转换</h3>
-                    <p>幕布的「备注」功能在 Markdown 导出时会转换为引用块（以 > 开头）。飞书导入后，引用块显示为灰色高亮区域。功能上没有问题，但视觉样式和幕布原生的备注气泡不同。</p>
-
-                    <h3>图片和附件</h3>
-                    <p>幕布中嵌入的图片使用幕布 CDN 链接。导出为 Markdown 后图片以 URL 形式保留。飞书在导入时会尝试抓取这些图片并存储到飞书服务器。如果幕布图片链接设有防盗链，可能需要手动重新上传。</p>
-
-                    <h3>特殊格式元素</h3>
-                    <p>以下幕布功能在迁移时需要特别注意：</p>
+                    <h2>第七步：迁移后如何保留原始备份？</h2>
+                    <p>飞书是团队协作平台，不应该成为唯一备份。建议保留三份材料：</p>
                     <ul>
-                        <li><strong>思维导图视图</strong> - 飞书不支持，会转换为普通列表</li>
-                        <li><strong>完成状态（划线）</strong> - 转换为删除线文本</li>
-                        <li><strong>标签颜色</strong> - 颜色信息会丢失，仅保留文本内容</li>
+                        <li><strong>飞书在线文档</strong>：团队日常使用和维护。</li>
+                        <li><strong>Markdown 原文件</strong>：可读、可迁移、可重新导入其他工具。</li>
+                        <li><strong>JSON 原始结构</strong>：用于未来二次处理或排查缺失。</li>
                     </ul>
-
-                    <!-- [UNIQUE INSIGHT] 多数迁移教程忽略了一点：飞书文档的块引用渲染和幕布备注的交互方式完全不同，这意味着依赖备注功能做信息分层的用户需要重新设计文档结构 -->
-
-                    <!-- Citation Capsule: 幕布迁移飞书的格式还原率约90%，主要兼容性问题包括：超过5层的嵌套会被压平显示、备注转为引用块样式不同、图片链接可能因防盗链失效。建议导入后抽查10%文档确认格式。 -->
+                    <p>备份目录可以放在团队共享盘、NAS 或私有仓库中。具体频率可以参考<a href="blog-backup-strategy.html">Markdown + JSON 双格式备份策略</a>。</p>
 
                     <h2>常见问题</h2>
+                    <h3>幕布能直接导入飞书吗？</h3>
+                    <p>不能直接一键互通。推荐先用 Mubu Exporter 导出 Markdown，再在飞书中导入为在线文档。少量文档可以复制粘贴，但不适合团队批量迁移。</p>
 
-                    <h3>幕布文档可以批量导入飞书吗？</h3>
-                    <p>可以。先使用 Mubu Exporter 批量导出为 Markdown 文件，再通过飞书文档的导入功能逐批上传。飞书单次导入支持最大 20MB 的 Markdown 文件（<a href="https://www.feishu.cn/hc/zh-CN/articles/360049067930" target="_blank" rel="noopener">飞书帮助中心</a>, 2024），一般团队200篇文档可在30分钟内完成迁移。</p>
+                    <h3>上传原文件和导入为在线文档怎么选？</h3>
+                    <p>要团队协作、评论、搜索和知识库管理，选导入为在线文档；只想保存 <code>.md</code>、<code>.json</code> 原始文件，才用上传原文件。</p>
 
-                    <h3>幕布迁移飞书后大纲层级会丢失吗？</h3>
-                    <p>不会完全丢失，但需要注意适配。Markdown 导出保留了完整的层级缩进，飞书导入后会转换为多级列表。超过5层的深层嵌套可能显示为平级，建议导入后手动检查深层节点。如果你的幕布文档层级特别深，可以参考<a href="blog-mubu-to-obsidian.html">幕布迁移 Obsidian</a> 中的层级处理方案。</p>
+                    <h3>文件夹结构会保留吗？</h3>
+                    <p>Mubu Exporter 会在本地保留幕布文件夹层级。飞书侧建议按目录分批导入，或在知识库中手动重建对应章节。不要假设所有目录层级都会自动完全复刻。</p>
 
-                    <h3>幕布的备注和图片能迁移到飞书吗？</h3>
-                    <p>备注内容通过 Markdown 导出会转换为引用块，飞书导入后显示为高亮文本块。图片方面，幕布内嵌图片的 URL 在导出后仍有效，飞书会自动抓取并存储到飞书服务器。建议迁移后逐一确认图片显示正常，防盗链图片可能需要手动替换。</p>
+                    <h3>备注和图片会丢吗？</h3>
+                    <p>备注会导出为 Markdown 引用块，导入后要检查显示样式。图片会保留为 Markdown 图片链接，导入飞书后需要验收显示情况，失效图片应手动补传。</p>
 
-                    <h2>总结与下一步行动</h2>
-                    <p>幕布迁移飞书并不复杂。对企业团队来说，Markdown 导出再导入是最高效的路径，200篇文档30分钟就能完成。格式还原率约90%，剩余10%的问题主要集中在深层嵌套和特殊样式上，手动调整即可。</p>
+                    <h3>幕布权限、评论、历史版本能迁移吗？</h3>
+                    <p>不能。Markdown 迁移只覆盖内容本身，权限、评论、历史版本和协作关系需要在飞书知识库里重新设置。</p>
 
-                    <p>迁移完成后，建议做三件事：第一，通知团队成员更新文档链接收藏；第二，在飞书知识库中重新组织目录结构；第三，保留幕布原始数据至少一个月，确认飞书端一切正常后再考虑清理。</p>
-
-                    <p>如果你还在评估不同导出工具的能力差异，可以阅读<a href="blog-third-person.html">幕布数据备份完全指南</a>了解更多方案对比。已经完成迁移的团队，别忘了建立定期的增量同步流程，确保新产生的幕布文档也能及时归入飞书。</p>
-
-                    <!-- [INTERNAL-LINK: 定期备份建议 → blog-backup-strategy.html] -->
+                    <h2>总结：飞书迁移的重点是“导入后能不能接着用”</h2>
+                    <p>幕布迁移飞书不是把文件搬进云盘就结束。真正完成迁移的标准是：内容已经导入为在线文档，团队能搜索、编辑和评论；知识库目录清晰；权限归属明确；格式异常可追踪；本地 Markdown 和 JSON 备份还在。</p>
+                    <p>只要按“导出、试导入、分批导入、权限交接、格式验收、备份留底”这个顺序推进，团队迁移会比逐篇复制粘贴稳定得多。</p>
 
                     <hr>
                     <p><strong>相关链接：</strong></p>
                     <ul>
-                        <li>Mubu Exporter 插件：<a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Chrome 应用商店</a></li>
-                        <li>飞书文档：<a href="https://www.feishu.cn" target="_blank" rel="noopener">feishu.cn</a></li>
-                        <li>幕布官网：<a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a></li>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a></li>
+                        <li><a href="blog-export-shared-docs.html">幕布协作文档导出前的权限检查清单</a></li>
+                        <li><a href="blog-export-retry-resume.html">幕布批量导出失败、暂停与重试排查</a></li>
+                        <li><a href="blog-backup-strategy.html">Markdown + JSON 双格式备份策略</a></li>
+                        <li><a href="https://www.feishu.cn/hc/zh-CN/articles/360033241654-%E4%B8%8A%E4%BC%A0%E6%88%96%E5%AF%BC%E5%85%A5%E6%9C%AC%E5%9C%B0%E6%96%87%E4%BB%B6%E5%92%8C%E6%96%87%E4%BB%B6%E5%A4%B9" target="_blank" rel="noopener">飞书上传或导入本地文件官方说明</a></li>
                     </ul>
                 </div>
 
                 <footer class="article-footer">
                     <div class="article-tags">
-                        <span class="article-tag">幕布迁移</span>
-                        <span class="article-tag">飞书</span>
-                        <span class="article-tag">企业协作</span>
-                        <span class="article-tag">数据导入</span>
-                        <span class="article-tag">批量导出</span>
+                        <span class="article-tag">幕布迁移飞书</span>
+                        <span class="article-tag">飞书知识库</span>
+                        <span class="article-tag">企业迁移</span>
+                        <span class="article-tag">权限交接</span>
+                        <span class="article-tag">格式验收</span>
                     </div>
                 </footer>
             </article>
         </main>
 
-        <!-- 右侧CTA -->
         <aside class="blog-sidebar-right">
             <!-- 由blog-components.js自动填充 -->
         </aside>

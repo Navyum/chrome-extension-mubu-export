@@ -101,9 +101,9 @@
             related: ['blog-outline-tools-compare.html', 'blog-first-person.html']
         },
         'blog-mubu-to-obsidian.html': {
-            title: '我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录',
-            shortTitle: '幕布迁移Obsidian教程',
-            related: ['blog-export-markdown-guide.html', 'blog-outline-tools-compare.html']
+            title: '幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建',
+            shortTitle: 'Obsidian完整迁移教程',
+            related: ['blog-export-markdown-guide.html', 'blog-backup-strategy.html']
         },
         'blog-export-markdown-guide.html': {
             title: '幕布怎么导出Markdown？我找到了最省事的批量方案',
@@ -126,9 +126,9 @@
             related: ['blog-first-person.html', 'blog-export-markdown-guide.html']
         },
         'blog-mubu-to-notion.html': {
-            title: '幕布笔记迁移到Notion：完整导入方案与格式适配',
-            shortTitle: '幕布迁移Notion教程',
-            related: ['blog-mubu-to-obsidian.html', 'blog-export-markdown-guide.html']
+            title: '幕布迁移到Notion完整教程：Markdown批量导入、ZIP保留结构与数据库整理',
+            shortTitle: 'Notion完整迁移教程',
+            related: ['blog-export-markdown-guide.html', 'blog-mubu-to-obsidian.html']
         },
         'blog-export-xmind.html': {
             title: '幕布导出XMind思维导图：3种方法对比与实操',
@@ -141,9 +141,9 @@
             related: ['blog-backup-strategy.html', 'blog-mubu-to-obsidian.html']
         },
         'blog-mubu-to-feishu.html': {
-            title: '幕布迁移到飞书文档：企业团队的批量搬家指南',
-            shortTitle: '幕布迁移飞书教程',
-            related: ['blog-export-shared-docs.html', 'blog-mubu-to-notion.html']
+            title: '幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收',
+            shortTitle: '飞书知识库迁移教程',
+            related: ['blog-export-shared-docs.html', 'blog-backup-strategy.html']
         },
         'blog-mubu-free-limits.html': {
             title: '幕布免费版有什么限制？付费值不值得？省钱替代方案',

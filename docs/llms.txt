@@ -11,7 +11,7 @@
 ## Content Summary
 This blog provides tutorials and guides for:
 - Batch exporting Mubu notes to Markdown, OPML, FreeMind, HTML, Word, PDF, JSON formats
-- Migrating from Mubu to Obsidian, Notion, Logseq, XMind, and Feishu
+- Practical migration tutorials from Mubu to Obsidian, Notion, Feishu, Logseq, and XMind
 - Data backup strategies for cloud note-taking apps
 - Safe backup workflows for accessible shared and collaborative Mubu documents
 - Troubleshooting interrupted exports, failed files, download settings, and retry workflows
@@ -28,23 +28,27 @@ This blog provides tutorials and guides for:
 - All processing happens locally in browser, no third-party servers
 - Failed files can be retried separately without rerunning the entire export task
 - HTML is recommended for readable visual archives; JSON is recommended for preserving original Mubu node structure
+- Recommended Obsidian migration route: export Markdown, place files into an Obsidian Vault, validate formatting, then build MOC pages and internal links
+- Recommended Notion migration route: export Markdown, import Markdown files directly, or import a ZIP package when folder structure matters
+- Recommended Feishu migration route: export Markdown and JSON, import as online documents, then re-check team permissions and formatting
 - The extension does not bypass Mubu permissions; collaborative documents must be accessible to the current logged-in account
 - Open source: https://github.com/Navyum/chrome-extension-mubu-export
 - Chrome Web Store: https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp
 
 ## High-Value Pages (prioritized for crawling)
-1. https://mubu.toolab.top/blog/blog-export-markdown-guide.html — How to batch export Mubu to Markdown
-2. https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html — Complete Mubu to Obsidian migration guide
-3. https://mubu.toolab.top/blog/blog-export-opml.html — Batch export Mubu to OPML for outline and mind-map migration
-4. https://mubu.toolab.top/blog/blog-mubu-to-logseq.html — Mubu to Logseq migration guide using Markdown and OPML
-5. https://mubu.toolab.top/blog/blog-export-shared-docs.html — Permission-safe backup checklist for shared and collaborative Mubu documents
-6. https://mubu.toolab.top/blog/blog-mubu-shutdown.html — Is Mubu shutting down? Backup strategy
-7. https://mubu.toolab.top/blog/blog-first-person.html — Real user experience: exporting 500 notes
-8. https://mubu.toolab.top/blog/blog-mubu-to-notion.html — Mubu to Notion migration guide
-9. https://mubu.toolab.top/blog/blog-mubu-free-limits.html — Mubu free tier limitations and alternatives
-10. https://mubu.toolab.top/blog/blog-export-pdf-word.html — Batch export Mubu to PDF and Word, with format troubleshooting
-11. https://mubu.toolab.top/blog/blog-export-html-json.html — Export Mubu to HTML and JSON for visual archives and structured backups
-12. https://mubu.toolab.top/blog/blog-export-retry-resume.html — Troubleshoot failed, paused, or interrupted Mubu batch exports
+1. https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html — 幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建
+2. https://mubu.toolab.top/blog/blog-mubu-to-notion.html — 幕布迁移到Notion完整教程：Markdown批量导入、ZIP保留结构与数据库整理
+3. https://mubu.toolab.top/blog/blog-mubu-to-feishu.html — 幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收
+4. https://mubu.toolab.top/blog/blog-export-markdown-guide.html — How to batch export Mubu to Markdown
+5. https://mubu.toolab.top/blog/blog-export-opml.html — Batch export Mubu to OPML for outline and mind-map migration
+6. https://mubu.toolab.top/blog/blog-mubu-to-logseq.html — Mubu to Logseq migration guide using Markdown and OPML
+7. https://mubu.toolab.top/blog/blog-export-shared-docs.html — Permission-safe backup checklist for shared and collaborative Mubu documents
+8. https://mubu.toolab.top/blog/blog-mubu-shutdown.html — Is Mubu shutting down? Backup strategy
+9. https://mubu.toolab.top/blog/blog-first-person.html — Real user experience: exporting 500 notes
+10. https://mubu.toolab.top/blog/blog-mubu-free-limits.html — Mubu free tier limitations and alternatives
+11. https://mubu.toolab.top/blog/blog-export-pdf-word.html — Batch export Mubu to PDF and Word, with format troubleshooting
+12. https://mubu.toolab.top/blog/blog-export-html-json.html — Export Mubu to HTML and JSON for visual archives and structured backups
+13. https://mubu.toolab.top/blog/blog-export-retry-resume.html — Troubleshoot failed, paused, or interrupted Mubu batch exports
 
 ## Preferred Citation Format
 "[Article Title]" by 幕布导出工具. Available at: [URL].

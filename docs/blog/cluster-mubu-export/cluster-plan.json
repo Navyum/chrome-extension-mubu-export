@@ -65,7 +65,7 @@
       "posts": [
         {
           "id": "B1",
-          "title": "我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录",
+          "title": "幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建",
           "primary_keyword": "幕布迁移Obsidian",
           "secondary_keywords": ["幕布转obsidian", "幕布导出到obsidian", "幕布导入obsidian"],
           "search_volume_estimate": "medium",
@@ -78,7 +78,7 @@
         },
         {
           "id": "B2",
-          "title": "幕布笔记迁移到Notion：完整导入方案与格式适配",
+          "title": "幕布迁移到Notion完整教程：Markdown批量导入、ZIP保留结构与数据库整理",
           "primary_keyword": "幕布导入Notion",
           "secondary_keywords": ["幕布迁移Notion", "幕布转Notion", "幕布数据导入Notion"],
           "search_volume_estimate": "low-medium",
@@ -86,11 +86,12 @@
           "word_count_target": 1400,
           "links_to": ["P", "B1", "A1"],
           "links_from": ["P", "B1"],
-          "status": "gap"
+          "status": "existing",
+          "existing_file": "blog-mubu-to-notion.html"
         },
         {
           "id": "B3",
-          "title": "幕布迁移到飞书文档：企业团队的批量搬家指南",
+          "title": "幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收",
           "primary_keyword": "幕布迁移飞书",
           "secondary_keywords": ["幕布导出到飞书", "幕布转飞书", "飞书导入幕布笔记"],
           "search_volume_estimate": "low",
@@ -98,7 +99,8 @@
           "word_count_target": 1300,
           "links_to": ["P", "B1"],
           "links_from": ["P"],
-          "status": "gap"
+          "status": "existing",
+          "existing_file": "blog-mubu-to-feishu.html"
         }
       ]
     },
@@ -168,15 +170,13 @@
     }
   ],
   "total_posts": 12,
-  "existing_posts": 7,
-  "gap_posts": 5,
+  "existing_posts": 9,
+  "gap_posts": 3,
   "total_interlinks": 38,
   "estimated_total_words": 18000,
   "gap_keywords": [
     "幕布导出xmind",
     "幕布导出pdf",
-    "幕布导入Notion",
-    "幕布迁移飞书",
     "幕布下架",
     "幕布免费版限制"
   ]

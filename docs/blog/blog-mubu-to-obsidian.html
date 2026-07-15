@@ -1,36 +1,27 @@
-                        <span class="article-meta-item">
-                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
-                                <line x1="16" y1="2" x2="16" y2="6"/>
-                                <line x1="8" y1="2" x2="8" y2="6"/>
-                                <line x1="3" y1="10" x2="21" y2="10"/>
-                            </svg>
-                            <time datetime="2025-04-08">2025年4月8日</time>
-                        </span>
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="实测20分钟完成幕布300篇笔记到Obsidian的无损迁移。完整保留文件夹结构和备注内容，零代码操作，支持增量同步。附4步操作流程和迁移后的Obsidian优化建议。">
-    <meta name="keywords" content="幕布迁移Obsidian,幕布转Obsidian,幕布导出Markdown,Obsidian导入,大纲笔记迁移,知识库搭建">
+    <meta name="description" content="幕布迁移到Obsidian完整教程：从 Mubu Exporter 批量导出 Markdown，到放入 Obsidian Vault、保留文件夹结构、处理备注和图片链接，再搭建 MOC 首页、双链、标签与增量备份工作流。">
+    <meta name="keywords" content="幕布迁移Obsidian,幕布转Obsidian,幕布导入Obsidian,幕布导出Markdown到Obsidian,Obsidian导入幕布笔记,Obsidian双链知识库,幕布备份">
     <meta name="author" content="阿辰">
     <link rel="canonical" href="https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html">
     <meta name="robots" content="index, follow, max-image-preview:large">
 
     <meta property="og:type" content="article">
-    <meta property="og:title" content="我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录">
-    <meta property="og:description" content="从幕布到Obsidian的完整迁移教程，包含批量导出、格式转换、双向链接重建的全流程实操。">
+    <meta property="og:title" content="幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建">
+    <meta property="og:description" content="一篇讲清幕布笔记如何批量导入 Obsidian：Markdown 导出、Vault 放置、MOC 首页、双链、标签、图片和备注验收。">
     <meta property="og:url" content="https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html">
-    <meta property="og:image" content="https://mubu.toolab.top/images/blog-obsidian.webp">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-mubu-to-obsidian-migration.webp">
 
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录">
-    <meta name="twitter:description" content="从幕布到Obsidian的完整迁移教程，包含批量导出、格式转换、双向链接重建的全流程实操。">
-    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-obsidian.webp">
+    <meta name="twitter:title" content="幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建">
+    <meta name="twitter:description" content="一篇讲清幕布笔记如何批量导入 Obsidian：Markdown 导出、Vault 放置、MOC 首页、双链、标签、图片和备注验收。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-mubu-to-obsidian-migration.webp">
 
-    <title>我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录 | 幕布导出工具</title>
+    <title>幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建 | 幕布导出工具</title>
     <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
     <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
     <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
@@ -42,9 +33,9 @@
     {
       "@context": "https://schema.org",
       "@type": "BlogPosting",
-      "headline": "我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录",
-      "description": "从幕布到Obsidian的完整迁移教程，包含批量导出、格式转换的全流程实操。",
-      "image": "https://mubu.toolab.top/images/feat2.webp",
+      "headline": "幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建",
+      "description": "幕布迁移到Obsidian完整教程，覆盖 Markdown 批量导出、Vault 放置、文件夹结构、备注和图片验收、MOC 首页、双链、标签与增量备份。",
+      "image": "https://mubu.toolab.top/images/blog-mubu-to-obsidian-migration.webp",
       "author": { "@type": "Person", "name": "阿辰" },
       "publisher": {
         "@type": "Organization",
@@ -52,7 +43,7 @@
         "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
       },
       "datePublished": "2025-04-08",
-      "dateModified": "2025-04-08",
+      "dateModified": "2026-07-15",
       "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html"
     }
     </script>
@@ -70,22 +61,42 @@
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何把幕布笔记迁移到 Obsidian",
+      "description": "用 Mubu Exporter 将幕布笔记批量导出为 Markdown，再放入 Obsidian Vault，并建立双链知识库。",
+      "step": [
+        { "@type": "HowToStep", "name": "迁移前准备", "text": "确认幕布账号可正常登录，创建本地备份目录和 Obsidian Vault，先选 3 到 5 篇样本文档试迁移。" },
+        { "@type": "HowToStep", "name": "批量导出 Markdown", "text": "在幕布网页版登录后打开 Mubu Exporter，获取文件信息，选择 Markdown 格式并开始导出，同时建议再导出一份 JSON 作为兜底备份。" },
+        { "@type": "HowToStep", "name": "放入 Obsidian Vault", "text": "将导出的 Markdown 文件夹复制到目标 Vault，保留原有文件夹结构，先不要急着重命名或打散目录。" },
+        { "@type": "HowToStep", "name": "搭建双链结构", "text": "创建 Home 或 Index 页面，为读书、项目、会议等目录建立 MOC 索引，再逐步把高频主题改成 Obsidian 内部链接。" },
+        { "@type": "HowToStep", "name": "验收和增量备份", "text": "抽查层级、备注、图片、链接和深层节点，确认无误后建立月度增量导出与本地备份流程。" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
       "@type": "FAQPage",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "幕布笔记可以迁移到Obsidian吗？",
-          "acceptedAnswer": { "@type": "Answer", "text": "可以。使用 Mubu Exporter 批量导出为 Markdown 格式后，将文件夹直接放入 Obsidian Vault 即可，支持保留完整的大纲层级结构。" }
+          "name": "幕布笔记可以迁移到 Obsidian 吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以。推荐先用 Mubu Exporter 将幕布批量导出为 Markdown 文件，再把整个文件夹放进 Obsidian Vault。这样可以保留文件夹结构、大纲层级和备注内容。" }
         },
         {
           "@type": "Question",
-          "name": "幕布迁移Obsidian需要写代码吗？",
-          "acceptedAnswer": { "@type": "Answer", "text": "不需要。整个过程通过 Chrome 扩展的图形界面完成，零代码操作，20 分钟内可完成 300 篇笔记的迁移。" }
+          "name": "幕布迁移到 Obsidian 后双链会自动生成吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会自动生成完整双链。迁移只能先把内容变成本地 Markdown 文件，后续需要通过 MOC 首页、主题页、标签和内部链接逐步建立知识网络。" }
         },
         {
           "@type": "Question",
-          "name": "迁移后大纲层级会丢失吗？",
-          "acceptedAnswer": { "@type": "Answer", "text": "不会。Mubu Exporter 会将幕布的大纲层级完整转换为 Markdown 的标题层级（H1-H6）或缩进列表，备注内容也会完整保留。" }
+          "name": "幕布备注和图片迁移到 Obsidian 会丢失吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "备注会导出为 Markdown 引用块。图片会以 Markdown 图片链接形式保留，迁移后应抽查关键图片是否还能正常访问；重要图片建议额外保留 HTML 或 JSON 备份。" }
+        },
+        {
+          "@type": "Question",
+          "name": "迁移后还需要保留幕布原始数据吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "建议至少保留一个月。迁移是复制，不是删除。确认 Obsidian 中的内容可搜索、可打开、可引用之后，再决定是否清理旧数据。" }
         }
       ]
     }
@@ -95,14 +106,10 @@
 <body>
     <!-- 导航栏由blog-components.js自动插入 -->
 
-    <!-- 移动端目录按钮 -->
     <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
-
-    <!-- 返回顶部按钮 -->
     <button class="back-to-top" aria-label="返回顶部">↑</button>
 
     <div class="blog-layout">
-        <!-- 左侧目录 -->
         <aside class="blog-sidebar-left mobile-show">
             <div class="toc-container">
                 <h3 class="toc-title">文章目录</h3>
@@ -112,20 +119,18 @@
             </div>
         </aside>
 
-        <!-- 中间正文 -->
         <main class="blog-main-content">
             <article>
                 <header class="article-header">
-                    <h1 class="article-title">我把幕布里三年的笔记搬进了Obsidian——零代码迁移全记录</h1>
+                    <h1 class="article-title">幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建</h1>
                     <div class="article-meta">
                         <span class="article-meta-item">
                             <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <circle cx="12" cy="12" r="10"/>
                                 <polyline points="12 6 12 12 16 14"/>
                             </svg>
-                            <span class="reading-time">6分钟</span>
+                            <span class="reading-time">12分钟</span>
                         </span>
-                        <span class="article-meta-item">
                         <span class="article-meta-item">
                             <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -133,136 +138,195 @@
                                 <line x1="8" y1="2" x2="8" y2="6"/>
                                 <line x1="3" y1="10" x2="21" y2="10"/>
                             </svg>
-                            <time datetime="2025-04-08">2025年4月8日</time>
+                            <time datetime="2026-07-15">2026年7月15日更新</time>
                         </span>
+                        <span class="article-meta-item">
                             <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                 <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
                                 <circle cx="12" cy="7" r="4"/>
                             </svg>
-                            阿辰 · 效率工具指南
+                            阿辰 · 知识库迁移指南
                         </span>
                     </div>
                 </header>
 
                 <div class="article-content">
-                    <p>大家好，我是阿辰。</p>
-                    <p>用了三年幕布，攒了 300 多篇读书笔记和项目复盘文档。去年开始折腾 Obsidian 之后，一直想把幕布里的内容搬过来统一管理。但一想到要手动导出几百个文件，就一拖再拖。直到上周末我终于下定决心——<strong>结果整个过程比我预想的简单太多了。</strong></p>
+                    <p><strong>幕布迁移到 Obsidian，最稳的路线是：先批量导出 Markdown，再把导出的文件夹放进 Obsidian Vault，最后用 MOC 首页、标签和内部链接逐步搭建双链知识库。</strong>不要一开始就追求“完全自动双链”，那会把迁移变成整理工程，反而拖慢进度。</p>
+                    <p>Obsidian 的优势是本地 Markdown 文件和内部链接。根据 <a href="https://help.obsidian.md/Files+and+folders/How+Obsidian+stores+data" target="_blank" rel="noopener">Obsidian 官方文档</a>，Vault 本质上是本地文件夹，笔记以文件形式存储。幕布导出的 Markdown 正好可以直接进入这个工作流。</p>
+
                     <blockquote>
-                        <strong>TL;DR</strong>：使用 Mubu Exporter 插件可在 20 分钟内将幕布全部笔记迁移到 Obsidian。流程：安装插件(2分钟) → 批量导出 Markdown(10分钟) → 拖入 Obsidian Vault(5分钟)。文件夹结构和备注内容完整保留，零代码操作。
+                        <strong>快速答案</strong>：打开幕布网页版并登录 → 用 Mubu Exporter 获取文件信息 → 选择 Markdown 批量导出 → 将导出的文件夹复制到 Obsidian Vault → 抽查层级、备注、图片和链接 → 创建 Home/MOC 页面 → 逐步添加 <code>[[双链]]</code> 和标签。重要迁移建议同时导出 JSON 作为兜底备份。
                     </blockquote>
 
-                    <h2>为什么我决定从幕布迁移到 Obsidian？</h2>
-                    <p>先声明：我不是要彻底抛弃幕布。幕布的大纲编辑确实很好用，写会议纪要和头脑风暴的时候我还是会打开它。但我需要一个本地化的知识库来做长期积累，Obsidian 的几个特性吸引了我：</p>
+                    <img src="../images/blog-mubu-to-obsidian-migration.webp" alt="幕布笔记批量导出为 Markdown 后迁移到 Obsidian Vault 并搭建双链知识库示意图" loading="lazy">
+
+                    <h2>迁移前先明确目标：搬文件，还是搭知识库？</h2>
+                    <p>很多人搜索“幕布转 Obsidian”，真正想解决的其实有三件事：</p>
                     <ul>
-                        <li><strong>纯 <a href="https://commonmark.org/" target="_blank" rel="noopener">Markdown</a> 文件</strong>——数据完全在本地，不依赖任何云服务</li>
-                        <li><strong>双向链接</strong>——笔记之间可以形成网状关系，不只是树状大纲。<a href="https://help.obsidian.md/Linking+notes+and+files/Internal+links" target="_blank" rel="noopener">Obsidian 官方文档</a>将其描述为构建「知识图谱」的核心功能</li>
-                        <li><strong>插件生态</strong>——日历、看板、数据视图……几乎能覆盖所有需求</li>
-                        <li><strong>版本管理</strong>——配合 <a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a> 可以追溯任何修改历史</li>
+                        <li><strong>把历史笔记救出来</strong>：不再受单一云服务影响，本地能打开、能搜索。</li>
+                        <li><strong>保留原来的大纲结构</strong>：读书笔记、会议纪要、项目复盘不要变成一堆散文件。</li>
+                        <li><strong>进入双链工作流</strong>：从树状目录逐步过渡到主题页、反向链接和知识图谱。</li>
                     </ul>
-                    <p>问题在于：幕布里三年的内容怎么无损地搬过来？（如果你只需要导出 Markdown 而不一定迁移到 Obsidian，可以直接看<a href="blog-export-markdown-guide.html">幕布导出 Markdown 的完整方案</a>。）</p>
+                    <p>这三件事不要放在同一天完成。第一天先把文件迁进去，第二步做格式验收，第三步再开始双链整理。这样最稳，也最容易回滚。</p>
 
-                    <h2>迁移前我踩过哪些坑？</h2>
-                    <p>真正动手之前，我在网上搜了一圈「幕布迁移 Obsidian」，发现大部分方案都不够理想：</p>
-                    <h3>坑一：手动导出 OPML 再转换</h3>
-                    <p>有人推荐先把文档逐篇导出为 OPML，再用 Python 脚本转 Markdown。我试了几篇，发现两个致命问题：</p>
+                    <h2>幕布导出到 Obsidian 应该选什么格式？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>格式</th><th>是否推荐</th><th>适合用途</th><th>注意事项</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>Markdown</td><td>首选</td><td>直接放入 Obsidian Vault，后续可编辑、搜索、双链</td><td>图片通常是外链，重要图片要抽查</td></tr>
+                            <tr><td>JSON</td><td>强烈建议保留</td><td>兜底备份，保留更接近幕布原始结构的数据</td><td>不能直接当普通笔记阅读</td></tr>
+                            <tr><td>HTML</td><td>可选</td><td>可视化归档和人工核对格式</td><td>不适合作为 Obsidian 主工作流</td></tr>
+                            <tr><td>OPML</td><td>仅作辅助</td><td>纯大纲中转或和 Logseq/XMind 对照</td><td>备注和图片兼容性弱于 Markdown</td></tr>
+                        </tbody>
+                    </table>
+                    <p>Mubu Exporter 的 Markdown 导出会把幕布节点转换为缩进列表，备注转换为引用块，文件保存时保留幕布原有文件夹路径。如果你只是想弄清 Markdown 导出的细节，可以先看<a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a>。</p>
+
+                    <h2>第一步：迁移前做一次小样本测试</h2>
+                    <p>正式迁移前，先选 3 到 5 篇样本文档。不要直接把几百篇笔记一次性扔进 Obsidian 后才检查问题。</p>
                     <ul>
-                        <li>幕布的「备注」内容在 OPML 里直接丢失了，这些备注是我笔记里最有价值的部分</li>
-                        <li>300 篇手动导出？光点击就得点 900 次（每篇至少三次操作）</li>
+                        <li>一篇层级很深的文档，用来检查缩进列表。</li>
+                        <li>一篇备注很多的文档，用来检查引用块。</li>
+                        <li>一篇含图片或链接的文档，用来检查资源是否可访问。</li>
+                        <li>一篇标题含特殊字符的文档，用来检查文件名。</li>
+                        <li>一篇你最常用的项目文档，用来确认迁移后的阅读体验。</li>
                     </ul>
+                    <p>样本通过后再全量导出。这个步骤看似多花 5 分钟，实际能避免后面反复清理整个 Vault。</p>
 
-                    <h3>坑二：网上的 Python 爬虫脚本</h3>
-                    <p>GitHub 上有几个用 Python 抓取幕布 API 的项目，但需要自己抓 Cookie、配置环境变量，还得处理分页和限流。对非程序员来说门槛太高，就算对我这个写过代码的人来说，调试起来也很头疼。</p>
-
-                    <h3>坑三：复制粘贴</h3>
-                    <p>最笨的办法——直接在幕布里复制内容，粘贴到 Obsidian。格式会乱掉不说，300 篇文档这么操作一遍大概需要两天。</p>
-
-                    <h2>怎样 20 分钟完成全部迁移？</h2>
-                    <p>折腾了一圈后，我找到了 <strong>Mubu Exporter</strong> 这个 Chrome 插件。整个迁移流程变得极其简单：</p>
-
-                    <h3>第一步：安装插件（2分钟）</h3>
+                    <h2>第二步：用 Mubu Exporter 批量导出 Markdown</h2>
                     <ol>
-                        <li>在 Chrome 应用商店搜索「幕布导出工具」，点击安装</li>
-                        <li>确保 mubu.com 已经登录</li>
-                        <li>点击浏览器右上角的插件图标</li>
+                        <li>用桌面 Chrome 打开 <a href="https://mubu.com" target="_blank" rel="noopener">mubu.com</a>，确认已经登录。</li>
+                        <li>点击浏览器工具栏里的「幕布导出工具」。</li>
+                        <li>点击「获取文件信息」，等待插件扫描全部文件夹和文档。</li>
+                        <li>导出格式选择 <strong>Markdown (.md)</strong>。</li>
+                        <li>下载子文件夹建议写成 <code>MubuBackup/2026-07/Markdown</code> 这种带日期的路径。</li>
+                        <li>点击「开始导出」，等待任务完成；如有失败项，先用失败重试处理。</li>
                     </ol>
+                    <p>导出完成后，你会得到一个按幕布原目录组织的本地文件夹。每篇幕布文档对应一个 <code>.md</code> 文件。严肃迁移建议再导出一轮 <strong>JSON</strong>，放在 <code>MubuBackup/2026-07/JSON</code>，作为以后排查格式问题的原始备份。</p>
 
-                    <h3>第二步：批量导出 Markdown（10分钟）</h3>
-                    <ol>
-                        <li>点击「获取文件信息」，插件自动扫描出我所有的文档：317 篇，分布在 26 个文件夹里</li>
-                        <li>导出格式选择 Markdown</li>
-                        <li>点击「开始导出」</li>
-                    </ol>
-                    <img src="../images/feat2.webp" alt="幕布导出工具批量导出界面，显示实时进度" loading="lazy">
-                    <p>进度条开始跳动。大概 8 分钟后，317 个 .md 文件全部导出完成。中间有 2 篇因为网络抖动失败了，点「重试」立刻恢复——不用从头来。</p>
+                    <h2>第三步：把文件放进 Obsidian Vault</h2>
+                    <p>如果你已经有 Obsidian Vault，建议在根目录新建一个独立文件夹，例如：</p>
+                    <pre><code>Vault/
+  00-Home.md
+  Mubu-Import/
+    工作/
+    读书/
+    会议/
+    项目复盘/
+</code></pre>
+                    <p>如果你还没有 Vault，可以先创建一个新 Vault，直接选择导出的 Markdown 根目录作为 Vault。对于第一次迁移，我更推荐前一种方式：把幕布内容放进 <code>Mubu-Import</code>，等确认无误后再慢慢整理到正式目录。</p>
+                    <p>不要马上批量重命名、批量移动、批量替换内容。Obsidian 能读取本地文件夹结构，先让它完整索引一遍，再开始整理。</p>
 
-                    <h3>第三步：导入 Obsidian（5分钟）</h3>
-                    <ol>
-                        <li>打开 Obsidian，新建或选择一个 Vault</li>
-                        <li>把导出的整个文件夹直接拖进 Vault 目录</li>
-                        <li>回到 Obsidian，所有笔记已经出现在左侧文件列表里</li>
-                    </ol>
-                    <p>因为 Mubu Exporter 导出时<strong>自动保留了幕布的文件夹层级</strong>，所以我的文档在 Obsidian 里依然是按「读书笔记」「项目复盘」「会议纪要」等分类整理好的，不需要额外整理。</p>
+                    <h2>第四步：迁移后的格式验收清单</h2>
+                    <table>
+                        <thead>
+                            <tr><th>检查项</th><th>应该看到什么</th><th>发现问题怎么处理</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>文件数量</td><td>Obsidian 文件列表数量接近导出成功数量</td><td>对照插件性能面板的失败列表重试</td></tr>
+                            <tr><td>文件夹结构</td><td>幕布中的目录能在 Vault 中看到</td><td>确认下载子文件夹和浏览器下载设置</td></tr>
+                            <tr><td>大纲层级</td><td>节点变成缩进列表或标题 + 列表</td><td>抽查深层文档，必要时局部调整缩进</td></tr>
+                            <tr><td>备注内容</td><td>备注以 <code>&gt;</code> 引用块显示</td><td>如果备注是核心内容，可改成正文小节</td></tr>
+                            <tr><td>图片</td><td>Markdown 图片链接能正常预览</td><td>关键图片另存本地，或保留 HTML/JSON 备份</td></tr>
+                            <tr><td>链接</td><td>普通 URL 可以点击打开</td><td>内部主题链接需要迁移后手动改成双链</td></tr>
+                        </tbody>
+                    </table>
 
-                    <h3>第四步：检查格式质量</h3>
-                    <p>我随机抽查了十几篇文档，确认了几个关键点：</p>
+                    <h2>第五步：从文件夹结构升级到 MOC 首页</h2>
+                    <p>幕布是树状大纲，Obsidian 更适合“本地文件 + 主题链接”。最现实的过渡方式是先建一个 MOC（Map of Content，内容地图）首页。</p>
+                    <p>在 Vault 根目录创建 <code>00-Home.md</code>，可以这样组织：</p>
+                    <pre><code># Home
+
+## 幕布导入索引
+- [[Mubu-Import/读书/读书笔记索引]]
+- [[Mubu-Import/工作/项目复盘索引]]
+- [[Mubu-Import/会议/会议纪要索引]]
+
+## 高频主题
+- [[产品方法论]]
+- [[年度复盘]]
+- [[AI 工具]]
+- [[团队协作]]
+</code></pre>
+                    <p>这一步的目标不是把每篇笔记都双链化，而是让你能从一个首页进入旧资料。先把入口搭起来，后续用到哪篇再整理哪篇。</p>
+
+                    <h2>第六步：逐步建立 Obsidian 双链</h2>
+                    <p><a href="https://help.obsidian.md/Linking+notes+and+files/Internal+links" target="_blank" rel="noopener">Obsidian 官方内部链接文档</a>支持 Wikilink 和 Markdown link 两种写法。迁移后的旧笔记不会自动变成双链知识库，你需要按使用频率逐步改造。</p>
+                    <h3>优先改造这三类内容</h3>
                     <ul>
-                        <li>幕布的大纲层级 → 转换为 Markdown 无序列表嵌套（层级关系完美保留）</li>
-                        <li>幕布的「备注」→ 转换为引用块（<code>&gt; 备注内容</code>）</li>
-                        <li>加粗、高亮等格式 → 正确转换为 Markdown 语法</li>
-                        <li>文件名和标题 → 自动使用文档标题作为文件名</li>
+                        <li><strong>反复出现的主题</strong>：例如产品策略、用户访谈、项目复盘，适合做主题页。</li>
+                        <li><strong>跨文件引用的概念</strong>：例如某本书、某个客户、某个方法论，适合改成 <code>[[概念名]]</code>。</li>
+                        <li><strong>长期维护的索引页</strong>：例如读书索引、项目索引、会议索引，适合成为 MOC。</li>
                     </ul>
+                    <h3>不要一上来批量替换所有词</h3>
+                    <p>批量替换很容易制造大量无意义链接。我的建议是：每次打开一篇旧笔记，只处理 3 到 5 个真正有复用价值的链接。一个月后，你的知识图谱会自然长出来，而不是一夜之间变成噪音。</p>
 
-                    <h2>迁移后我做了哪些优化？</h2>
-                    <p>笔记搬进 Obsidian 只是第一步，我又花了一个小时做了些整理工作：</p>
+                    <h2>第七步：标签、属性和文件夹怎么分工？</h2>
+                    <table>
+                        <thead>
+                            <tr><th>组织方式</th><th>适合放什么</th><th>示例</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>文件夹</td><td>稳定的大类和来源</td><td><code>Mubu-Import/项目复盘</code></td></tr>
+                            <tr><td>标签</td><td>状态、来源、临时筛选</td><td><code>#mubu-import</code>、<code>#待整理</code></td></tr>
+                            <tr><td>双链</td><td>长期主题、概念、人名、项目</td><td><code>[[用户研究]]</code>、<code>[[Q3增长项目]]</code></td></tr>
+                            <tr><td>属性</td><td>需要表格化管理的元信息</td><td>source: mubu、status: archive</td></tr>
+                        </tbody>
+                    </table>
+                    <p>迁移当天最有用的标签是 <code>#mubu-import</code> 和 <code>#待整理</code>。前者表示来源，后者表示还没做知识化处理。等你整理完成，再把 <code>#待整理</code> 去掉。</p>
 
-                    <h3>建立 MOC（内容地图）</h3>
-                    <p>在 Vault 根目录创建了一个 <code>Home.md</code>，用双向链接把各个分类串起来。比如：</p>
-                    <ul>
-                        <li><code>[[读书笔记]]</code> → 链接到读书笔记文件夹的索引页</li>
-                        <li><code>[[项目复盘/2024Q1]]</code> → 直接跳到某个季度的复盘文档</li>
-                    </ul>
-
-                    <h3>配置 Git 自动备份</h3>
-                    <p>安装了 <a href="https://github.com/denolehov/obsidian-git" target="_blank" rel="noopener">Obsidian Git 插件</a>，设置每天自动 commit + push 到私有仓库。这样即使电脑丢了，所有笔记都有远端备份。</p>
-
-                    <h3>设置定期增量同步</h3>
-                    <p>我没有完全放弃幕布——新的会议纪要还是在幕布里写（毕竟大纲编辑体验还是它最好）。现在每个月月底我会跑一次 Mubu Exporter，把新内容增量同步到 Obsidian。</p>
-
-                    <h2>有哪些实用的迁移建议？</h2>
-                    <p>如果你也准备做类似的迁移，这些经验可能帮到你：</p>
+                    <h2>第八步：后续增量同步怎么做？</h2>
+                    <p>很多人迁移到 Obsidian 后并不会马上停用幕布。幕布仍然适合快速写大纲、开会记录和脑暴。更实际的方案是：幕布做输入，Obsidian 做沉淀。</p>
                     <ol>
-                        <li><strong>先导出再整理</strong>——不要想着「整理好了再迁移」，那样你永远迈不出第一步</li>
-                        <li><strong>保留原始结构</strong>——Mubu Exporter 导出的文件夹结构就是你在幕布里的组织方式，先用着，后面再慢慢调整</li>
-                        <li><strong>同时导出一份 JSON</strong>——JSON 格式保留了最完整的原始数据，万一 Markdown 转换有什么遗漏，还能从 JSON 恢复</li>
-                        <li><strong>不要删除幕布上的内容</strong>——迁移不是搬家，是复制。两边都留着，直到你确认 Obsidian 端一切正常</li>
+                        <li>每月固定一天再次用 Mubu Exporter 导出 Markdown。</li>
+                        <li>下载路径使用日期，例如 <code>MubuBackup/2026-08/Markdown</code>。</li>
+                        <li>只把新增或修改过的文件合并到 Vault。</li>
+                        <li>合并前先保留原文件，避免覆盖已经在 Obsidian 中整理过的版本。</li>
+                        <li>重要知识库建议配合 Git、网盘或移动硬盘做额外备份。</li>
                     </ol>
+                    <p>如果你想建立更系统的备份习惯，可以看<a href="blog-backup-strategy.html">每月备份一次幕布的策略</a>。</p>
 
-                    <h2>写在最后</h2>
-                    <p>这次迁移让我意识到一件事：我们之所以在工具之间犹豫不决，很多时候不是因为新工具不好，而是被「历史数据怎么办」这个问题卡住了。一旦数据可以自由流动，选择权就真正回到了我们手里。</p>
-                    <p>如果你也想把幕布笔记迁移到 Obsidian（或者 Logseq、Notion 等任何支持 Markdown 的工具），试试下面的方案——20 分钟，你的知识资产就能拥有第二个家。迁移完成后别忘了<a href="blog-backup-strategy.html">建立定期备份习惯</a>，确保新内容也能及时同步。</p>
+                    <h2>常见问题</h2>
+                    <h3>幕布笔记可以迁移到 Obsidian 吗？</h3>
+                    <p>可以。推荐先用 Mubu Exporter 批量导出 Markdown，再把文件夹复制到 Obsidian Vault。Obsidian 会把这些 <code>.md</code> 文件当作普通笔记读取。</p>
+
+                    <h3>幕布迁移到 Obsidian 后双链会自动生成吗？</h3>
+                    <p>不会。迁移工具解决的是“内容进入本地 Markdown”，不是“自动理解你的知识关系”。双链需要你基于主题页、MOC 和使用频率逐步建立。</p>
+
+                    <h3>幕布备注和图片会丢失吗？</h3>
+                    <p>备注会变成 Markdown 引用块，通常不会丢。图片会以 Markdown 图片链接形式保留，但依赖原图片链接可访问性。重要图片建议额外用 HTML 或 JSON 留一份备份。</p>
+
+                    <h3>迁移后能不能删除幕布里的原文档？</h3>
+                    <p>不建议马上删。至少保留一个月，确认 Obsidian 中所有关键笔记都能打开、搜索、预览和引用之后，再决定是否清理。</p>
+
+                    <h2>总结：先迁进去，再知识化</h2>
+                    <p>幕布迁移到 Obsidian 最容易失败的地方，不是导出，而是把“迁移”和“重构知识库”混在一起。正确顺序应该是：先全量导出 Markdown，保留文件夹结构；再放入 Vault，完成格式验收；最后用 MOC、标签和双链慢慢升级。</p>
+                    <p>这样做的好处是很明确的：旧资料不会丢，Obsidian 可以马上搜索和阅读，你也有足够时间把真正有价值的内容整理成长期知识库。</p>
 
                     <hr>
                     <p><strong>相关链接：</strong></p>
                     <ul>
-                        <li>Mubu Exporter 插件：<a href="https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp" target="_blank" rel="noopener">Chrome 应用商店</a></li>
-                        <li>开源地址：<a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">GitHub</a></li>
-                        <li>Obsidian 官网：<a href="https://obsidian.md" target="_blank" rel="noopener">obsidian.md</a></li>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a></li>
+                        <li><a href="blog-mubu-to-logseq.html">幕布迁移到 Logseq：Markdown 与 OPML 两条路径怎么选</a></li>
+                        <li><a href="blog-backup-strategy.html">每月备份一次幕布的策略</a></li>
+                        <li><a href="https://github.com/Navyum/chrome-extension-mubu-export" target="_blank" rel="noopener">Mubu Exporter GitHub 项目</a></li>
+                        <li><a href="https://obsidian.md" target="_blank" rel="noopener">Obsidian 官网</a></li>
                     </ul>
                 </div>
 
                 <footer class="article-footer">
                     <div class="article-tags">
-                        <span class="article-tag">幕布迁移</span>
-                        <span class="article-tag">Obsidian</span>
-                        <span class="article-tag">Markdown</span>
-                        <span class="article-tag">知识管理</span>
-                        <span class="article-tag">数据迁移</span>
+                        <span class="article-tag">幕布迁移Obsidian</span>
+                        <span class="article-tag">Obsidian双链</span>
+                        <span class="article-tag">Markdown迁移</span>
+                        <span class="article-tag">本地知识库</span>
+                        <span class="article-tag">数据备份</span>
                     </div>
                 </footer>
             </article>
         </main>
 
-        <!-- 右侧CTA -->
         <aside class="blog-sidebar-right">
             <!-- 由blog-components.js自动填充 -->
         </aside>
