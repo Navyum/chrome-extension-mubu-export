@@ -1,6 +1,6 @@
 {
   "seed_keyword": "幕布导出",
-  "generated_at": "2026-05-16T10:00:00Z",
+  "generated_at": "2026-07-17T14:30:00Z",
   "pillar": {
     "id": "P",
     "title": "幕布导出完全指南：批量备份、格式转换与数据迁移一站式教程",
@@ -167,13 +167,59 @@
           "status": "gap"
         }
       ]
+    },
+    {
+      "name": "E: AI 知识库",
+      "intent": "informational",
+      "color": "#0ea5e9",
+      "posts": [
+        {
+          "id": "E1",
+          "title": "幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答",
+          "primary_keyword": "幕布接入Dify知识库",
+          "secondary_keywords": ["Dify知识库", "AI知识库", "幕布导出Markdown", "RAG知识库"],
+          "search_volume_estimate": "low-medium",
+          "template": "how-to-guide",
+          "word_count_target": 1800,
+          "links_to": ["A1", "E2", "E3"],
+          "links_from": ["A1", "A3", "E2", "E3"],
+          "status": "existing",
+          "existing_file": "blog-mubu-to-dify-ai-knowledge-base.html"
+        },
+        {
+          "id": "E2",
+          "title": "幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源",
+          "primary_keyword": "幕布接入Coze知识库",
+          "secondary_keywords": ["扣子知识库", "Coze知识库", "AI智能体知识库", "幕布导出Word"],
+          "search_volume_estimate": "low",
+          "template": "how-to-guide",
+          "word_count_target": 1700,
+          "links_to": ["A3", "C1", "E1"],
+          "links_from": ["A3", "E1"],
+          "status": "existing",
+          "existing_file": "blog-mubu-to-coze-ai-knowledge-base.html"
+        },
+        {
+          "id": "E3",
+          "title": "幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源",
+          "primary_keyword": "幕布导入Gemini Notebook",
+          "secondary_keywords": ["幕布导入NotebookLM", "NotebookLM知识库", "AI研究助手", "幕布导出PDF"],
+          "search_volume_estimate": "low",
+          "template": "how-to-guide",
+          "word_count_target": 1600,
+          "links_to": ["A1", "A3", "E1"],
+          "links_from": ["A1", "A3"],
+          "status": "existing",
+          "existing_file": "blog-mubu-to-gemini-notebook.html"
+        }
+      ]
     }
   ],
-  "total_posts": 12,
-  "existing_posts": 9,
+  "total_posts": 15,
+  "existing_posts": 12,
   "gap_posts": 3,
-  "total_interlinks": 38,
-  "estimated_total_words": 18000,
+  "total_interlinks": 50,
+  "estimated_total_words": 23100,
   "gap_keywords": [
     "幕布导出xmind",
     "幕布导出pdf",

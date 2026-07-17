@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="幕布导出工具博客 - 大纲笔记备份教程、Markdown/OPML/PDF/Word/HTML/JSON格式导出、Logseq/Obsidian/Notion数据迁移、协作文档归档与效率工具横评。">
-    <meta name="keywords" content="幕布导出教程,大纲笔记备份,幕布Markdown导出,幕布OPML导出,幕布PDF导出,幕布HTML导出,幕布导出失败,幕布数据迁移,幕布Logseq,幕布Obsidian,幕布协作文档导出">
+    <meta name="description" content="幕布导出工具博客 - 大纲笔记备份教程、AI知识库搭建、Markdown/OPML/PDF/Word/HTML/JSON格式导出、Logseq/Obsidian/Notion数据迁移、协作文档归档与效率工具横评。">
+    <meta name="keywords" content="幕布导出教程,大纲笔记备份,AI知识库,Dify知识库,Coze知识库,NotebookLM,幕布Markdown导出,幕布OPML导出,幕布PDF导出,幕布HTML导出,幕布数据迁移,幕布Obsidian,幕布协作文档导出">
     <meta name="author" content="幕布导出工具团队">
     <link rel="canonical" href="https://mubu.toolab.top/blog/">
     <meta name="robots" content="index, follow">
@@ -13,7 +13,7 @@
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="幕布导出工具博客">
     <meta property="og:title" content="幕布导出工具博客 - 大纲笔记备份教程与指南">
-    <meta property="og:description" content="大纲笔记备份教程、Markdown/OPML/PDF/Word/HTML/JSON格式导出、数据迁移指南、协作文档归档与效率工具横评。">
+    <meta property="og:description" content="大纲笔记备份教程、AI知识库搭建、Markdown/OPML/PDF/Word/HTML/JSON格式导出、数据迁移指南、协作文档归档与效率工具横评。">
     <meta property="og:url" content="https://mubu.toolab.top/blog/">
     <meta property="og:locale" content="zh_CN">
 
@@ -21,7 +21,7 @@
 
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="幕布导出工具博客 - 大纲笔记备份教程与指南">
-    <meta name="twitter:description" content="大纲笔记备份教程、Markdown/OPML/PDF/Word/HTML/JSON格式导出、数据迁移指南、协作文档归档与效率工具横评。">
+    <meta name="twitter:description" content="大纲笔记备份教程、AI知识库搭建、Markdown/OPML/PDF/Word/HTML/JSON格式导出、数据迁移指南、协作文档归档与效率工具横评。">
     <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-hero-rescue.webp">
 
     <meta name="theme-color" content="#060010">
@@ -38,7 +38,7 @@
       "@context": "https://schema.org",
       "@type": "Blog",
       "name": "幕布导出工具博客",
-      "description": "大纲笔记备份教程、Markdown/OPML/PDF/Word/HTML/JSON格式导出、数据迁移指南、协作文档归档与效率工具横评",
+      "description": "大纲笔记备份教程、AI知识库搭建、Markdown/OPML/PDF/Word/HTML/JSON格式导出、数据迁移指南、协作文档归档与效率工具横评",
       "url": "https://mubu.toolab.top/blog/",
       "publisher": {
         "@type": "Organization",
@@ -46,6 +46,24 @@
         "url": "https://mubu.toolab.top/"
       },
       "blogPost": [
+        {
+          "@type": "BlogPosting",
+          "headline": "幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答",
+          "url": "https://mubu.toolab.top/blog/blog-mubu-to-dify-ai-knowledge-base.html",
+          "datePublished": "2026-07-17"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源",
+          "url": "https://mubu.toolab.top/blog/blog-mubu-to-coze-ai-knowledge-base.html",
+          "datePublished": "2026-07-17"
+        },
+        {
+          "@type": "BlogPosting",
+          "headline": "幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源",
+          "url": "https://mubu.toolab.top/blog/blog-mubu-to-gemini-notebook.html",
+          "datePublished": "2026-07-17"
+        },
         {
           "@type": "BlogPosting",
           "headline": "幕布导出OPML怎么用？大纲笔记迁移通用格式指南",
@@ -176,7 +194,7 @@
     <!-- 导航栏由blog-components.js自动插入 -->
 
     <header class="blog-page-header">
-        <h1 class="blog-page-h1">幕布导出工具博客 — 大纲笔记备份教程、数据迁移与效率工具指南</h1>
+        <h1 class="blog-page-h1">幕布导出工具博客 — 大纲笔记备份、AI知识库搭建与数据迁移指南</h1>
     </header>
 
     <!-- Hero Section: Main Feature + Sidebar -->
@@ -245,6 +263,60 @@
         </div>
 
         <div class="blog-grid">
+            <!-- Card AI 1 -->
+            <article class="blog-card">
+                <a href="blog-mubu-to-dify-ai-knowledge-base.html" class="blog-card-visual">
+                    <img src="../images/blog-mubu-to-dify-knowledge.webp" alt="幕布笔记接入Dify AI知识库">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">AI知识库</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-to-dify-ai-knowledge-base.html">幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答</a>
+                    </h3>
+                    <p class="blog-card-desc">把幕布大纲导出为 Markdown、HTML、JSON，整理成 Dify 可检索资料源，并完成分段、引用和问答验收。</p>
+                    <div class="blog-card-meta">
+                        <span>2026-07-17</span>
+                        <span>10分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card AI 2 -->
+            <article class="blog-card">
+                <a href="blog-mubu-to-coze-ai-knowledge-base.html" class="blog-card-visual">
+                    <img src="../images/blog-mubu-to-coze-knowledge.webp" alt="幕布笔记接入扣子和Coze知识库">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">智能体知识库</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-to-coze-ai-knowledge-base.html">幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源</a>
+                    </h3>
+                    <p class="blog-card-desc">从幕布导出团队资料，按智能体场景整理 Markdown、Word、PDF 和 JSON，并完成权限交接与回答边界验收。</p>
+                    <div class="blog-card-meta">
+                        <span>2026-07-17</span>
+                        <span>10分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
+            <!-- Card AI 3 -->
+            <article class="blog-card">
+                <a href="blog-mubu-to-gemini-notebook.html" class="blog-card-visual">
+                    <img src="../images/blog-mubu-to-notebooklm.webp" alt="幕布笔记导入Gemini Notebook和NotebookLM">
+                </a>
+                <div class="blog-card-content">
+                    <div class="blog-card-category">AI研究助手</div>
+                    <h3 class="blog-card-title">
+                        <a href="blog-mubu-to-gemini-notebook.html">幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源</a>
+                    </h3>
+                    <p class="blog-card-desc">适合读书笔记、会议纪要和研究资料：按主题导出 Markdown/PDF/Word，再用 Notebook 做摘要、问答和引用检查。</p>
+                    <div class="blog-card-meta">
+                        <span>2026-07-17</span>
+                        <span>9分钟阅读</span>
+                    </div>
+                </div>
+            </article>
+
             <!-- Card 1 -->
             <article class="blog-card">
                 <a href="blog-mubu-to-obsidian.html" class="blog-card-visual">

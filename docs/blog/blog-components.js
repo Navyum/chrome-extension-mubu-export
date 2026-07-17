@@ -90,6 +90,21 @@
 
     // 博客文章配置
     const blogPosts = {
+        'blog-mubu-to-dify-ai-knowledge-base.html': {
+            title: '幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答',
+            shortTitle: '幕布接入Dify知识库',
+            related: ['blog-export-markdown-guide.html', 'blog-export-html-json.html', 'blog-mubu-to-coze-ai-knowledge-base.html']
+        },
+        'blog-mubu-to-coze-ai-knowledge-base.html': {
+            title: '幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源',
+            shortTitle: '幕布接入Coze知识库',
+            related: ['blog-export-pdf-word.html', 'blog-export-shared-docs.html', 'blog-mubu-to-dify-ai-knowledge-base.html']
+        },
+        'blog-mubu-to-gemini-notebook.html': {
+            title: '幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源',
+            shortTitle: '幕布导入Gemini Notebook',
+            related: ['blog-export-markdown-guide.html', 'blog-export-pdf-word.html', 'blog-mubu-to-dify-ai-knowledge-base.html']
+        },
         'blog-first-person.html': {
             title: '幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来',
             shortTitle: '500篇笔记导出实录',
@@ -108,7 +123,7 @@
         'blog-export-markdown-guide.html': {
             title: '幕布怎么导出Markdown？我找到了最省事的批量方案',
             shortTitle: '幕布导出Markdown指南',
-            related: ['blog-mubu-to-logseq.html', 'blog-mubu-to-obsidian.html']
+            related: ['blog-mubu-to-dify-ai-knowledge-base.html', 'blog-mubu-to-gemini-notebook.html', 'blog-mubu-to-logseq.html']
         },
         'blog-backup-strategy.html': {
             title: '亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布',
@@ -153,12 +168,12 @@
         'blog-export-pdf-word.html': {
             title: '幕布导出PDF/Word：格式保留技巧与常见问题解决',
             shortTitle: 'PDF/Word格式排查',
-            related: ['blog-export-html-json.html', 'blog-export-retry-resume.html']
+            related: ['blog-mubu-to-coze-ai-knowledge-base.html', 'blog-mubu-to-gemini-notebook.html', 'blog-export-html-json.html']
         },
         'blog-export-html-json.html': {
             title: '幕布导出HTML/JSON：可视化归档与二次处理指南',
             shortTitle: 'HTML/JSON归档指南',
-            related: ['blog-export-shared-docs.html', 'blog-export-markdown-guide.html']
+            related: ['blog-mubu-to-dify-ai-knowledge-base.html', 'blog-export-shared-docs.html', 'blog-export-markdown-guide.html']
         },
         'blog-export-retry-resume.html': {
             title: '幕布批量导出失败怎么办？暂停、继续、重试完整排查',
