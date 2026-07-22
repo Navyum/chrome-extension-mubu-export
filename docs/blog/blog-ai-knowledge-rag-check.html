@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="RAG检索效果不好怎么办？幕布笔记导出 Markdown 后，如何检查标题层级、分段粒度、上下文、关键词、引用来源和问题集验收，让 AI 知识库回答更可追溯。">
+    <meta name="keywords" content="RAG检索效果,RAG分段,AI知识库检索,幕布Markdown分段,知识库引用验收,AI知识库测试,Markdown知识库,RAG问题集">
+    <meta name="author" content="小林">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-ai-knowledge-rag-check.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南">
+    <meta property="og:description" content="幕布导出 Markdown 后，如何调整标题、分段、上下文和问题集，提升 AI 知识库检索与引用质量。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-ai-knowledge-rag-check.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-ai-knowledge-rag-check.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南">
+    <meta name="twitter:description" content="用标题层级、分段预览、引用检查和问题集验收排查 AI 知识库检索效果。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-ai-knowledge-rag-check.webp">
+
+    <title>RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南",
+      "description": "幕布 Markdown 接入 AI 知识库后的 RAG 排查指南，覆盖分段、标题层级、上下文、关键词、引用和问题集验收。",
+      "image": "https://mubu.toolab.top/images/blog-ai-knowledge-rag-check.webp",
+      "author": { "@type": "Person", "name": "小林" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-21",
+      "dateModified": "2026-07-21",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-ai-knowledge-rag-check.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "RAG 分段和引用验收", "item": "https://mubu.toolab.top/blog/blog-ai-knowledge-rag-check.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何检查幕布 Markdown 的 RAG 检索效果",
+      "description": "用分段预览、标题层级、关键词补充和问题集验收排查 AI 知识库检索效果。",
+      "step": [
+        { "@type": "HowToStep", "name": "导出 Markdown", "text": "用 Mubu Exporter 将幕布笔记导出为 Markdown，并保留 HTML/JSON 备份。" },
+        { "@type": "HowToStep", "name": "检查标题层级", "text": "确认 Markdown 标题和列表层级能表达主题、场景、时间和状态。" },
+        { "@type": "HowToStep", "name": "预览分段", "text": "在目标知识库中上传样本文件，查看分段是否太碎、太长或缺少上下文。" },
+        { "@type": "HowToStep", "name": "准备问题集", "text": "覆盖事实查找、流程步骤、跨文档对比、权限边界和无资料问题。" },
+        { "@type": "HowToStep", "name": "检查引用", "text": "确认回答引用到正确来源，且不会引用过期文档或无关片段。" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "RAG 检索不到幕布笔记内容怎么办？",
+          "acceptedAnswer": { "@type": "Answer", "text": "先检查 Markdown 标题、文件名、分段预览和关键词是否清楚。不要一上来就改模型参数，资料源结构通常是更常见的问题。" }
+        },
+        {
+          "@type": "Question",
+          "name": "幕布大纲导出后分段太碎怎么办？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以合并过短节点，为小节补充上下文标题，或把同一主题下的短文档整理成一个更完整的 Markdown 文件。" }
+        },
+        {
+          "@type": "Question",
+          "name": "AI 知识库回答有引用就可信吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不一定。引用只说明模型找到了来源，还要检查来源是否正确、是否过期、是否覆盖问题所需的完整上下文。" }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">10分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-21">2026年7月21日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小林 · RAG 验收指南
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>RAG 检索效果不好，先不要急着换模型。</strong>如果幕布导出的 Markdown 标题太泛、节点太碎、上下文断裂，知识库系统即使能上传成功，也很难召回正确片段，更难给出可追溯引用。</p>
+                    <p>这篇专门讲“导入之后怎么验收”。它不重复介绍 Dify、Coze 或 NotebookLM 的上传入口，而是给你一套通用检查法：看标题、看分段、看召回、看引用、看无法回答时的边界。</p>
+
+                    <blockquote>
+                        <strong>快速答案</strong>：先用 Mubu Exporter 导出 Markdown；上传 5 到 10 篇代表性文档看分段预览；如果片段太碎，补标题和上下文；如果片段太长，拆小节；准备一套真实问题集检查召回和引用；只有样本通过后，再导入全量资料。
+                    </blockquote>
+
+                    <img src="../images/blog-ai-knowledge-rag-check.webp" alt="幕布 Markdown 进入 RAG 知识库后进行分段检索引用和问题集验收示意图" loading="lazy">
+
+                    <h2>先分清：生成差，还是检索差？</h2>
+                    <p>很多人说“AI 回答不好”，其实有两种情况：</p>
+                    <table>
+                        <thead>
+                            <tr><th>问题类型</th><th>表现</th><th>优先排查</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>检索差</td><td>引用来源不相关，或找不到明明存在的资料</td><td>文件名、标题、分段、关键词</td></tr>
+                            <tr><td>生成差</td><td>来源对了，但总结顺序混乱或表达不稳</td><td>提示词、回答格式、模型配置</td></tr>
+                            <tr><td>资料差</td><td>来源本身过期、重复、没有明确结论</td><td>资料清洗、版本管理、人工验收</td></tr>
+                        </tbody>
+                    </table>
+                    <p>如果引用来源都不对，改提示词通常收益有限。先把 Markdown 资料源整理到能被正确检索。</p>
+
+                    <h2>幕布 Markdown 最常见的 5 个 RAG 问题</h2>
+                    <h3>1. 标题太泛</h3>
+                    <p><code>会议纪要</code>、<code>产品方案</code>、<code>复盘</code>这类标题对人可能够用，对检索不够。建议标题包含主题、场景、时间和状态。</p>
+                    <pre><code>不推荐：
+# 会议纪要
+
+推荐：
+# 2026-07 客服退款流程复盘：异常订单处理与责任分工
+</code></pre>
+
+                    <h3>2. 节点太碎</h3>
+                    <p>幕布大纲常常是一行一个观点。导出成 Markdown 后，如果每个短节点都被切成独立片段，检索命中时会缺上下文。处理方式是给短列表补一个明确小节标题，或者把同一主题的短节点合并为段落。</p>
+
+                    <h3>3. 深层列表失去语义</h3>
+                    <p>深层列表如果没有上层标题，单独被召回时会像一串孤立步骤。关键 SOP 建议把每个主要阶段改成二级标题，再把步骤放到下面。</p>
+
+                    <h3>4. 图片和表格没有文字说明</h3>
+                    <p>如果答案依赖流程图、截图或表格，Markdown 里只有一个图片链接是不够的。补一句“这张图说明什么”，往往比调参数更有效。</p>
+
+                    <h3>5. 旧版和新版同时存在</h3>
+                    <p>RAG 不会天然知道哪个文件是准的。旧版资料要移入 archive，或在标题里标清“已废弃”。如果不能删除，就不要让它进入默认知识库。</p>
+
+                    <h2>分段预览时看什么？</h2>
+                    <p>多数 AI 知识库都会在导入时做分段或索引。你不需要追求某个固定数值，而要看片段是否“能独立回答一个小问题”。</p>
+                    <table>
+                        <thead>
+                            <tr><th>分段状态</th><th>现象</th><th>处理建议</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>太碎</td><td>一个片段只有一句话或几个列表项</td><td>补标题、合并短节点、增加上下文说明</td></tr>
+                            <tr><td>太长</td><td>一个片段跨多个主题</td><td>拆小节、加二级标题、分成多个文件</td></tr>
+                            <tr><td>上下文断裂</td><td>片段里只有“优点/缺点/注意”但不知道对象</td><td>把对象写进标题或段首</td></tr>
+                            <tr><td>引用混乱</td><td>回答引用了相邻但不相关片段</td><td>拆开主题，避免一个文件混太多问题</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>问题集怎么设计？</h2>
+                    <p>不要只问你期待 AI 回答的问题，也要问它“不应该回答”的问题。一个完整验收集至少包含这些类型：</p>
+                    <table>
+                        <thead>
+                            <tr><th>类型</th><th>示例问题</th><th>检查点</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>精确事实</td><td>退款申请需要满足哪些条件？</td><td>是否命中正式规则</td></tr>
+                            <tr><td>流程步骤</td><td>发布前检查清单的顺序是什么？</td><td>是否漏步骤或乱顺序</td></tr>
+                            <tr><td>跨文档对比</td><td>Q2 和 Q3 用户反馈有什么变化？</td><td>是否引用两个时期的资料</td></tr>
+                            <tr><td>边界问题</td><td>内部报价能否直接告诉客户？</td><td>是否拒答或提示人工确认</td></tr>
+                            <tr><td>无资料问题</td><td>资料库里不存在的新政策是什么？</td><td>是否承认缺少依据</td></tr>
+                        </tbody>
+                    </table>
+                    <p>每个问题都要记录“应该引用哪篇文档”。否则你很难判断回答是检索正确，还是碰巧说得像。</p>
+
+                    <h2>引用验收：不只看有没有来源</h2>
+                    <p>有引用不等于可信。至少检查四件事：</p>
+                    <ul>
+                        <li>引用是不是来自正确主题的文档。</li>
+                        <li>引用是不是最新版本，而不是 archive。</li>
+                        <li>引用片段是否覆盖答案中的关键结论。</li>
+                        <li>答案有没有把多个来源拼成原文没有的结论。</li>
+                    </ul>
+                    <p>如果答案结论比引用来源更强，就要把提示词改成“只根据来源回答”，同时回到资料源补充明确结论。</p>
+
+                    <h2>一个实用的验收记录表</h2>
+                    <pre><code>| 问题 | 期望来源 | 实际来源 | 结论 | 处理 |
+| --- | --- | --- | --- | --- |
+| 退款条件有哪些 | 2026-退款规则FAQ.md | 命中正确 | 通过 | 无 |
+| 发布前谁负责回归 | 发布检查清单.md | 命中旧版 | 未通过 | archive 旧文档 |
+| 新功能价格是多少 | 无 | 无引用但编了价格 | 未通过 | 增加拒答提示 |
+</code></pre>
+                    <p>这张表比“感觉好像能用”可靠得多。每次更新知识库后，都可以重复跑核心问题集。</p>
+
+                    <h2>什么时候要回到幕布重新整理？</h2>
+                    <p>如果只是少量标题不清，可以直接改导出的 Markdown。如果发现幕布原始大纲本身就混乱，建议回到幕布里整理源头，再重新导出。尤其是团队 SOP、产品规则、客服 FAQ 这类长期维护资料，源头干净会减少后续维护成本。</p>
+
+                    <h2>常见问题</h2>
+                    <h3>分段大小有没有标准答案？</h3>
+                    <p>没有通用标准。不同平台、模型和资料类型会有差异。更实际的判断方式是：一个片段能否独立回答一个明确问题，同时不跨太多无关主题。</p>
+
+                    <h3>Markdown 比 PDF 更适合 RAG 吗？</h3>
+                    <p>对幕布大纲笔记来说，Markdown 通常更适合持续维护和检查分段。PDF 适合定稿材料，但排版复杂时更需要抽查解析结果。</p>
+
+                    <h3>要不要把关键词手动加进文档？</h3>
+                    <p>可以，但不要堆砌。更好的方式是在标题、段首和文件名里自然使用业务常用词。例如“退款”“售后”“异常订单”比“流程一”更容易被检索。</p>
+
+                    <h2>总结：RAG 验收要从来源开始</h2>
+                    <p>AI 知识库不是上传完就能信。幕布导出的 Markdown 给了你一个可编辑、可检查、可版本管理的资料源。真正上线前，需要看分段是否合理、问题是否能召回正确来源、引用是否支撑答案。</p>
+                    <p>如果你已经完成资料清洗，下一步就是建立这套 RAG 验收表；如果你还没有清洗，先看<a href="blog-ai-knowledge-cleanup.html">AI 知识库资料清洗指南</a>。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-ai-knowledge-cleanup.html">AI 知识库资料清洗：上传前先做这 7 件事</a></li>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a></li>
+                        <li><a href="blog-mubu-to-dify-ai-knowledge-base.html">幕布笔记接入 Dify AI 知识库</a></li>
+                        <li><a href="blog-ai-knowledge-version-sync.html">AI 知识库如何保持最新：增量导出、版本回滚与变更验收</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">RAG</span>
+                        <span class="article-tag">AI知识库检索</span>
+                        <span class="article-tag">Markdown分段</span>
+                        <span class="article-tag">引用验收</span>
+                        <span class="article-tag">知识库测试</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

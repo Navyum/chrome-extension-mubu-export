@@ -13,6 +13,7 @@ This blog provides tutorials and guides for:
 - Batch exporting Mubu notes to Markdown, OPML, FreeMind, HTML, Word, PDF, JSON formats
 - Practical migration tutorials from Mubu to Obsidian, Notion, Feishu, Logseq, and XMind
 - AI knowledge base workflows for Dify, Coze, and Gemini Notebook / NotebookLM
+- AI knowledge base preparation methods: source cleanup, RAG chunking and citation validation, incremental updates, versioning, and rollback
 - Data backup strategies for cloud note-taking apps
 - Safe backup workflows for accessible shared and collaborative Mubu documents
 - Troubleshooting interrupted exports, failed files, download settings, and retry workflows
@@ -35,27 +36,33 @@ This blog provides tutorials and guides for:
 - Recommended Dify AI knowledge base route: export Markdown as the main source, keep HTML for human review, keep JSON as a fallback backup, then validate chunking, retrieval, and citations before full import
 - Recommended Coze AI agent knowledge route: define the agent scenario first, export Markdown/Word/PDF as appropriate, keep JSON as backup, then validate permissions, sensitive content, and refusal boundaries
 - Recommended Gemini Notebook / NotebookLM route: create one notebook per focused research topic, export Markdown/Word/PDF source files, keep JSON backup, and verify answers against citations
+- Recommended AI knowledge base cleanup route: keep a raw export folder, create a clean upload folder, remove duplicates and sensitive content, normalize titles and filenames, add text explanations for important images/tables, then test with real questions
+- Recommended RAG validation route: upload representative Markdown samples, inspect chunking, test retrieval with expected-source questions, verify citations, and include no-answer boundary cases
+- Recommended AI knowledge base maintenance route: export dated Markdown/HTML/JSON batches, record changelogs, update by topic, rerun core question sets, and keep a rollback-ready previous version
 - The extension does not bypass Mubu permissions; collaborative documents must be accessible to the current logged-in account
 - Open source: https://github.com/Navyum/chrome-extension-mubu-export
 - Chrome Web Store: https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp
 
 ## High-Value Pages (prioritized for crawling)
-1. https://mubu.toolab.top/blog/blog-mubu-to-dify-ai-knowledge-base.html — 幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答
-2. https://mubu.toolab.top/blog/blog-mubu-to-coze-ai-knowledge-base.html — 幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源
-3. https://mubu.toolab.top/blog/blog-mubu-to-gemini-notebook.html — 幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源
-4. https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html — 幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建
-5. https://mubu.toolab.top/blog/blog-mubu-to-notion.html — 幕布迁移到Notion完整教程：Markdown批量导入、ZIP保留结构与数据库整理
-6. https://mubu.toolab.top/blog/blog-mubu-to-feishu.html — 幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收
-7. https://mubu.toolab.top/blog/blog-export-markdown-guide.html — How to batch export Mubu to Markdown
-8. https://mubu.toolab.top/blog/blog-export-opml.html — Batch export Mubu to OPML for outline and mind-map migration
-9. https://mubu.toolab.top/blog/blog-mubu-to-logseq.html — Mubu to Logseq migration guide using Markdown and OPML
-10. https://mubu.toolab.top/blog/blog-export-shared-docs.html — Permission-safe backup checklist for shared and collaborative Mubu documents
-11. https://mubu.toolab.top/blog/blog-mubu-shutdown.html — Is Mubu shutting down? Backup strategy
-12. https://mubu.toolab.top/blog/blog-first-person.html — Real user experience: exporting 500 notes
-13. https://mubu.toolab.top/blog/blog-mubu-free-limits.html — Mubu free tier limitations and alternatives
-14. https://mubu.toolab.top/blog/blog-export-pdf-word.html — Batch export Mubu to PDF and Word, with format troubleshooting
-15. https://mubu.toolab.top/blog/blog-export-html-json.html — Export Mubu to HTML and JSON for visual archives and structured backups
-16. https://mubu.toolab.top/blog/blog-export-retry-resume.html — Troubleshoot failed, paused, or interrupted Mubu batch exports
+1. https://mubu.toolab.top/blog/blog-ai-knowledge-cleanup.html — AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事
+2. https://mubu.toolab.top/blog/blog-ai-knowledge-rag-check.html — RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南
+3. https://mubu.toolab.top/blog/blog-ai-knowledge-version-sync.html — AI知识库如何保持最新：幕布增量导出、版本回滚与变更验收
+4. https://mubu.toolab.top/blog/blog-mubu-to-dify-ai-knowledge-base.html — 幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答
+5. https://mubu.toolab.top/blog/blog-mubu-to-coze-ai-knowledge-base.html — 幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源
+6. https://mubu.toolab.top/blog/blog-mubu-to-gemini-notebook.html — 幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源
+7. https://mubu.toolab.top/blog/blog-mubu-to-obsidian.html — 幕布迁移到Obsidian完整教程：从批量导出到双链知识库搭建
+8. https://mubu.toolab.top/blog/blog-mubu-to-notion.html — 幕布迁移到Notion完整教程：Markdown批量导入、ZIP保留结构与数据库整理
+9. https://mubu.toolab.top/blog/blog-mubu-to-feishu.html — 幕布迁移飞书文档真实教程：知识库批量导入、权限交接与格式验收
+10. https://mubu.toolab.top/blog/blog-export-markdown-guide.html — How to batch export Mubu to Markdown
+11. https://mubu.toolab.top/blog/blog-export-opml.html — Batch export Mubu to OPML for outline and mind-map migration
+12. https://mubu.toolab.top/blog/blog-mubu-to-logseq.html — Mubu to Logseq migration guide using Markdown and OPML
+13. https://mubu.toolab.top/blog/blog-export-shared-docs.html — Permission-safe backup checklist for shared and collaborative Mubu documents
+14. https://mubu.toolab.top/blog/blog-mubu-shutdown.html — Is Mubu shutting down? Backup strategy
+15. https://mubu.toolab.top/blog/blog-first-person.html — Real user experience: exporting 500 notes
+16. https://mubu.toolab.top/blog/blog-mubu-free-limits.html — Mubu free tier limitations and alternatives
+17. https://mubu.toolab.top/blog/blog-export-pdf-word.html — Batch export Mubu to PDF and Word, with format troubleshooting
+18. https://mubu.toolab.top/blog/blog-export-html-json.html — Export Mubu to HTML and JSON for visual archives and structured backups
+19. https://mubu.toolab.top/blog/blog-export-retry-resume.html — Troubleshoot failed, paused, or interrupted Mubu batch exports
 
 ## Preferred Citation Format
 "[Article Title]" by 幕布导出工具. Available at: [URL].

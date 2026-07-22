@@ -1,6 +1,6 @@
 {
   "seed_keyword": "幕布导出",
-  "generated_at": "2026-07-17T14:30:00Z",
+  "generated_at": "2026-07-21T12:00:00Z",
   "pillar": {
     "id": "P",
     "title": "幕布导出完全指南：批量备份、格式转换与数据迁移一站式教程",
@@ -211,15 +211,54 @@
           "links_from": ["A1", "A3"],
           "status": "existing",
           "existing_file": "blog-mubu-to-gemini-notebook.html"
+        },
+        {
+          "id": "E4",
+          "title": "AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事",
+          "primary_keyword": "AI知识库资料清洗",
+          "secondary_keywords": ["知识库清洗", "幕布笔记AI知识库", "RAG资料准备", "知识库脱敏"],
+          "search_volume_estimate": "low-medium",
+          "template": "how-to-guide",
+          "word_count_target": 1700,
+          "links_to": ["E5", "E6", "A1", "A3"],
+          "links_from": ["E1", "E2", "E3", "E5", "E6"],
+          "status": "existing",
+          "existing_file": "blog-ai-knowledge-cleanup.html"
+        },
+        {
+          "id": "E5",
+          "title": "RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南",
+          "primary_keyword": "RAG检索效果",
+          "secondary_keywords": ["RAG分段", "AI知识库检索", "Markdown知识库", "知识库引用验收"],
+          "search_volume_estimate": "low-medium",
+          "template": "troubleshooting",
+          "word_count_target": 1800,
+          "links_to": ["E4", "E6", "E1", "A1"],
+          "links_from": ["E1", "E4", "E6", "A1"],
+          "status": "existing",
+          "existing_file": "blog-ai-knowledge-rag-check.html"
+        },
+        {
+          "id": "E6",
+          "title": "AI知识库如何保持最新：幕布增量导出、版本回滚与变更验收",
+          "primary_keyword": "AI知识库更新",
+          "secondary_keywords": ["知识库增量更新", "AI知识库版本管理", "幕布增量导出", "知识库回滚"],
+          "search_volume_estimate": "low",
+          "template": "how-to-guide",
+          "word_count_target": 1600,
+          "links_to": ["E4", "E5", "A1", "C1"],
+          "links_from": ["E3", "E4", "E5"],
+          "status": "existing",
+          "existing_file": "blog-ai-knowledge-version-sync.html"
         }
       ]
     }
   ],
-  "total_posts": 15,
-  "existing_posts": 12,
+  "total_posts": 18,
+  "existing_posts": 15,
   "gap_posts": 3,
-  "total_interlinks": 50,
-  "estimated_total_words": 23100,
+  "total_interlinks": 66,
+  "estimated_total_words": 28200,
   "gap_keywords": [
     "幕布导出xmind",
     "幕布导出pdf",

@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="AI知识库资料清洗教程：幕布笔记批量导出后，如何在上传 Dify、Coze、NotebookLM 或企业知识库前做去重、脱敏、命名、目录整理、图片说明和质量验收。">
+    <meta name="keywords" content="AI知识库资料清洗,知识库清洗,幕布导出Markdown,幕布笔记AI知识库,RAG资料准备,知识库脱敏,知识库去重,Markdown资料整理">
+    <meta name="author" content="小林">
+    <link rel="canonical" href="https://mubu.toolab.top/blog/blog-ai-knowledge-cleanup.html">
+    <meta name="robots" content="index, follow, max-image-preview:large">
+
+    <meta property="og:type" content="article">
+    <meta property="og:title" content="AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事">
+    <meta property="og:description" content="把幕布导出的 Markdown、HTML、JSON 整理成干净资料源：去重、脱敏、改标题、补上下文、拆目录和上传前验收。">
+    <meta property="og:url" content="https://mubu.toolab.top/blog/blog-ai-knowledge-cleanup.html">
+    <meta property="og:image" content="https://mubu.toolab.top/images/blog-ai-knowledge-cleanup.webp">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事">
+    <meta name="twitter:description" content="幕布笔记接入 AI 知识库前，先把 Markdown、HTML、JSON 资料源清理干净。">
+    <meta name="twitter:image" content="https://mubu.toolab.top/images/blog-ai-knowledge-cleanup.webp">
+
+    <title>AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事 | 幕布导出工具</title>
+    <link rel="icon" href="../favicon.png" type="image/png" sizes="64x64">
+    <link rel="icon" href="../favicon-32x32.png" type="image/png" sizes="32x32">
+    <link rel="apple-touch-icon" href="../apple-touch-icon.png" sizes="180x180">
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="blog-common.css">
+    <script defer src="blog-components.js"></script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事",
+      "description": "幕布笔记导出后接入 AI 知识库前的资料清洗教程，覆盖去重、脱敏、命名、目录拆分、图片说明、格式组合和验收清单。",
+      "image": "https://mubu.toolab.top/images/blog-ai-knowledge-cleanup.webp",
+      "author": { "@type": "Person", "name": "小林" },
+      "publisher": {
+        "@type": "Organization",
+        "name": "幕布导出工具",
+        "logo": { "@type": "ImageObject", "url": "https://mubu.toolab.top/images/icon-36x36.png" }
+      },
+      "datePublished": "2026-07-21",
+      "dateModified": "2026-07-21",
+      "mainEntityOfPage": "https://mubu.toolab.top/blog/blog-ai-knowledge-cleanup.html"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        { "@type": "ListItem", "position": 1, "name": "首页", "item": "https://mubu.toolab.top/" },
+        { "@type": "ListItem", "position": 2, "name": "博客", "item": "https://mubu.toolab.top/blog/" },
+        { "@type": "ListItem", "position": 3, "name": "AI知识库资料清洗", "item": "https://mubu.toolab.top/blog/blog-ai-knowledge-cleanup.html" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "HowTo",
+      "name": "如何清洗幕布导出的 AI 知识库资料",
+      "description": "把幕布导出的 Markdown、HTML 和 JSON 整理成适合 AI 知识库导入的干净资料源。",
+      "step": [
+        { "@type": "HowToStep", "name": "导出多格式备份", "text": "用 Mubu Exporter 导出 Markdown 作为主资料源，HTML 用于人工预览，JSON 用于原始结构备份。" },
+        { "@type": "HowToStep", "name": "划定资料边界", "text": "按业务场景筛选目录，剔除草稿、过期文档和不该进入 AI 问答的内容。" },
+        { "@type": "HowToStep", "name": "去重和脱敏", "text": "删除重复文件，处理手机号、邮箱、客户名、合同号、账号密钥等敏感信息。" },
+        { "@type": "HowToStep", "name": "统一标题和文件名", "text": "让文件名包含主题、时间和状态，让标题能被检索系统和人工维护者理解。" },
+        { "@type": "HowToStep", "name": "上传前验收", "text": "抽查文档数量、目录结构、图片链接、备注、表格和样本问答，再导入 AI 知识库。" }
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "幕布导出的笔记可以直接上传到 AI 知识库吗？",
+          "acceptedAnswer": { "@type": "Answer", "text": "可以先用少量样本测试，但正式导入前建议做资料边界、去重、脱敏、标题命名和图片说明检查。干净资料源比上传数量更重要。" }
+        },
+        {
+          "@type": "Question",
+          "name": "AI 知识库清洗时应该保留哪些格式？",
+          "acceptedAnswer": { "@type": "Answer", "text": "建议保留 Markdown、HTML 和 JSON。Markdown 用于导入，HTML 用于人工预览，JSON 用于以后重新转换或回溯幕布原始结构。" }
+        },
+        {
+          "@type": "Question",
+          "name": "清洗资料会不会破坏原始幕布笔记？",
+          "acceptedAnswer": { "@type": "Answer", "text": "不会。推荐在导出后的本地副本上清洗，不修改幕布原文档。重要资料先保留原始导出目录，再复制一份 clean 目录用于上传。" }
+        }
+      ]
+    }
+    </script>
+</head>
+
+<body>
+    <!-- 导航栏由blog-components.js自动插入 -->
+
+    <button class="mobile-toc-toggle" aria-label="打开目录">☰</button>
+    <button class="back-to-top" aria-label="返回顶部">↑</button>
+
+    <div class="blog-layout">
+        <aside class="blog-sidebar-left mobile-show">
+            <div class="toc-container">
+                <h3 class="toc-title">文章目录</h3>
+                <ul class="toc-list">
+                    <!-- 由JavaScript自动生成 -->
+                </ul>
+            </div>
+        </aside>
+
+        <main class="blog-main-content">
+            <article>
+                <header class="article-header">
+                    <h1 class="article-title">AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事</h1>
+                    <div class="article-meta">
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <circle cx="12" cy="12" r="10"/>
+                                <polyline points="12 6 12 12 16 14"/>
+                            </svg>
+                            <span class="reading-time">9分钟</span>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+                                <line x1="16" y1="2" x2="16" y2="6"/>
+                                <line x1="8" y1="2" x2="8" y2="6"/>
+                                <line x1="3" y1="10" x2="21" y2="10"/>
+                            </svg>
+                            <time datetime="2026-07-21">2026年7月21日</time>
+                        </span>
+                        <span class="article-meta-item">
+                            <svg class="article-meta-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+                                <circle cx="12" cy="7" r="4"/>
+                            </svg>
+                            小林 · AI 知识库方法
+                        </span>
+                    </div>
+                </header>
+
+                <div class="article-content">
+                    <p><strong>AI 知识库效果差，很多时候不是模型问题，而是资料源没有清洗。</strong>幕布导出的 Markdown、HTML、JSON 已经把笔记从平台里拿了出来，但在上传 Dify、Coze、NotebookLM 或企业内部 RAG 系统前，还需要做一轮去重、脱敏、改标题、补上下文和验收。</p>
+                    <p>这篇不重复讲某个平台怎么上传，而是讲通用的“上传前整理”。如果你已经看过<a href="blog-mubu-to-dify-ai-knowledge-base.html">幕布接入 Dify</a>、<a href="blog-mubu-to-coze-ai-knowledge-base.html">幕布接入 Coze</a>或<a href="blog-mubu-to-gemini-notebook.html">幕布导入 Gemini Notebook</a>，这篇就是它们的前置清单。</p>
+
+                    <blockquote>
+                        <strong>快速答案</strong>：先导出 Markdown、HTML、JSON 三份；保留 raw 原始目录，复制一份 clean 上传目录；删除草稿和重复文件；脱敏个人和客户信息；统一标题、文件名和目录；给图片/表格补文字说明；最后用 5 到 10 个真实问题验证资料是否能被正确检索。
+                    </blockquote>
+
+                    <img src="../images/blog-ai-knowledge-cleanup.webp" alt="幕布笔记导出后进行去重脱敏命名和目录清理再上传 AI 知识库示意图" loading="lazy">
+
+                    <h2>为什么“清洗”比“上传更多资料”更重要？</h2>
+                    <p>AI 知识库不是网盘。你上传什么，它就可能引用什么。幕布里常见的个人备忘、讨论草稿、旧版方案、临时会议记录，如果没有筛掉，就会进入模型的检索范围。</p>
+                    <p>更麻烦的是，错误资料往往比缺资料更难发现。缺资料时模型可能说不知道；资料混乱时，它会找到一段看似相关但已经过期的内容，然后生成一段很顺的回答。</p>
+
+                    <h2>推荐目录：raw 留底，clean 上传</h2>
+                    <p>不要直接在原始导出目录里改文件。推荐这样组织：</p>
+                    <pre><code>MubuAIKnowledge/2026-07-21/
+  raw/
+    Markdown/
+    HTML/
+    JSON/
+  clean/
+    product-faq/
+    internal-sop/
+    research-notes/
+  review/
+    cleanup-log.md
+    sensitive-check.md
+</code></pre>
+                    <p><code>raw</code> 是原始备份，任何时候都不改；<code>clean</code> 是准备上传的资料源；<code>review</code> 记录你删了什么、改了什么、为什么改。这样以后知识库回答异常，可以回到原始版本对照。</p>
+
+                    <h2>7 个上传前清洗动作</h2>
+                    <h3>1. 先划定知识库边界</h3>
+                    <p>先问一句：这个知识库要回答谁的问题？客服、销售、研发、HR、个人研究，边界完全不同。不要把“所有幕布笔记”当成一个知识库。</p>
+                    <table>
+                        <thead>
+                            <tr><th>知识库类型</th><th>可以进入</th><th>暂缓进入</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>客服 FAQ</td><td>产品规则、常见问题、故障排查</td><td>内部争议、客户隐私、未发布功能</td></tr>
+                            <tr><td>内部 SOP</td><td>正式流程、检查清单、负责人说明</td><td>临时方案、旧流程、没有结论的讨论</td></tr>
+                            <tr><td>个人研究</td><td>读书笔记、论文摘要、会议纪要</td><td>无关收藏、重复摘录、未标来源的片段</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h3>2. 删除重复和过期文件</h3>
+                    <p>幕布里很容易出现“方案 V1”“方案最终版”“方案最终最终版”。AI 不知道哪个才是准的。建议保留最终版，把旧版本放入 <code>archive</code>，默认不上传。</p>
+                    <p>如果你必须保留历史版本，至少在文件名里标清状态：<code>archived-2025-旧版退款规则.md</code>。不要让过期资料和正式资料处在同一层级。</p>
+
+                    <h3>3. 处理敏感信息</h3>
+                    <p>上传前搜索这些内容：</p>
+                    <ul>
+                        <li>手机号、邮箱、身份证、地址。</li>
+                        <li>客户名、合同号、报价、付款信息。</li>
+                        <li>账号、Token、API Key、内部后台链接。</li>
+                        <li>员工绩效、面试评价、个人争议记录。</li>
+                    </ul>
+                    <p>处理方式不只有删除，也可以替换成占位描述，例如“某客户”“内部系统”“具体报价需人工确认”。关键是不要让模型检索到原始敏感值。</p>
+
+                    <h3>4. 统一文件名和标题</h3>
+                    <p>AI 检索和人工维护都依赖标题。不要保留一堆 <code>未命名.md</code>、<code>会议记录.md</code>、<code>新文档.md</code>。</p>
+                    <pre><code>不推荐：
+会议记录.md
+方案.md
+未命名.md
+
+推荐：
+2026-Q3-客服退款规则FAQ.md
+2026-07-发布前检查清单.md
+AI知识库-资料清洗流程.md
+</code></pre>
+                    <p>文件名最好包含主题、时间、状态。正文开头也可以加一段“资料说明”，让后续检索更容易理解上下文。</p>
+
+                    <h3>5. 把图片和表格变成文字</h3>
+                    <p>幕布导出的 Markdown 可能保留图片链接，但不要假设 AI 知识库一定会理解图片内容。关键流程图、截图、表格，最好补一段文字说明。</p>
+                    <pre><code>图片说明：
+这张图展示退款处理流程，顺序是：
+1. 用户提交申请
+2. 客服核对订单状态
+3. 财务确认退款路径
+4. 运营记录原因标签
+</code></pre>
+                    <p>如果一个 SOP 的核心信息只在图片里，上传前一定要转成文字。</p>
+
+                    <h3>6. 保留 JSON，不直接上传 JSON</h3>
+                    <p>JSON 是很好的兜底备份，因为它更接近幕布原始节点结构。但普通问答知识库通常不应该直接检索未经处理的 JSON，结构字段可能干扰回答。</p>
+                    <p>更好的做法是：Markdown 进入知识库，HTML 用来人工对照，JSON 留给以后重新转换。如果后续你发现分段不理想，可以从 JSON 重新生成更适合 RAG 的 Markdown。</p>
+
+                    <h3>7. 用样本问题做上传前验收</h3>
+                    <p>清洗完不要马上全量导入。先选 5 到 10 篇样本，准备问题集：</p>
+                    <table>
+                        <thead>
+                            <tr><th>问题类型</th><th>示例</th><th>通过标准</th></tr>
+                        </thead>
+                        <tbody>
+                            <tr><td>事实查找</td><td>退款规则有哪些条件？</td><td>命中正式规则，不引用草稿</td></tr>
+                            <tr><td>流程步骤</td><td>发布前检查顺序是什么？</td><td>步骤完整，顺序正确</td></tr>
+                            <tr><td>权限边界</td><td>客户报价能否直接回答？</td><td>拒答或提示人工确认</td></tr>
+                            <tr><td>无资料问题</td><td>问一个资料里不存在的问题</td><td>明确说明缺少依据</td></tr>
+                        </tbody>
+                    </table>
+
+                    <h2>上传前最终清单</h2>
+                    <ul>
+                        <li>文档数量与幕布导出数量能对上。</li>
+                        <li>每个文件名能看出主题、时间和状态。</li>
+                        <li>过期文件已经移入 archive，不进入默认上传目录。</li>
+                        <li>手机号、邮箱、合同、报价、密钥已经处理。</li>
+                        <li>图片和表格有必要的文字说明。</li>
+                        <li>Markdown、HTML、JSON 三份都保留在本地。</li>
+                        <li>样本问题能命中正确资料，不能回答的问题不会被编造。</li>
+                    </ul>
+
+                    <h2>常见问题</h2>
+                    <h3>清洗资料是不是很花时间？</h3>
+                    <p>第一次会花一些时间，但比上线后排查错误回答更省。建议先从一个小知识库开始，例如客服 FAQ 或项目 SOP，跑通后再扩展。</p>
+
+                    <h3>可以用 AI 帮我清洗吗？</h3>
+                    <p>可以让 AI 辅助改标题、提取摘要、找重复，但敏感信息和权限边界需要人工确认。不要把未脱敏资料直接丢给不受控的外部工具。</p>
+
+                    <h3>清洗后还需要保留幕布原文档吗？</h3>
+                    <p>建议保留。至少在知识库验收完成前，不要删除幕布原文档和 raw 导出目录。清洗目录只是上传版本，不应该成为唯一备份。</p>
+
+                    <h2>总结：先让资料可信，再让 AI 检索</h2>
+                    <p>幕布导出工具解决的是资料可携带，资料清洗解决的是知识库可相信。AI 知识库不怕资料少，怕资料脏、过期、重复、边界不清。</p>
+                    <p>如果你只记一个原则：上传前先保留 raw，再整理 clean。这样既能让知识库更干净，也能给未来回滚和重做转换留余地。</p>
+
+                    <hr>
+                    <p><strong>相关链接：</strong></p>
+                    <ul>
+                        <li><a href="blog-export-markdown-guide.html">幕布导出 Markdown 完整指南</a></li>
+                        <li><a href="blog-export-html-json.html">幕布导出 HTML/JSON：可视化归档与二次处理指南</a></li>
+                        <li><a href="blog-ai-knowledge-rag-check.html">RAG 检索效果不好？先检查 Markdown 分段和引用</a></li>
+                        <li><a href="blog-ai-knowledge-version-sync.html">AI 知识库如何保持最新：增量导出、版本回滚与变更验收</a></li>
+                    </ul>
+                </div>
+
+                <footer class="article-footer">
+                    <div class="article-tags">
+                        <span class="article-tag">AI知识库</span>
+                        <span class="article-tag">资料清洗</span>
+                        <span class="article-tag">幕布导出Markdown</span>
+                        <span class="article-tag">知识库脱敏</span>
+                        <span class="article-tag">RAG资料准备</span>
+                    </div>
+                </footer>
+            </article>
+        </main>
+
+        <aside class="blog-sidebar-right">
+            <!-- 由blog-components.js自动填充 -->
+        </aside>
+    </div>
+
+    <!-- Footer由blog-components.js自动插入 -->
+
+    <script src="blog-common.js"></script>
+</body>
+
+</html>

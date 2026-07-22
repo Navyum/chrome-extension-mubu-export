@@ -90,20 +90,35 @@
 
     // 博客文章配置
     const blogPosts = {
+        'blog-ai-knowledge-cleanup.html': {
+            title: 'AI知识库资料清洗：幕布笔记导出后，上传前先做这 7 件事',
+            shortTitle: 'AI知识库资料清洗',
+            related: ['blog-ai-knowledge-rag-check.html', 'blog-ai-knowledge-version-sync.html', 'blog-export-html-json.html']
+        },
+        'blog-ai-knowledge-rag-check.html': {
+            title: 'RAG 检索效果不好？幕布 Markdown 分段、标题和引用验收指南',
+            shortTitle: 'RAG分段与引用验收',
+            related: ['blog-ai-knowledge-cleanup.html', 'blog-mubu-to-dify-ai-knowledge-base.html', 'blog-ai-knowledge-version-sync.html']
+        },
+        'blog-ai-knowledge-version-sync.html': {
+            title: 'AI知识库如何保持最新：幕布增量导出、版本回滚与变更验收',
+            shortTitle: 'AI知识库版本更新',
+            related: ['blog-ai-knowledge-cleanup.html', 'blog-ai-knowledge-rag-check.html', 'blog-export-html-json.html']
+        },
         'blog-mubu-to-dify-ai-knowledge-base.html': {
             title: '幕布笔记接入 Dify AI 知识库：从批量导出 Markdown 到 RAG 问答',
             shortTitle: '幕布接入Dify知识库',
-            related: ['blog-export-markdown-guide.html', 'blog-export-html-json.html', 'blog-mubu-to-coze-ai-knowledge-base.html']
+            related: ['blog-ai-knowledge-cleanup.html', 'blog-ai-knowledge-rag-check.html', 'blog-export-markdown-guide.html']
         },
         'blog-mubu-to-coze-ai-knowledge-base.html': {
             title: '幕布笔记接入扣子/Coze 知识库：给智能体准备可引用资料源',
             shortTitle: '幕布接入Coze知识库',
-            related: ['blog-export-pdf-word.html', 'blog-export-shared-docs.html', 'blog-mubu-to-dify-ai-knowledge-base.html']
+            related: ['blog-ai-knowledge-cleanup.html', 'blog-export-pdf-word.html', 'blog-export-shared-docs.html']
         },
         'blog-mubu-to-gemini-notebook.html': {
             title: '幕布笔记导入 Gemini Notebook：把大纲变成可引用的 AI 研究知识源',
             shortTitle: '幕布导入Gemini Notebook',
-            related: ['blog-export-markdown-guide.html', 'blog-export-pdf-word.html', 'blog-mubu-to-dify-ai-knowledge-base.html']
+            related: ['blog-ai-knowledge-cleanup.html', 'blog-ai-knowledge-version-sync.html', 'blog-export-markdown-guide.html']
         },
         'blog-first-person.html': {
             title: '幕布里存了500篇笔记，我花了一个周末把它们全部「救」了出来',
@@ -123,7 +138,7 @@
         'blog-export-markdown-guide.html': {
             title: '幕布怎么导出Markdown？我找到了最省事的批量方案',
             shortTitle: '幕布导出Markdown指南',
-            related: ['blog-mubu-to-dify-ai-knowledge-base.html', 'blog-mubu-to-gemini-notebook.html', 'blog-mubu-to-logseq.html']
+            related: ['blog-ai-knowledge-rag-check.html', 'blog-mubu-to-dify-ai-knowledge-base.html', 'blog-mubu-to-gemini-notebook.html']
         },
         'blog-backup-strategy.html': {
             title: '亲眼看见同事丢了两年的笔记后，我决定每月备份一次幕布',
@@ -173,7 +188,7 @@
         'blog-export-html-json.html': {
             title: '幕布导出HTML/JSON：可视化归档与二次处理指南',
             shortTitle: 'HTML/JSON归档指南',
-            related: ['blog-mubu-to-dify-ai-knowledge-base.html', 'blog-export-shared-docs.html', 'blog-export-markdown-guide.html']
+            related: ['blog-ai-knowledge-cleanup.html', 'blog-ai-knowledge-version-sync.html', 'blog-export-markdown-guide.html']
         },
         'blog-export-retry-resume.html': {
             title: '幕布批量导出失败怎么办？暂停、继续、重试完整排查',
