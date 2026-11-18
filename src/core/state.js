@@ -14,6 +14,10 @@ function overwriteTask(next) {
   Object.assign(exportTask, next);
 }
 
+export function replaceExportTask(next) {
+  overwriteTask(structuredClone(next));
+}
+
 export function replaceCatalog(nextCatalog) {
   catalog = structuredClone(nextCatalog);
   selectionDraft = createSelectionDraft(catalog, selectionDraft.selectedDocumentIds);
@@ -31,12 +35,17 @@ export function resetExportState() {
   return exportState;
 }
 
-export async function saveState() {
+let storageWrites = Promise.resolve();
+
+export function saveState() {
   // The marker makes these keys authoritative, even for an empty/reset task.
   // Legacy keys can remain on disk but cannot resurrect a cleared task.
-  await chrome.storage.local.set(structuredClone({
+  const snapshot = structuredClone({
     stateVersion: MODEL_VERSION, catalog, selectionDraft, exportTask
-  }));
+  });
+  const write = storageWrites.then(() => chrome.storage.local.set(snapshot));
+  storageWrites = write.catch(() => {});
+  return write;
 }
 
 export async function loadState() {

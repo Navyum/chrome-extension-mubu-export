@@ -1,4 +1,5 @@
 /* 现代化幕布导出插件样式 */
+.task-summary { font-size: 12px; overflow-wrap: anywhere; color: #94a3b8; }
 
 /* 重置和基础样式 */
 * {

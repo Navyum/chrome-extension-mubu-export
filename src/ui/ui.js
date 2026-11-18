@@ -27,6 +27,8 @@ export function syncUiWithState(state) {
   updateUiState({
     isExporting: Boolean(state.isExporting),
     isPaused: Boolean(state.isPaused),
+    taskId: state.taskId,
+    canResume: Boolean(state.canResume),
     totalFiles: state.totalFiles || 0,
     fileInfo: nextFileInfo
   });
@@ -56,8 +58,8 @@ export function syncUiWithState(state) {
   }
 
   if (nextFileInfo) {
-    if (totalFilesSpan) totalFilesSpan.textContent = nextFileInfo.totalFiles;
-    if (folderCountSpan) folderCountSpan.textContent = nextFileInfo.folderCount || 0;
+    if (totalFilesSpan) totalFilesSpan.textContent = state.catalogTotalFiles ?? nextFileInfo.totalFiles;
+    if (folderCountSpan) folderCountSpan.textContent = state.catalogFolderCount ?? nextFileInfo.folderCount ?? 0;
     if (fileInfoDiv) fileInfoDiv.style.display = 'block';
   } else {
     if (totalFilesSpan) totalFilesSpan.textContent = '0';
@@ -67,6 +69,14 @@ export function syncUiWithState(state) {
 
   if (getInfoBtn) getInfoBtn.disabled = uiState.isExporting;
   if (exportTypeSelect) exportTypeSelect.disabled = uiState.isExporting;
+
+  const summary = document.getElementById('taskSummary');
+  if (summary) summary.textContent = state.hasStarted ? i18n('selectionTaskCounts', [
+    String(state.totalFiles || 0), String(state.successCount || 0), String(state.failedCount || 0),
+    String(state.inProgressCount || 0), String(state.pendingCount || 0)
+  ]) + (state.recoveryNotice ? ` · ${state.recoveryNotice}` : '') : '';
+  if (state.hasStarted && progressBar) progressBar.style.display = 'block';
+  if (state.hasStarted) updateProgress(state.processedFiles || 0, state.totalFiles);
 
   if (uiState.isExporting) {
     if (startBtn) startBtn.style.display = 'none';
@@ -83,14 +93,18 @@ export function syncUiWithState(state) {
 
     const exportedCount = hasFileList ? state.fileList.filter(f => f.status === 'success').length : 0;
     if (progressFill && progressText) {
-      updateProgress(exportedCount, state.totalFiles);
+      updateProgress(state.processedFiles ?? exportedCount, state.totalFiles);
     }
   } else {
+    setStartButtonLabel(START_BUTTON_DEFAULT_TEXT());
     if (startBtn) {
       startBtn.style.display = 'inline-block';
       startBtn.disabled = !nextFileInfo;
     }
-    if (pauseBtn) pauseBtn.style.display = 'none';
+    if (pauseBtn) {
+      pauseBtn.style.display = state.canResume ? 'inline-block' : 'none';
+      if (state.canResume) setButtonState(pauseBtn, i18n('resumeExport'), 'btn-continue');
+    }
 
     if (state.failedFiles && state.failedFiles.length > 0 && retrySection && failedList) {
       retrySection.style.display = 'block';

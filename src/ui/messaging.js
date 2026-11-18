@@ -1,5 +1,5 @@
 import { START_BUTTON_DONE_TEXT } from './constants.js';
-import { updateUiState } from './state.js';
+import { uiState, updateUiState } from './state.js';
 import {
   addLog,
   resetUiToIdle,
@@ -21,21 +21,29 @@ export function initRuntimeMessaging() {
   chrome.runtime.onMessage.addListener(message => {
     switch (message.action) {
       case 'exportProgress': {
-        const { exportedFiles, totalFiles } = message.data;
+        if (message.data.taskId !== uiState.taskId) break;
+        const { exportedFiles, processedFiles, totalFiles } = message.data;
         updateUiState({ totalFiles });
-        updateProgress(exportedFiles, totalFiles);
+        updateProgress(processedFiles ?? exportedFiles, totalFiles);
+        const summary = document.getElementById('taskSummary');
+        if (summary) summary.textContent = i18n('selectionTaskCounts', [String(totalFiles),
+          String(message.data.successCount), String(message.data.failedCount),
+          String(message.data.inProgressCount), String(message.data.pendingCount)]);
         break;
       }
       case 'exportComplete': {
         addLog(i18n('exportCompleteLog'));
-        showStatus(i18n('exportCompleteStatus'), 'success');
-        showConfetti();
-        showRatingModalAfterExport();
         setStartButtonLabel(START_BUTTON_DONE_TEXT());
         updateUiState({ isExporting: false });
         chrome.runtime.sendMessage({ action: 'getUiState' }).then(response => {
           if (response?.success) {
             syncUiWithState(response.data);
+            if (response.data.failedCount) showStatus(i18n('selectionHasFailures'), 'error');
+            else if (!response.data.isExporting && !response.data.pendingCount) {
+              showStatus(i18n('exportCompleteStatus'), 'success');
+              showConfetti();
+              showRatingModalAfterExport();
+            }
           }
         });
         break;
@@ -49,6 +57,10 @@ export function initRuntimeMessaging() {
       }
       case 'exportLog': {
         addLog(message.data.message);
+        break;
+      }
+      case 'taskStateChanged': {
+        syncUiWithState(message.data);
         break;
       }
       default:

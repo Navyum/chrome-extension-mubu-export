@@ -1,6 +1,11 @@
-import { exportState, resetExportState, saveState, replaceCatalog } from './state.js';
-import { buildExportTask } from './task-builder.js';
-import { sendLog, sendProgress, sendComplete, sendError } from './messaging.js';
+import {
+  exportState, catalog, selectionDraft, resetExportState, saveState,
+  replaceCatalog, replaceExportTask, setSelectionDraft
+} from './state.js';
+import { buildExportTask, createInitialTask } from './task-builder.js';
+import { normalizeId } from './catalog.js';
+import { summarizeTask } from './task-summary.js';
+import { sendLog, sendProgress, sendComplete, sendError, sendMessageToPopup } from './messaging.js';
 import { fetchAllDocuments, fetchDocumentDefinition, fetchRemoteExportBlob, getJwtTokenOrThrow } from './mubu.js';
 import { buildExportPayload } from './formatters.js';
 import { saveContentToDisk, saveBlobToDisk } from './downloads.js';
@@ -8,286 +13,314 @@ import { delay } from './utils.js';
 import { refreshAbortController, abortActiveTasks } from './task-controller.js';
 import { DEFAULT_DOWNLOAD_SUBFOLDER, REMOTE_EXPORT_FORMATS, EXPORT_FORMATS } from './constants.js';
 
-export function registerRuntimeHandlers() {
-  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-    switch (message.action) {
-      case 'getFileInfo':
-        handleGetFileInfo(sendResponse);
-        return true;
-      case 'startExport':
-        handleStartExport(message.data, sendResponse);
-        return true;
-      case 'togglePause':
-        handleTogglePause(message.data);
-        return false;
-      case 'getUiState':
-        sendResponse({ success: true, data: exportState });
-        return false;
-      case 'retryFailedFiles':
-        handleRetryFailedFiles(sendResponse);
-        return true;
-      case 'resetExport':
-        handleResetExport(sendResponse);
-        return true;
-      default:
-        return false;
-    }
+let activeRun = null;
+const actions = new Set([
+  'getFileInfo', 'getCatalog', 'getSelectionDraft', 'saveSelectionDraft',
+  'startExport', 'togglePause', 'resumeExport', 'getUiState', 'retryFailedFiles', 'resetExport'
+]);
+
+export function getUiState() {
+  return structuredClone({
+    ...exportState, ...summarizeTask(exportState),
+    catalogTotalFiles: catalog.documents.length, catalogFolderCount: catalog.folders.length,
+    failedFiles: exportState.fileList.filter(file => file.status === 'failed'),
+    canResume: Boolean(exportState.hasStarted && exportState.fileList.some(file => file.status === 'pending'))
   });
 }
 
+function notifyState() {
+  sendMessageToPopup({ action: 'taskStateChanged', data: getUiState() });
+}
+
+// Serialize commands, not the long-running export loop. Every message waits for
+// bootstrap, while pause/reset remain available during document requests.
+export function registerRuntimeHandlers(ready = Promise.resolve()) {
+  let commands = Promise.resolve();
+  chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
+    if (!actions.has(message?.action)) return false;
+    const command = commands.then(() => ready).then(() => handleMessage(message));
+    commands = command.catch(() => {});
+    command.then(data => sendResponse({ success: true, data }),
+      error => sendResponse({ success: false, error: error.message }));
+    return true;
+  });
+}
+
+// A previous in-flight download cannot yet be verified (milestone 3). Keep it
+// failed, with an explicit warning, and wait for the user before any more work.
 export async function maybeResumeExport() {
-  if (exportState.isExporting && !exportState.isPaused) {
-    sendLog('检测到中断的导出任务，正在尝试恢复...');
-    exportFiles();
-  }
-}
-
-async function handleGetFileInfo(sendResponse) {
-  try {
-    const jwtToken = await getJwtTokenOrThrow();
-    sendLog('开始获取幕布文件列表...');
-    const { files, folderCount, catalog } = await fetchAllDocuments(jwtToken);
-
-    if (files.length === 0) {
-      throw new Error('未获取到任何文档，请确认账号下是否存在内容。');
+  exportState.hasStarted ??= Boolean(exportState.isExporting || exportState.isPaused ||
+    exportState.fileList.some(file => file.status !== 'pending'));
+  let interrupted = false;
+  for (const file of exportState.fileList) {
+    if (file.status === 'in_progress') {
+      file.status = 'failed';
+      file.error = '上次处理被中断，下载结果待确认。重试可能生成同名副本。';
+      interrupted = true;
     }
-
-    const snapshot = buildExportTask(catalog, { taskId: crypto.randomUUID() });
-    replaceCatalog(catalog);
-    exportState.taskId = snapshot.taskId;
-    exportState.scope = snapshot.scope;
-    exportState.catalogRevision = snapshot.catalogRevision;
-    exportState.fileList = snapshot.fileList;
-    exportState.totalFiles = files.length;
-    exportState.folderCount = folderCount;
+  }
+  if (exportState.isExporting || exportState.isPaused || interrupted) {
+    exportState.hasStarted = true;
     exportState.currentFileIndex = 0;
-    exportState.logs = [];
-
+    exportState.isExporting = exportState.fileList.some(file => file.status === 'pending');
+    exportState.isPaused = exportState.isExporting;
+    exportState.recoveryNotice = interrupted
+      ? '上次处理中断，部分下载结果待确认。请先检查下载目录，再继续或重试失败项；重试可能生成副本。'
+      : '已恢复原任务，请点击继续。任务范围、格式和输出目录保持不变。';
+    sendLog(exportState.recoveryNotice);
     await saveState();
-    sendLog(`成功获取 ${files.length} 个文档，${folderCount} 个文件夹。`);
-    if (!catalog.complete) sendLog('目录含未确认的字段或扫描结果；全量导出仍可用，选择性导出需要完整目录。');
-    sendResponse({ success: true, data: exportState });
-  } catch (error) {
-    const message = error.message.includes('Jwt-Token')
-      ? '未检测到 Jwt-Token，请确认已在 https://mubu.com 登录后重试。'
-      : error.message;
-    sendLog(`获取文件信息失败: ${message}`);
-    sendResponse({ success: false, error: message });
   }
 }
 
-async function handleStartExport(data, sendResponse) {
-  if (!exportState.fileList.length) {
-    sendResponse({ success: false, error: '文件列表为空，请先获取文件信息。' });
-    return;
+function requireIdle() {
+  if (exportState.isExporting || activeRun) throw new Error('当前任务正在运行或暂停，请先完成或重置，不能覆盖任务。');
+}
+
+function validateSelection(data) {
+  if (!data || data.catalogRevision !== catalog.revision || !catalog.revision) {
+    throw new Error('目录版本已变化，请重新读取目录。');
   }
+  if (!Array.isArray(data.selectedDocumentIds)) throw new Error('选择范围必须是文档 ID 数组。');
+  const known = new Set(catalog.documents.map(doc => doc.id));
+  if (data.selectedDocumentIds.some(id => !normalizeId(id) || !known.has(normalizeId(id)))) {
+    throw new Error('选择范围包含不存在的文档。');
+  }
+}
 
-  try {
-    await getJwtTokenOrThrow(); // 提前校验
-    const settings = await chrome.storage.local.get(['subfolder']);
-
-    exportState.isExporting = true;
-    exportState.isPaused = false;
-    exportState.currentFileIndex = 0;
-    exportState.exportType = data?.exportType || 'md';
-    exportState.subfolder = normalizeSubfolder(settings.subfolder);
-    exportState.logs = [];
-
-    exportState.fileList.forEach(file => {
-      if (file.status !== 'success') {
-        file.status = 'pending';
+async function handleMessage({ action, data }) {
+  switch (action) {
+    case 'getUiState': return getUiState();
+    case 'getCatalog': return structuredClone(catalog);
+    case 'getSelectionDraft': return structuredClone(selectionDraft);
+    case 'saveSelectionDraft': {
+      validateSelection(data);
+      const previous = structuredClone(selectionDraft);
+      setSelectionDraft(data.selectedDocumentIds);
+      try { await saveState(); }
+      catch (error) {
+        setSelectionDraft(previous.selectedDocumentIds);
+        // A runner may have queued a snapshot while this write was pending.
+        await saveState().catch(() => {});
+        throw error;
       }
-    });
-
-    refreshAbortController();
-
-    await saveState();
-    sendResponse({ success: true });
-    exportFiles();
-  } catch (error) {
-    sendResponse({ success: false, error: error.message });
-  }
-}
-
-async function handleRetryFailedFiles(sendResponse) {
-  if (exportState.isExporting) {
-    sendResponse({ success: false, error: '当前有任务正在运行，请先暂停或重置。' });
-    return;
-  }
-
-  const failedFiles = exportState.fileList.filter(file => file.status === 'failed');
-  if (!failedFiles.length) {
-    sendResponse({ success: false, error: '没有失败的文件需要重试。' });
-    return;
-  }
-
-  try {
-    await getJwtTokenOrThrow();
-    const settings = await chrome.storage.local.get(['subfolder']);
-
-    exportState.fileList.forEach(file => {
-      if (file.status === 'failed') {
-        file.status = 'pending';
+      return structuredClone(selectionDraft);
+    }
+    case 'getFileInfo': {
+      requireIdle();
+      refreshAbortController();
+      const token = await getJwtTokenOrThrow();
+      const result = await fetchAllDocuments(token);
+      if (!result.files.length) throw new Error('未获取到任何文档，请确认账号下是否存在内容。');
+      const previousCatalog = structuredClone(catalog);
+      const previousDraft = structuredClone(selectionDraft);
+      const previousTask = structuredClone(exportState);
+      replaceCatalog(result.catalog);
+      if (!exportState.fileList.length) {
+        replaceExportTask(buildExportTask(catalog, { taskId: crypto.randomUUID() }));
       }
-    });
-
-    exportState.isExporting = true;
-    exportState.isPaused = false;
-    exportState.currentFileIndex = 0;
-    exportState.subfolder = normalizeSubfolder(settings.subfolder);
-    exportState.logs = [];
-
-    refreshAbortController();
-
-    await saveState();
-    sendResponse({ success: true });
-    exportFiles();
-  } catch (error) {
-    sendResponse({ success: false, error: error.message });
+      try { await saveState(); }
+      catch (error) {
+        replaceCatalog(previousCatalog);
+        setSelectionDraft(previousDraft.selectedDocumentIds);
+        replaceExportTask(previousTask);
+        throw error;
+      }
+      sendLog(`成功获取 ${result.files.length} 个文档，${result.folderCount} 个文件夹。`);
+      if (!catalog.complete) sendLog('目录含未确认字段或异常关系，请重新扫描；旧全量导出仍可使用。');
+      notifyState();
+      return getUiState();
+    }
+    case 'startExport': {
+      requireIdle();
+      const scope = data?.scope ?? 'all';
+      const exportType = data?.exportType ?? 'md';
+      if (!Object.hasOwn(EXPORT_FORMATS, exportType)) throw new Error('不支持的导出格式。');
+      if (scope === 'selected') validateSelection(data);
+      // Build from trusted catalog, never from UI titles, paths or queue objects.
+      let next;
+      const settings = await chrome.storage.local.get(['subfolder']);
+      const subfolder = typeof settings.subfolder === 'string' && settings.subfolder.trim()
+        ? settings.subfolder.trim() : DEFAULT_DOWNLOAD_SUBFOLDER;
+      if (scope === 'all' && catalog.needsRefresh && exportState.fileList.length) {
+        // Legacy installations can still export their trusted saved list before a rescan.
+        next = { ...createInitialTask(), taskId: crypto.randomUUID(), exportType, subfolder,
+          folderCount: exportState.folderCount,
+          fileList: exportState.fileList.map(file => ({
+            id: file.id, title: file.title, type: file.type, folderId: file.folderId,
+            folderPath: file.folderPath, status: 'pending', localPath: ''
+          })) };
+        next.totalFiles = next.fileList.length;
+      } else {
+        next = buildExportTask(catalog, {
+          taskId: crypto.randomUUID(), scope, exportType, subfolder,
+          catalogRevision: data?.catalogRevision ?? catalog.revision,
+          selectedDocumentIds: data?.selectedDocumentIds ?? []
+        });
+      }
+      await getJwtTokenOrThrow();
+      next.hasStarted = true;
+      next.isExporting = true;
+      await commitTask(next);
+      launchRunner();
+      notifyState();
+      return getUiState();
+    }
+    case 'togglePause': {
+      if (!(data?.isPaused ?? false)) return resumeTask();
+      if (!exportState.isExporting) throw new Error('没有正在进行的任务。');
+      exportState.isPaused = true;
+      await saveState();
+      notifyState();
+      return getUiState();
+    }
+    case 'resumeExport': return resumeTask();
+    case 'retryFailedFiles': {
+      requireIdle();
+      const failed = exportState.fileList.filter(file => file.status === 'failed');
+      if (!failed.length) throw new Error('没有失败的文件需要重试。');
+      await getJwtTokenOrThrow();
+      const next = structuredClone(exportState);
+      next.runDocumentIds = failed.map(file => file.id);
+      next.fileList.forEach(file => {
+        if (file.status === 'failed') { file.status = 'pending'; delete file.error; }
+      });
+      next.isExporting = true;
+      next.isPaused = false;
+      next.hasStarted = true;
+      next.currentFileIndex = 0;
+      await commitTask(next);
+      launchRunner();
+      notifyState();
+      return getUiState();
+    }
+    case 'resetExport': {
+      activeRun = null; // Invalidate callbacks before aborting their requests.
+      abortActiveTasks();
+      resetExportState();
+      await saveState();
+      notifyState();
+      return getUiState();
+    }
   }
 }
 
-async function handleResetExport(sendResponse) {
-  abortActiveTasks();
+async function commitTask(next) {
+  const previous = structuredClone(exportState);
+  replaceExportTask(next);
+  try { await saveState(); }
+  catch (error) { replaceExportTask(previous); throw error; }
+}
+
+async function resumeTask() {
+  if (!exportState.taskId || !exportState.hasStarted) throw new Error('没有可继续的原任务。');
+  if (!exportState.isExporting && !exportState.fileList.some(file => file.status === 'pending')) {
+    throw new Error('原任务没有待处理文档，请使用失败重试或新建导出。');
+  }
+  await getJwtTokenOrThrow();
+  const previous = { isExporting: exportState.isExporting, isPaused: exportState.isPaused,
+    currentFileIndex: exportState.currentFileIndex };
+  exportState.isExporting = true;
+  exportState.isPaused = false;
+  exportState.currentFileIndex = 0;
+  try { await saveState(); }
+  catch (error) {
+    if (exportState.isExporting) Object.assign(exportState, previous);
+    throw error;
+  }
+  launchRunner();
+  notifyState();
+  return getUiState();
+}
+
+function launchRunner() {
+  if (activeRun || !exportState.isExporting || exportState.isPaused) return;
   refreshAbortController();
-  resetExportState();
-  await saveState();
-  sendResponse({ success: true, data: exportState });
+  const run = { taskId: exportState.taskId };
+  activeRun = run;
+  // The run token also isolates two attempts of the same task (retry/resume).
+  void exportFiles(run);
 }
 
-function normalizeSubfolder(subfolder) {
-  const value = typeof subfolder === 'string' ? subfolder.trim() : '';
-  return value || DEFAULT_DOWNLOAD_SUBFOLDER;
-}
-
-async function handleTogglePause(data) {
-  if (!exportState.isExporting) {
-    sendLog('没有正在进行的任务，忽略暂停/继续指令。');
-    return;
-  }
-  exportState.isPaused = data?.isPaused ?? false;
-  sendLog(exportState.isPaused ? '导出已暂停。' : '导出已继续。');
-  await saveState();
-}
-
-async function exportFiles() {
+async function exportFiles(run) {
+  const isActive = () => activeRun === run && exportState.taskId === run.taskId;
+  const files = exportState.fileList;
+  const exportType = exportState.exportType;
+  const context = { subfolder: exportState.subfolder, isActive };
+  const allowed = exportState.runDocumentIds ? new Set(exportState.runDocumentIds) : null;
   try {
-    const jwtToken = await getJwtTokenOrThrow();
-    const filesToProcess = exportState.fileList;
-    const totalCount = filesToProcess.length;
-
-    for (let i = exportState.currentFileIndex; i < totalCount; i++) {
-      if (!exportState.isExporting) {
-        sendLog('导出流程已被取消。');
-        return;
-      }
-
-      await waitIfPaused();
-
-      const file = filesToProcess[i];
+    const token = await getJwtTokenOrThrow();
+    if (!isActive()) return;
+    for (let i = 0; i < files.length; i++) {
+      if (!isActive() || exportState.isPaused) return;
+      const file = files[i];
+      if (file.status !== 'pending' || (allowed && !allowed.has(file.id))) continue;
       exportState.currentFileIndex = i;
-
-      if (file.status !== 'pending') {
-        continue;
-      }
-
       file.status = 'in_progress';
       file.startTime = Date.now();
-      file.retryCount = 0;
       file.exportUrl = `mubu://${file.id}`;
       file.downloadUrl = '';
       await saveState();
-      sendLog(`(进度 ${i + 1}/${totalCount}) 处理 ${file.title}...`);
-
-      const MAX_RETRIES = 1;
-      let success = false;
-
-      for (let attempt = 0; attempt <= MAX_RETRIES; attempt++) {
+      if (!isActive()) return;
+      sendProgress();
+      // Pause takes effect after the current document, including its retry.
+      for (let attempt = 0; attempt <= 1; attempt++) {
         try {
-          if (attempt > 0) {
-            sendLog(`重试第 ${attempt} 次: ${file.title}`);
-            await delay(2000);
-          }
-
+          if (attempt) await delay(2000);
+          if (!isActive()) return;
           file.retryCount = attempt;
-          const definition = await fetchDocumentDefinition(file.id, jwtToken);
-
-          let savedPath;
-          if (REMOTE_EXPORT_FORMATS.has(exportState.exportType)) {
-            // Remote export (PDF etc.): call Mubu's convert API
-            const format = EXPORT_FORMATS[exportState.exportType];
-            const blob = await fetchRemoteExportBlob(definition, exportState.exportType, jwtToken, { title: file.title });
-            savedPath = await saveBlobToDisk(blob, file, format.extension);
+          const definition = await fetchDocumentDefinition(file.id, token);
+          if (!isActive()) return;
+          let path;
+          if (REMOTE_EXPORT_FORMATS.has(exportType)) {
+            const blob = await fetchRemoteExportBlob(definition, exportType, token, { title: file.title });
+            if (!isActive()) return;
+            path = await saveBlobToDisk(blob, file, EXPORT_FORMATS[exportType].extension, context);
           } else {
-            // Local export: format and save
-            const exportPayload = buildExportPayload(definition, exportState.exportType, file);
-            savedPath = await saveContentToDisk(exportPayload, file);
+            path = await saveContentToDisk(buildExportPayload(definition, exportType, file), file, context);
           }
-
-          file.status = 'success';
-          file.localPath = savedPath;
-          file.endTime = Date.now();
-          file.duration = file.endTime - file.startTime;
-          sendLog(`导出完成: ${file.title} (耗时 ${(file.duration / 1000).toFixed(2)}s)`);
-          sendProgress();
-          success = true;
+          if (!isActive()) return;
+          file.status = 'success'; // Existing download-creation semantics; completion is milestone 3.
+          file.localPath = path;
+          delete file.error;
           break;
         } catch (error) {
-          if (error.name === 'AbortError') {
-            sendLog('检测到中止信号，结束导出流程。');
-            return;
+          if (!isActive()) return;
+          if (attempt === 1 || error.name === 'AbortError') {
+            file.status = 'failed';
+            file.error = error.message;
+            break;
           }
-          sendLog(`导出失败: ${file.title} -> ${error.message}`);
         }
       }
-
-      if (!success) {
-        file.status = 'failed';
-        file.endTime = Date.now();
-        file.duration = file.endTime - file.startTime;
-        sendLog(`已将 ${file.title} 标记为失败。`);
-      }
-
+      if (!isActive()) return;
+      file.endTime = Date.now();
+      file.duration = file.endTime - file.startTime;
       await saveState();
+      if (!isActive()) return;
+      sendProgress();
       await delay(1200 + Math.random() * 800);
     }
-
-    if (!exportState.isExporting) {
-      sendLog('导出被外部中止，跳过收尾。');
-      return;
-    }
-
+    if (!isActive()) return;
     exportState.isExporting = false;
+    exportState.isPaused = false;
+    delete exportState.runDocumentIds;
+    if (!files.some(file => file.status === 'failed')) delete exportState.recoveryNotice;
     await saveState();
-
-    const failedCount = exportState.fileList.filter(file => file.status === 'failed').length;
-    if (failedCount > 0) {
-      sendLog(`导出完成，但仍有 ${failedCount} 个文档失败。请稍后重试。`);
-    } else {
-      sendLog('所有幕布文档均已成功导出！');
-    }
-
+    if (!isActive()) return;
     sendComplete();
+    notifyState();
   } catch (error) {
-    if (error.name === 'AbortError') {
-      sendLog('导出流程已被重置。');
-      return;
+    if (!isActive()) return;
+    // Do not leave an ambiguous in_progress item looking successful.
+    for (const file of files) if (file.status === 'in_progress') {
+      file.status = 'failed';
+      file.error = '处理状态待确认，请检查下载目录后再重试。';
     }
     exportState.isExporting = false;
-    await saveState();
-    sendLog(`导出流程发生异常: ${error.message}`);
-    sendError(error.message);
+    exportState.isPaused = false;
+    try { await saveState(); } catch { /* Keep memory conservative if storage is unavailable. */ }
+    if (isActive()) { sendError(error.message); notifyState(); }
+  } finally {
+    if (activeRun === run) activeRun = null;
   }
-}
-
-async function waitIfPaused() {
-  if (!exportState.isPaused) return;
-  sendLog('导出已暂停，等待继续...');
-  while (exportState.isPaused) {
-    await delay(1000);
-    if (!exportState.isExporting) {
-      throw new Error('导出已被取消');
-    }
-  }
-  sendLog('检测到继续指令，恢复导出。');
 }

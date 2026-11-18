@@ -36,13 +36,14 @@ export function initDownloadHooks() {
   }
 }
 
-export async function saveContentToDisk(exportPayload, file) {
-  const relativePath = buildRelativeDownloadPath(file, exportPayload.extension);
+export async function saveContentToDisk(exportPayload, file, context = {}) {
+  const relativePath = buildRelativeDownloadPath(file, exportPayload.extension, context.subfolder);
   const dataUrl = `data:${exportPayload.mime};charset=utf-8,${encodeURIComponent(exportPayload.content)}`;
 
   pendingDownloadUrlMap.set(dataUrl, relativePath);
 
   try {
+    assertActive(context);
     await chrome.downloads.download({
       url: dataUrl,
       filename: relativePath,
@@ -61,8 +62,8 @@ export async function saveContentToDisk(exportPayload, file) {
   return relativePath;
 }
 
-export async function saveBlobToDisk(blob, file, extension) {
-  const relativePath = buildRelativeDownloadPath(file, extension);
+export async function saveBlobToDisk(blob, file, extension, context = {}) {
+  const relativePath = buildRelativeDownloadPath(file, extension, context.subfolder);
 
   // Convert blob to data URL (URL.createObjectURL is not available in Service Worker)
   const dataUrl = await blobToDataUrl(blob);
@@ -70,6 +71,7 @@ export async function saveBlobToDisk(blob, file, extension) {
   pendingDownloadUrlMap.set(dataUrl, relativePath);
 
   try {
+    assertActive(context);
     await chrome.downloads.download({
       url: dataUrl,
       filename: relativePath,
@@ -97,12 +99,18 @@ function blobToDataUrl(blob) {
   });
 }
 
-function buildRelativeDownloadPath(file, extension) {
+function assertActive(context) {
+  if (context.isActive && !context.isActive()) {
+    throw new DOMException('任务已取消', 'AbortError');
+  }
+}
+
+function buildRelativeDownloadPath(file, extension, subfolder = exportState.subfolder) {
   const segments = [];
   const baseName = `${sanitizePathComponent(file?.title) || '未命名文档'}.${extension}`;
 
-  if (exportState.subfolder) {
-    segments.push(...sanitizePathSegments(exportState.subfolder));
+  if (subfolder) {
+    segments.push(...sanitizePathSegments(subfolder));
   }
 
   if (file?.folderPath) {

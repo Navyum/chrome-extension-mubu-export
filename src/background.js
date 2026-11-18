@@ -4,7 +4,6 @@ import { loadState } from './core/state.js';
 import { sendLog } from './core/messaging.js';
 
 initDownloadHooks();
-registerRuntimeHandlers();
 
 // Override Origin/Referer for all Mubu API requests
 // (browser ignores Origin set via fetch headers for extension requests)
@@ -44,7 +43,7 @@ chrome.declarativeNetRequest.updateDynamicRules({
   ]
 });
 
-(async function bootstrap() {
+const stateReady = (async function bootstrap() {
   const { restored, error } = await loadState();
   if (restored) {
     sendLog('已从存储中恢复任务状态。');
@@ -53,3 +52,5 @@ chrome.declarativeNetRequest.updateDynamicRules({
   }
   await maybeResumeExport();
 })();
+
+registerRuntimeHandlers(stateReady);

@@ -9,7 +9,8 @@ const config = {
   entry: {
     background: path.resolve(__dirname, 'src/background.js'),
     popup: path.resolve(__dirname, 'src/popup.js'),
-    settings: path.resolve(__dirname, 'src/settings.js')
+    settings: path.resolve(__dirname, 'src/settings.js'),
+    'select-export': path.resolve(__dirname, 'src/select-export.js')
   },
   output: {
     filename: 'src/[name].js',

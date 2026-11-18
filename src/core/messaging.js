@@ -1,12 +1,12 @@
 import { exportState } from './state.js';
+import { summarizeTask } from './task-summary.js';
 
 export function sendProgress() {
-  const exportedCount = exportState.fileList.filter(file => file.status === 'success').length;
   sendMessageToPopup({
     action: 'exportProgress',
     data: {
-      exportedFiles: exportedCount,
-      totalFiles: exportState.totalFiles
+      ...summarizeTask(exportState), taskId: exportState.taskId,
+      isExporting: exportState.isExporting, isPaused: exportState.isPaused
     }
   });
 }
