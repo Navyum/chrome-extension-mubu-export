@@ -1,19 +1,23 @@
 import { MUBU_API } from './constants.js';
 import { getAbortSignal } from './task-controller.js';
-import { sanitizePathComponent } from './utils.js';
+import { createCatalog, normalizeId } from './catalog.js';
 
 export async function fetchAllDocuments(jwtToken) {
   const folders = new Map();
   const documents = new Map();
+  const issues = [];
 
-  await fetchDocumentsPageData(jwtToken, folders, documents);
-  await fetchFolderList(jwtToken, folders);
-  await fetchRecursiveListData(jwtToken, folders, documents);
+  await fetchDocumentsPageData(jwtToken, folders, documents, issues);
+  await fetchFolderList(jwtToken, folders, issues);
+  await fetchRecursiveListData(jwtToken, folders, documents, issues);
 
-  const folderPathMap = buildFolderPathMap(folders);
-  const files = buildFlatDocumentList(folders, documents, folderPathMap);
+  const catalog = createCatalog([...folders.values()], [...documents.values()], {
+    revision: crypto.randomUUID(), fetchedAt: Date.now(), issues
+  });
+  const files = catalog.documents.map(doc => ({ ...doc, localPath: '' }));
 
-  return { files, folderCount: folders.size };
+  // Preserve the existing API; consumers can opt into the complete catalog.
+  return { files, folderCount: catalog.folders.length, catalog };
 }
 
 export async function fetchDocumentDefinition(docId, jwtToken) {
@@ -111,39 +115,45 @@ export async function fetchRemoteExportBlob(definition, exportType, jwtToken, fi
   return blob;
 }
 
-async function fetchDocumentsPageData(jwtToken, folderMap, docMap) {
+async function fetchDocumentsPageData(jwtToken, folderMap, docMap, issues) {
   let start = '';
   let guard = 0;
+  const cursors = new Set();
 
   while (true) {
     guard += 1;
     if (guard > 50) {
+      issues.push({ code: 'page-limit', incomplete: true });
       break;
     }
 
     const data = await requestMubuJson(MUBU_API.LIST, jwtToken, { start });
-    mergeFolders(folderMap, data.folders);
-    mergeDocuments(docMap, data.documents);
+    mergeRecords(folderMap, data.folders, 'folder', issues);
+    mergeRecords(docMap, data.documents, 'document', issues);
 
     const nextStart = data.nextStart ?? data.next_start ?? data.next ?? '';
-    if (!nextStart || nextStart === start) {
+    if (!nextStart) break;
+    if (nextStart === start || cursors.has(nextStart)) {
+      issues.push({ code: 'repeated-cursor', incomplete: true });
       break;
     }
+    cursors.add(nextStart);
     start = nextStart;
   }
 }
 
-async function fetchFolderList(jwtToken, folderMap) {
+async function fetchFolderList(jwtToken, folderMap, issues) {
   const data = await requestMubuJson(MUBU_API.LIST_GET_FOLDER, jwtToken, {});
-  mergeFolders(folderMap, Array.isArray(data) ? data : []);
+  mergeRecords(folderMap, Array.isArray(data) ? data : data.folders, 'folder', issues);
 }
 
-async function fetchRecursiveListData(jwtToken, folderMap, docMap) {
-  const pendingFolderIds = ['0'];
+async function fetchRecursiveListData(jwtToken, folderMap, docMap, issues) {
+  const pendingFolderIds = ['0', ...folderMap.keys()];
+  const queuedFolderIds = new Set(pendingFolderIds);
   const visitedFolderIds = new Set();
 
-  while (pendingFolderIds.length) {
-    const folderId = pendingFolderIds.shift();
+  for (let index = 0; index < pendingFolderIds.length; index++) {
+    const folderId = pendingFolderIds[index];
     if (visitedFolderIds.has(folderId)) {
       continue;
     }
@@ -151,98 +161,45 @@ async function fetchRecursiveListData(jwtToken, folderMap, docMap) {
 
     const payload = folderId === '0' ? {} : { folderId };
     const data = await requestMubuJson(MUBU_API.LIST_GET, jwtToken, payload);
-    const folders = Array.isArray(data.folders) ? data.folders : [];
+    mergeRecords(folderMap, data.folders, 'folder', issues, folderId);
+    mergeRecords(docMap, data.documents, 'document', issues, folderId);
 
-    mergeFolders(folderMap, folders);
-    mergeDocuments(docMap, data.documents);
-
-    folders.forEach(folder => {
-      if (folder?.id && !visitedFolderIds.has(folder.id)) {
-        pendingFolderIds.push(folder.id);
+    for (const id of folderMap.keys()) {
+      if (!queuedFolderIds.has(id)) {
+        queuedFolderIds.add(id);
+        pendingFolderIds.push(id);
       }
-    });
+    }
   }
 }
 
-function mergeFolders(folderMap, folders) {
-  (Array.isArray(folders) ? folders : []).forEach(folder => {
-    if (folder?.id) {
-      folderMap.set(folder.id, folder);
-    }
-  });
-}
-
-function mergeDocuments(docMap, documents) {
-  (Array.isArray(documents) ? documents : []).forEach(doc => {
-    if (doc?.id) {
-      docMap.set(doc.id, doc);
-    }
-  });
-}
-
-function buildFolderPathMap(folderMap) {
-  const pathMap = new Map();
-
-  const buildPath = (folderId, visiting = new Set()) => {
-    if (!folderId || folderId === '0') {
-      return '';
-    }
-    if (pathMap.has(folderId)) {
-      return pathMap.get(folderId);
-    }
-    if (visiting.has(folderId)) {
-      return '';
-    }
-
-    const folder = folderMap.get(folderId);
-    if (!folder) {
-      return '';
-    }
-
-    visiting.add(folderId);
-
-    const parentId = getFolderParentId(folder);
-    const parentPath = buildPath(parentId, visiting);
-    const folderName = sanitizePathComponent(folder.name || '未命名文件夹') || folder.id;
-    const folderPath = parentPath ? `${parentPath}/${folderName}` : folderName;
-
-    visiting.delete(folderId);
-    pathMap.set(folderId, folderPath);
-    return folderPath;
-  };
-
-  for (const folderId of folderMap.keys()) {
-    buildPath(folderId);
+function mergeRecords(map, records, kind, issues, containerId) {
+  if (!Array.isArray(records)) {
+    issues.push({ code: 'missing-or-invalid-list', kind, incomplete: true });
+    return;
   }
-
-  return pathMap;
-}
-
-function buildFlatDocumentList(folderMap, docMap, folderPathMap) {
-  const files = [];
-
-  for (const doc of docMap.values()) {
-    const folderId = getDocumentFolderId(doc);
-    const folderPath = folderId && folderMap.has(folderId)
-      ? folderPathMap.get(folderId) || ''
-      : '';
-
-    files.push({
-      id: doc.id,
-      title: doc.name || '未命名文档',
-      type: doc.type,
-      folderPath,
-      localPath: ''
-    });
+  for (const raw of records) {
+    const id = normalizeId(raw?.id);
+    if (!id || (kind === 'folder' && id === '0')) {
+      issues.push({ code: 'invalid-id', kind, id, incomplete: true });
+      continue;
+    }
+    const record = Object.fromEntries(Object.entries(raw).filter(([, value]) => value !== undefined));
+    const values = [raw.folderId, raw.folder_id].filter(value => value !== undefined && value !== null && value !== '');
+    const relations = values.map(normalizeId);
+    if (relations.some(id => !id)) issues.push({ code: 'invalid-relation', kind, id, incomplete: true });
+    if (new Set(relations.filter(Boolean)).size > 1) issues.push({ code: 'conflicting-relation', kind, id, incomplete: true });
+    const relation = relations.find(Boolean);
+    const previous = map.get(id);
+    const previousRelation = normalizeId(previous?.folderId ?? previous?.folder_id);
+    const observedRelation = relation || containerId;
+    if (previousRelation && observedRelation && previousRelation !== observedRelation) {
+      issues.push({ code: 'relationship-changed-during-scan', kind, id, incomplete: true });
+    }
+    // The containing list is evidence only when the endpoint is list/get.
+    // A missing field in global pagination is NOT proof of root membership.
+    if (!relation && containerId !== undefined) record.folderId = containerId;
+    else if (relation) record.folderId = relation;
+    map.set(id, { ...map.get(id), ...record, id });
   }
-
-  return files;
-}
-
-function getDocumentFolderId(doc) {
-  return doc?.folderId ?? doc?.folder_id ?? '';
-}
-
-function getFolderParentId(folder) {
-  return folder?.folderId ?? folder?.folder_id ?? '';
 }
