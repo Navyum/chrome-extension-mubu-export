@@ -27,11 +27,48 @@ export async function fetchDocumentDefinition(docId, jwtToken) {
     isFromDocDir: true
   });
 
-  const definitionString = data?.definition || '{"nodes": []}';
-  try {
-    return JSON.parse(definitionString);
-  } catch (error) {
-    return { nodes: [] };
+  if (!isRecord(data) || !Object.hasOwn(data, 'definition') || data.definition === undefined) {
+    throw new Error('[DEFINITION_MISSING] 文档详情缺少 definition 字段，请重试。');
+  }
+  let definition = data.definition;
+  if (typeof definition === 'string') {
+    try {
+      definition = JSON.parse(definition);
+    } catch {
+      // Native JSON errors may include excerpts of the document. Never propagate them.
+      throw new Error('[DEFINITION_JSON] 文档 definition 不是有效 JSON，请重试。');
+    }
+  }
+  validateDefinition(definition);
+  return definition;
+}
+
+function isRecord(value) {
+  return value !== null && typeof value === 'object' && !Array.isArray(value);
+}
+
+function validateDefinition(definition) {
+  if (!isRecord(definition) || !Array.isArray(definition.nodes)) {
+    throw new Error('[DEFINITION_STRUCTURE] 文档 definition 必须包含 nodes 数组。');
+  }
+  // Only validate the tree contract shared by all current formats. Blank/image-only
+  // nodes, optional null children and unknown rich-content metadata remain intact.
+  // Iteration avoids adding another recursive depth limit before conversion.
+  const pending = [definition.nodes];
+  const seen = new WeakSet();
+  while (pending.length) {
+    for (const node of pending.pop()) {
+      if (!isRecord(node) || seen.has(node)) {
+        throw new Error('[DEFINITION_NODE] 文档包含无效节点或循环引用。');
+      }
+      seen.add(node);
+      if (node.children != null) {
+        if (!Array.isArray(node.children)) {
+          throw new Error('[DEFINITION_CHILDREN] 文档节点的 children 必须为数组或空值。');
+        }
+        pending.push(node.children);
+      }
+    }
   }
 }
 
@@ -53,8 +90,22 @@ async function requestMubuJson(url, jwtToken, payload) {
     throw new Error(`接口请求失败: HTTP ${response.status}`);
   }
 
-  const result = await response.json();
+  const documentDetail = url === MUBU_API.DOC_DETAIL;
+  let result;
+  try {
+    result = await response.json();
+  } catch (error) {
+    if (!documentDetail || error.name === 'AbortError') throw error;
+    throw new Error('[DOCUMENT_RESPONSE_JSON] 文档详情响应不是有效 JSON，请重试。');
+  }
+  if (documentDetail && !isRecord(result)) {
+    throw new Error('[DOCUMENT_RESPONSE_STRUCTURE] 文档详情响应结构无效，请重试。');
+  }
   if (typeof result.code !== 'undefined' && result.code !== 0) {
+    if (documentDetail) {
+      // API-provided message strings are untrusted and may contain private data.
+      throw new Error('[DOCUMENT_RESPONSE_ERROR] 文档详情接口返回失败状态，请检查登录状态或稍后重试。');
+    }
     const msg = result.msg || result.message || `接口返回 code=${result.code}`;
     throw new Error(msg);
   }
@@ -108,10 +159,26 @@ export async function fetchRemoteExportBlob(definition, exportType, jwtToken, fi
     throw new Error(`PDF 导出接口失败: HTTP ${response.status}`);
   }
 
+  const contentType = (response.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
+  if (contentType.startsWith('text/') || contentType === 'application/json' ||
+      contentType.endsWith('+json') || contentType === 'application/xhtml+xml') {
+    throw new Error('[PDF_CONTENT_TYPE] PDF 导出接口返回文本或错误响应，未创建下载。');
+  }
   const blob = await response.blob();
   if (blob.size === 0) {
-    throw new Error('PDF 导出返回空数据');
+    throw new Error('[PDF_EMPTY] PDF 导出返回空数据，未创建下载。');
   }
+  // Bounded Web API reads work in an MV3 service worker. Keep the original Blob;
+  // do not decode/copy the entire file just to validate it before downloading.
+  const header = String.fromCharCode(...new Uint8Array(await blob.slice(0, 9).arrayBuffer()));
+  if (!/^%PDF-\d\.\d[\r\n]/.test(header)) {
+    throw new Error('[PDF_HEADER] PDF 导出结果缺少有效文件头，未创建下载。');
+  }
+  const tail = String.fromCharCode(...new Uint8Array(await blob.slice(-1024).arrayBuffer()));
+  if (!/(?:^|[\r\n])%%EOF[\x00\t\n\f\r ]*$/.test(tail)) {
+    throw new Error('[PDF_EOF] PDF 导出结果缺少尾部结束标记，可能已截断，未创建下载。');
+  }
+  // Header/EOF checks are a format sanity check, not an object/xref/page validator.
   return blob;
 }
 
