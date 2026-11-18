@@ -57,7 +57,7 @@
     "message": "🔍 Get File Info"
   },
   "startExport": {
-    "message": "🚀 Start Export"
+    "message": "🚀 Export all"
   },
   "pauseExport": {
     "message": "⏸️ Pause Export"
@@ -453,5 +453,107 @@
   },
   "alipayQrAlt": {
     "message": "Alipay sponsor QR code"
+  },
+  "selectionTitle": {
+    "message": "Choose documents · Mubu Exporter"
+  },
+  "selectionHeading": {
+    "message": "Choose export content"
+  },
+  "selectionIntro": {
+    "message": "Choose folders or documents. Exports keep their folder paths. Your selection is saved automatically."
+  },
+  "selectionRefresh": {
+    "message": "Fetch / refresh documents"
+  },
+  "selectionCatalog": {
+    "message": "Document catalog"
+  },
+  "selectionAll": {
+    "message": "Select all"
+  },
+  "selectionClear": {
+    "message": "Clear selection"
+  },
+  "selectionExport": {
+    "message": "Export selected documents"
+  },
+  "selectionStart": {
+    "message": "Export selected documents"
+  },
+  "selectionNewTaskHint": {
+    "message": "Starting creates a new task. Duplicate filenames get a new copy. Changing the selection does not change an existing task."
+  },
+  "selectionCurrentTask": {
+    "message": "Current task"
+  },
+  "selectionPauseHint": {
+    "message": "Pausing takes effect after the current document. Closing this page does not cancel the task."
+  },
+  "selectionDownloadHint": {
+    "message": "Success currently means a download was created. Also check your browser downloads."
+  },
+  "selectionCounts": {
+    "message": "$1 documents · $2 selected"
+  },
+  "selectionTaskCounts": {
+    "message": "$1 total · $2 successful · $3 failed · $4 processing · $5 pending"
+  },
+  "selectionNoTask": {
+    "message": "No task started"
+  },
+  "selectionPaused": {
+    "message": "Task paused"
+  },
+  "selectionRunning": {
+    "message": "Exporting"
+  },
+  "selectionInterrupted": {
+    "message": "Task interrupted. Remaining documents can be resumed."
+  },
+  "selectionHasFailures": {
+    "message": "Task ended with failures. You can retry failed documents."
+  },
+  "selectionFinished": {
+    "message": "Task processing complete"
+  },
+  "selectionTaskConfig": {
+    "message": "Scope: $1 · Format: $2 · Output folder: $3"
+  },
+  "selectionScopeSelected": {
+    "message": "Selected documents"
+  },
+  "selectionScopeAll": {
+    "message": "All documents"
+  },
+  "selectionSaving": {
+    "message": "Saving selection…"
+  },
+  "selectionSaved": {
+    "message": "Selection saved"
+  },
+  "selectionSaveFailed": {
+    "message": "Selection could not be saved. Change your selection or reload to retry."
+  },
+  "selectionNeedsScan": {
+    "message": "The catalog needs a new scan. Existing tasks can continue. Fetch documents before selecting a new export."
+  },
+  "selectionIncomplete": {
+    "message": "The catalog has $1 issues or unconfirmed relationships. Inspect or rescan it, or use the original full export."
+  },
+  "selectionMore": {
+    "message": "Show more"
+  },
+  "selectionUnresolved": {
+    "message": "Location unconfirmed"
+  },
+  "selectionExpand": {
+    "message": "Expand or collapse"
+  },
+  "selectionRefreshed": {
+    "message": "Catalog refreshed. Existing selections were retained."
+  },
+  "selectionStarted": {
+    "message": "Task started. You may close the page and return later."
   }
 }

@@ -167,3 +167,28 @@ test('新版缺失任务、非法目录 ID 和未知任务状态不会降级成�
   task.fileList[0].status = 'mystery';
   assert.throws(() => migrateStoredState({ stateVersion: 2, catalog, exportTask: task }), /状态损坏/);
 });
+
+test('状态写入按调用顺序串行，捕获快照且不会被后续内存修改追改', async () => {
+  state.resetExportState();
+  const disk = installStorage();
+  state.replaceCatalog(sampleCatalog());
+  Object.assign(state.exportTask, buildExportTask(state.catalog, { taskId: 'ordered' }));
+  let unblock;
+  const gate = new Promise(resolve => { unblock = resolve; });
+  const originalSet = chrome.storage.local.set;
+  let entered = 0;
+  chrome.storage.local.set = async value => {
+    entered++;
+    if (entered === 1) await gate;
+    await originalSet(value);
+  };
+  const first = state.saveState();
+  state.exportTask.fileList[0].status = 'success';
+  const second = state.saveState();
+  await new Promise(resolve => setImmediate(resolve));
+  assert.equal(entered, 1);
+  unblock();
+  await Promise.all([first, second]);
+  assert.equal(disk.writes[0].exportTask.fileList[0].status, 'pending');
+  assert.equal(disk.writes[1].exportTask.fileList[0].status, 'success');
+});

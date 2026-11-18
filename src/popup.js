@@ -56,6 +56,9 @@ async function restorePersistedState() {
 }
 
 function bindEventListeners() {
+  document.getElementById('selectExportContent')?.addEventListener('click', () => {
+    chrome.tabs.create({ url: chrome.runtime.getURL('src/select-export.html') });
+  });
   const {
     getInfoBtn,
     startBtn,

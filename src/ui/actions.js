@@ -1,9 +1,7 @@
 import { domRefs } from './dom.js';
-import { uiState, updateUiState } from './state.js';
+import { uiState } from './state.js';
 import {
   addLog,
-  resetUiToIdle,
-  setButtonState,
   setStartButtonLabel,
   showStatus,
   syncUiWithState
@@ -27,7 +25,7 @@ export async function handleGetFileInfo() {
     const response = await chrome.runtime.sendMessage({ action: 'getFileInfo' });
     if (response && response.success) {
       showStatus(i18n('fileInfoSuccess'), 'success');
-      addLog(i18n('foundFiles', [String(response.data.totalFiles)]));
+      addLog(i18n('foundFiles', [String(response.data.catalogTotalFiles ?? response.data.totalFiles)]));
       // Preserve the user's current export type selection when fetching file info
       const currentExportType = domRefs.exportTypeSelect ? domRefs.exportTypeSelect.value : undefined;
       syncUiWithState({ ...response.data, isExporting: false, isPaused: false, exportType: currentExportType });
@@ -58,7 +56,7 @@ export async function handleStart() {
   try {
     const response = await chrome.runtime.sendMessage({
       action: 'startExport',
-      data: { exportType }
+      data: { exportType, scope: 'all' }
     });
     if (!response?.success) {
       throw new Error(response?.error || i18n('unknownError'));
@@ -70,27 +68,26 @@ export async function handleStart() {
     }
   } catch (error) {
     showStatus(i18n('startExportFailed', [error.message]), 'error');
-    resetUiToIdle();
+    const current = await chrome.runtime.sendMessage({ action: 'getUiState' }).catch(() => null);
+    if (current?.success) syncUiWithState(current.data);
   }
 }
 
-export function handlePause() {
-  if (!uiState.isExporting) {
+export async function handlePause() {
+  if (!uiState.isExporting && !uiState.canResume) {
     addLog(i18n('noTaskToToggle'));
     return;
   }
 
   const { pauseBtn } = domRefs;
-  const nextPaused = !uiState.isPaused;
-  updateUiState({ isPaused: nextPaused });
-
-  addLog(nextPaused ? i18n('exportPaused') : i18n('exportResumed'));
-  setButtonState(pauseBtn, nextPaused ? i18n('resumeExport') : i18n('pauseExport'), nextPaused ? 'btn-continue' : 'btn-pause');
-
-  chrome.runtime.sendMessage({
-    action: 'togglePause',
-    data: { isPaused: nextPaused }
-  });
+  if (pauseBtn) pauseBtn.disabled = true;
+  try {
+    const response = await chrome.runtime.sendMessage(uiState.isPaused || !uiState.isExporting
+      ? { action: 'resumeExport' } : { action: 'togglePause', data: { isPaused: true } });
+    if (!response?.success) throw new Error(response?.error || i18n('unknownError'));
+    syncUiWithState(response.data);
+  } catch (error) { showStatus(error.message, 'error'); }
+  finally { if (pauseBtn) pauseBtn.disabled = false; }
 }
 
 export async function handleReset() {

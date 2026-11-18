@@ -57,7 +57,7 @@
     "message": "🔍 获取文件信息"
   },
   "startExport": {
-    "message": "🚀 开始导出"
+    "message": "🚀 全量导出"
   },
   "pauseExport": {
     "message": "⏸️ 暂停导出"
@@ -453,5 +453,107 @@
   },
   "alipayQrAlt": {
     "message": "支付宝赞赏二维码"
+  },
+  "selectionTitle": {
+    "message": "选择导出内容 · 幕布导出工具"
+  },
+  "selectionHeading": {
+    "message": "选择导出内容"
+  },
+  "selectionIntro": {
+    "message": "勾选文件夹或文档，保留原目录层级导出。选择草稿自动保存。"
+  },
+  "selectionRefresh": {
+    "message": "获取 / 刷新文档列表"
+  },
+  "selectionCatalog": {
+    "message": "文档目录"
+  },
+  "selectionAll": {
+    "message": "全选"
+  },
+  "selectionClear": {
+    "message": "清空选择"
+  },
+  "selectionExport": {
+    "message": "导出选中文档"
+  },
+  "selectionStart": {
+    "message": "导出选中文档"
+  },
+  "selectionNewTaskHint": {
+    "message": "每次开始都创建新任务。同名文件自动另存副本；修改选择不会改变已创建的任务。"
+  },
+  "selectionCurrentTask": {
+    "message": "本次任务"
+  },
+  "selectionPauseHint": {
+    "message": "暂停在当前文档处理结束后生效。关闭此页面不会取消后台任务。"
+  },
+  "selectionDownloadHint": {
+    "message": "当前成功数沿用下载任务创建结果，请同时检查浏览器下载记录。"
+  },
+  "selectionCounts": {
+    "message": "共 $1 篇 · 已选 $2 篇"
+  },
+  "selectionTaskCounts": {
+    "message": "本次 $1 篇 · 成功 $2 · 失败 $3 · 处理中 $4 · 待处理 $5"
+  },
+  "selectionNoTask": {
+    "message": "尚未开始任务"
+  },
+  "selectionPaused": {
+    "message": "任务已暂停"
+  },
+  "selectionRunning": {
+    "message": "正在导出"
+  },
+  "selectionInterrupted": {
+    "message": "任务已中断，可继续处理剩余文档"
+  },
+  "selectionHasFailures": {
+    "message": "任务结束，部分文档失败，可重试"
+  },
+  "selectionFinished": {
+    "message": "本次任务处理完成"
+  },
+  "selectionTaskConfig": {
+    "message": "范围：$1 · 格式：$2 · 输出目录：$3"
+  },
+  "selectionScopeSelected": {
+    "message": "选中文档"
+  },
+  "selectionScopeAll": {
+    "message": "全部文档"
+  },
+  "selectionSaving": {
+    "message": "正在保存草稿…"
+  },
+  "selectionSaved": {
+    "message": "草稿已保存"
+  },
+  "selectionSaveFailed": {
+    "message": "草稿保存失败，请重新选择或刷新页面后重试"
+  },
+  "selectionNeedsScan": {
+    "message": "目录需要重新扫描。旧任务仍可继续；请获取文档列表后再选择导出。"
+  },
+  "selectionIncomplete": {
+    "message": "目录含 $1 条异常记录或未确认关系，暂不能选择导出。可查看目录、重新扫描，或使用原全量导出入口。"
+  },
+  "selectionMore": {
+    "message": "显示更多"
+  },
+  "selectionUnresolved": {
+    "message": "位置待确认"
+  },
+  "selectionExpand": {
+    "message": "展开或折叠"
+  },
+  "selectionRefreshed": {
+    "message": "目录已刷新，仍存在的选择已保留。"
+  },
+  "selectionStarted": {
+    "message": "任务已开始，可关闭页面后稍后查看。"
   }
 }
