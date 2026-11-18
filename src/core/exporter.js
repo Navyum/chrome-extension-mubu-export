@@ -1,4 +1,5 @@
-import { exportState, resetExportState, saveState } from './state.js';
+import { exportState, resetExportState, saveState, replaceCatalog } from './state.js';
+import { buildExportTask } from './task-builder.js';
 import { sendLog, sendProgress, sendComplete, sendError } from './messaging.js';
 import { fetchAllDocuments, fetchDocumentDefinition, fetchRemoteExportBlob, getJwtTokenOrThrow } from './mubu.js';
 import { buildExportPayload } from './formatters.js';
@@ -45,13 +46,18 @@ async function handleGetFileInfo(sendResponse) {
   try {
     const jwtToken = await getJwtTokenOrThrow();
     sendLog('开始获取幕布文件列表...');
-    const { files, folderCount } = await fetchAllDocuments(jwtToken);
+    const { files, folderCount, catalog } = await fetchAllDocuments(jwtToken);
 
     if (files.length === 0) {
       throw new Error('未获取到任何文档，请确认账号下是否存在内容。');
     }
 
-    exportState.fileList = files.map(file => ({ ...file, status: 'pending', localPath: '' }));
+    const snapshot = buildExportTask(catalog, { taskId: crypto.randomUUID() });
+    replaceCatalog(catalog);
+    exportState.taskId = snapshot.taskId;
+    exportState.scope = snapshot.scope;
+    exportState.catalogRevision = snapshot.catalogRevision;
+    exportState.fileList = snapshot.fileList;
     exportState.totalFiles = files.length;
     exportState.folderCount = folderCount;
     exportState.currentFileIndex = 0;
@@ -59,6 +65,7 @@ async function handleGetFileInfo(sendResponse) {
 
     await saveState();
     sendLog(`成功获取 ${files.length} 个文档，${folderCount} 个文件夹。`);
+    if (!catalog.complete) sendLog('目录含未确认的字段或扫描结果；全量导出仍可用，选择性导出需要完整目录。');
     sendResponse({ success: true, data: exportState });
   } catch (error) {
     const message = error.message.includes('Jwt-Token')
