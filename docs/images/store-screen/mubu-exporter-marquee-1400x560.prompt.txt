@@ -1,0 +1,21 @@
+Generator: built-in image_gen
+Reference: docs/images/feat1.png
+Final delivery: 1400 x 560, RGB 24-bit PNG without alpha; JPEG alternative.
+Mechanical finishing: resize generated 1983 x 793 image to exact requested canvas, export RGB PNG and JPEG. Original reference left unchanged.
+
+Generation prompt:
+Use case: ads-marketing.
+Create one polished Chrome Web Store MARQUEE PROMO TILE based on the supplied reference feat1.png for the Chinese Chrome extension "幕布导出工具".
+The reference is a product/source reference, not a layout to copy verbatim. Its defining content is the dark purple Mubu Exporter popup with an expanded multi-format dropdown. Recompose this into an elegant wide store banner.
+CANVAS: exactly 1400 x 560 pixels, a very wide 2.5:1 landscape aspect ratio. Full-bleed opaque RGB background, no transparency. This is a final promotional raster image, no surrounding browser, no mockup of a banner, no outer frame.
+Layout: generous safe margins of at least 50px. Left ~60% is clear editorial typography and small format labels, right ~35% is a crisp upright recreation/composite of the actual reference dark purple extension popup, with rounded corners and a soft restrained shadow. Keep the UI legible and recognizable, showing its title and expanded export-format menu. Fit the entire meaningful menu within the canvas, do not crop the final format off. Use the real black branching-node icon on a white rounded-square from the reference if possible, next to the product label.
+Visual style: premium, simple productivity software promotion. Light almost-white lavender background; calm violet accents coordinated with the reference popup; one subtle pale blue curved area and a very small soft pink accent at the far edge to echo the original feat1 palette. Plenty of negative space, no garish saturated blue/pink split, no glassmorphism, no confetti, no people, no 3D, no dense decorative infographic. The screenshot panel is the principal visual. Extremely clean type and alignment.
+Exact Chinese copy, sharp and correctly spelled:
+Small product label at upper left: "幕布导出工具"
+Large headline at left, in two balanced lines if needed: "幕布笔记" then "一键导出"
+Support line: "批量导出 · 自由选择 · 保留目录"
+Below, restrained two-row format labels: "Markdown   OPML   FreeMind" and "HTML   Word   PDF   JSON".
+Reference popup title: "幕布导出工具".
+Its dropdown should list these seven clear labels: "Markdown (.md)", "OPML (.opml)", "FreeMind (.mm)", "HTML (.html)", "Word (.doc)", "PDF (.pdf)", "JSON (.json)".
+Use small clean file symbols alongside rows rather than third-party brand logos. Faithfully preserve the app's dark navy/purple theme and purple selected-row accent. Remove irrelevant welcome logs, sponsor button, login/account icons and scrollbars from the promo crop if they would clutter it; keep the export format interaction as the visual focus.
+Do not add star ratings, reviews, download counts, best/ranking claims, discounts, pricing, Chrome or Google logos, store badges, watermarks, or an install button. Do not include dimensions or technical spec text in the artwork. Deliver a visually finished, appealing, wide 1400x560 banner.

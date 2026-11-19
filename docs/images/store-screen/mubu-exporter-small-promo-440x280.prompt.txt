@@ -1,0 +1,14 @@
+Generator: built-in image_gen
+Reference: docs/images/store-screen/mubu-exporter-marquee-1400x560.png
+Final delivery: 440 x 280, RGB 24-bit PNG without alpha; JPEG alternative.
+Mechanical finishing: resize and export to exact dimensions; original reference unchanged.
+
+Generation prompt:
+Edit the supplied promotional image into a matching Chrome Web Store SMALL PROMO TILE.
+Canvas target: exactly 440 x 280 pixels, landscape 11:7 aspect ratio (1.5714:1), opaque RGB, no alpha. Recompose for this new ratio; do not squeeze or simply crop the existing wide banner. Keep its visual identity, pale lavender background, soft blue/pink geometric areas, deep purple typography, violet headline emphasis, branching-node logo, dark purple extension UI panel and restrained shadow.
+The final image must be legible at just 440x280.
+Use a compact, balanced two-column composition: the left ~55% has the small original icon/product-name lockup and the large two-line headline; the right ~40% has the dark rounded export-format menu. Keep generous 14-18px outer margins at final output size.
+Verbatim principal copy: product name "幕布导出工具"; two-line large headline "幕布笔记" / "一键导出". Add only one short support line below: "批量导出 · 保留目录". Preserve the purple curved underline below the main headline if it fits naturally.
+Simplify the original artwork's lower format-chip grid into a small single label "7 种导出格式" beneath the support line; do not pack seven extra tiny badges into the left side.
+The right app panel remains recognizable, showing the header "导出格式" and seven format names as a clean dropdown, each on its own row: "Markdown", "OPML", "FreeMind", "HTML", "Word", "PDF", "JSON". Remove extensions in parentheses and unnecessary account/heart/settings/close icons to improve small-size clarity. Keep a purple highlight on the Markdown row and small simple file glyphs, matching the reference. No extra duplicated selected-format field required. Ensure the complete seven-row menu is visible with no cropping.
+Keep the overall original polished app promotion look, with minimal changes necessary to adapt the aspect ratio. No new claims, no button, no watermark, no star ratings, no external brand badges, no text about dimensions or format. Render all Chinese and English cleanly and accurately. Final composition is 440x280, 11:7, full bleed, no transparency.
