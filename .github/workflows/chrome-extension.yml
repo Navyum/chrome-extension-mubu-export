@@ -10,6 +10,18 @@ on:
     branches:
       - main
   workflow_dispatch:
+    inputs:
+      release_tag:
+        description: '补发已有标签（例如 v1.0.6）；留空仅构建'
+        required: false
+        default: ''
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  RELEASE_TAG: ${{ inputs.release_tag || (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v') && github.ref_name) || '' }}
 
 jobs:
   build-and-test:
@@ -18,27 +30,53 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        ref: ${{ env.RELEASE_TAG && format('refs/tags/{0}', env.RELEASE_TAG) || github.ref }}
+        persist-credentials: false
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '22'
+        cache: npm
+
+    - name: Install dependencies
+      run: npm ci
+
+    - name: Run tests
+      run: npm test
+
+    - name: Build extension
+      run: npm run build
 
     - name: Create extension package
-      run: |
-        zip -r chrome-extension.zip . -x "*.DS_Store" "*.git*" ".github/*" "README.md" "docs/*" "asserts/*" "node_modules/*"
-        echo "✅ Chrome 扩展打包完成"
+      working-directory: dist
+      run: zip -r ../chrome-extension.zip . -x '*.DS_Store' '__MACOSX/*'
 
     - name: Upload build artifacts
       uses: actions/upload-artifact@v4
       with:
         name: chrome-extension
         path: chrome-extension.zip
+        if-no-files-found: error
         retention-days: 30
 
   release:
     needs: build-and-test
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    
+    permissions:
+      contents: write
+    concurrency:
+      group: release-${{ inputs.release_tag || github.ref_name }}
+      cancel-in-progress: false
+    if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
+
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        ref: ${{ env.RELEASE_TAG && format('refs/tags/{0}', env.RELEASE_TAG) || github.ref }}
+        persist-credentials: false
 
     - name: Download build artifacts
       uses: actions/download-artifact@v4
@@ -49,18 +87,31 @@ jobs:
     - name: Extract version from tag
       id: get_version
       run: |
-        VERSION=${GITHUB_REF#refs/tags/}
+        VERSION="$RELEASE_TAG"
+        if [[ ! "$VERSION" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+          echo "::error::Invalid version tag"
+          exit 1
+        fi
+        node -e 'const m = require("./manifest.json"); if (process.env.RELEASE_TAG !== "v" + m.version) throw new Error("Tag and manifest version differ");'
         echo "version=$VERSION" >> $GITHUB_OUTPUT
         echo "version_number=${VERSION#v}" >> $GITHUB_OUTPUT
 
-    - name: Create Release
-      id: create_release
-      uses: actions/create-release@v1
+    - name: Prepare release assets
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        VERSION_NUMBER: ${{ steps.get_version.outputs.version_number }}
+      run: |
+        mv chrome-extension.zip "chrome-extension-${VERSION_NUMBER}.zip"
+        git archive --format=zip --output="source-code-${VERSION_NUMBER}.zip" HEAD
+
+    - name: Create Release and upload assets
+      uses: softprops/action-gh-release@v2
       with:
-        tag_name: ${{ github.ref }}
-        release_name: Chrome Extension ${{ steps.get_version.outputs.version }}
+        tag_name: ${{ steps.get_version.outputs.version }}
+        name: Chrome Extension ${{ steps.get_version.outputs.version }}
+        fail_on_unmatched_files: true
+        files: |
+          chrome-extension-${{ steps.get_version.outputs.version_number }}.zip
+          source-code-${{ steps.get_version.outputs.version_number }}.zip
         body: |
           ## 🎉 幕布导出工具 ${{ steps.get_version.outputs.version }}
 
@@ -70,13 +121,13 @@ jobs:
           [Chrome 应用商店安装](https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp)
 
           #### 方法二：开发者模式加载
-          1. 下载 `chrome-extension.zip` 并解压
+          1. 下载 `chrome-extension-${{ steps.get_version.outputs.version_number }}.zip` 并解压
           2. 打开 `chrome://extensions/`，开启「开发者模式」
           3. 点击「加载已解压的扩展程序」，选择解压目录
 
           ### 🔧 功能特性
-          - ✅ 一键批量导出所有幕布笔记
-          - ✅ 5 种格式：Markdown / OPML / Freemind / HTML / JSON
+          - ✅ 全量导出或选择文件夹、文档导出
+          - ✅ 7 种格式：Markdown / OPML / Freemind / HTML / Word / PDF / JSON
           - ✅ 完整保留文件夹层级结构
           - ✅ 实时进度显示 + 暂停/继续
           - ✅ 断点续传 + 失败重试
@@ -90,11 +141,11 @@ jobs:
           4. 选择导出格式，点击「开始导出」
 
           ### 📋 系统要求
-          - Chrome 88+
+          - 当前稳定版 Chrome
           - 已登录幕布账号
 
           ### 🔒 安全说明
-          - 所有操作在本地执行，不经过第三方服务器
+          - 使用幕布接口读取文档，部分格式通过幕布转换接口生成
           - 仅读取幕布 Cookie 用于鉴权
 
           ---
@@ -103,39 +154,14 @@ jobs:
         draft: false
         prerelease: false
 
-    - name: Upload Chrome Extension
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: chrome-extension.zip
-        asset_name: chrome-extension-${{ steps.get_version.outputs.version_number }}.zip
-        asset_content_type: application/zip
-
-    - name: Create source code archive
-      run: |
-        # 创建源代码压缩包
-        git archive --format=zip --output=source-code-${{ steps.get_version.outputs.version_number }}.zip HEAD
-
-    - name: Upload Source Code
-      uses: actions/upload-release-asset@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: source-code-${{ steps.get_version.outputs.version_number }}.zip
-        asset_name: source-code-${{ steps.get_version.outputs.version_number }}.zip
-        asset_content_type: application/zip
-
   notify:
     needs: release
     runs-on: ubuntu-latest
-    if: startsWith(github.ref, 'refs/tags/v')
-    
+    if: (github.event_name == 'push' && startsWith(github.ref, 'refs/tags/v')) || (github.event_name == 'workflow_dispatch' && inputs.release_tag != '')
+
     steps:
     - name: Notify release
       run: |
         echo "🎉 Chrome 扩展已成功发布到 GitHub Releases!"
-        echo "版本: ${{ github.ref_name }}"
-        echo "下载地址: https://github.com/${{ github.repository }}/releases/tag/${{ github.ref_name }}" 
+        echo "版本: $RELEASE_TAG"
+        echo "下载地址: https://github.com/$GITHUB_REPOSITORY/releases/tag/$RELEASE_TAG"
