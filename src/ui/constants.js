@@ -3,3 +3,4 @@ import { i18n } from './i18n.js';
 export const START_BUTTON_DEFAULT_TEXT = () => i18n('startExport');
 export const START_BUTTON_DONE_TEXT = () => i18n('exportDone');
 export const DEFAULT_EXPORT_TYPE = 'md';
+export const REVIEW_URL = 'https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp/reviews';

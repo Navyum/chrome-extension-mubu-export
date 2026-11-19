@@ -461,10 +461,10 @@
     "message": "Choose export content"
   },
   "selectionIntro": {
-    "message": "Choose folders or documents. Exports keep their folder paths. Your selection is saved automatically."
+    "message": "Choose folders or documents. Exports keep their folder paths."
   },
   "selectionRefresh": {
-    "message": "Fetch / refresh documents"
+    "message": "Refresh list"
   },
   "selectionCatalog": {
     "message": "Document catalog"
@@ -492,6 +492,9 @@
   },
   "selectionDownloadHint": {
     "message": "Success currently means a download was created. Also check your browser downloads."
+  },
+  "selectionFolderDocuments": {
+    "message": "$1 documents"
   },
   "selectionCounts": {
     "message": "$1 documents · $2 selected"
@@ -526,14 +529,8 @@
   "selectionScopeAll": {
     "message": "All documents"
   },
-  "selectionSaving": {
-    "message": "Saving selection…"
-  },
-  "selectionSaved": {
-    "message": "Selection saved"
-  },
   "selectionSaveFailed": {
-    "message": "Selection could not be saved. Change your selection or reload to retry."
+    "message": "Your selection could not be saved. Change your selection or reload the page to retry."
   },
   "selectionNeedsScan": {
     "message": "The catalog needs a new scan. Existing tasks can continue. Fetch documents before selecting a new export."
@@ -550,10 +547,82 @@
   "selectionExpand": {
     "message": "Expand or collapse"
   },
-  "selectionRefreshed": {
-    "message": "Catalog refreshed. Existing selections were retained."
+  "accountDetails": {
+    "message": "Mubu account"
   },
-  "selectionStarted": {
-    "message": "Task started. You may close the page and return later."
+  "accountStatus": {
+    "message": "Check sign-in status"
+  },
+  "accountUnnamed": {
+    "message": "Mubu user"
+  },
+  "accountMember_free": {
+    "message": "Free account"
+  },
+  "accountMember_vip": {
+    "message": "VIP member"
+  },
+  "accountMember_max": {
+    "message": "MAX member"
+  },
+  "accountMember_unknown": {
+    "message": "Membership unavailable"
+  },
+  "accountExpires": {
+    "message": "Expires: $1"
+  },
+  "accountLoading": {
+    "message": "Loading account…"
+  },
+  "accountUnavailable": {
+    "message": "Unable to load account details. Please retry."
+  },
+  "accountRetry": {
+    "message": "Retry"
+  },
+  "accountLogin": {
+    "message": "Sign in"
+  },
+  "successCongratulations": {
+    "message": "Your export is ready!"
+  },
+  "successExportCount": {
+    "message": "Exported $1 documents"
+  },
+  "successDownloadHint": {
+    "message": "Find your files in the downloads folder."
+  },
+  "successDone": {
+    "message": "Done"
+  },
+  "successReviewHint": {
+    "message": "If this helped, you’re welcome to leave a review."
+  },
+  "successReviewAction": {
+    "message": "Leave a review ↗"
+  },
+  "successDismissReview": {
+    "message": "Don’t ask again"
+  },
+  "successPreferenceFailed": {
+    "message": "Unable to save your preference. Please retry."
+  },
+  "successReviewFailed": {
+    "message": "Unable to complete this action. Please retry."
+  },
+  "successSavedPrefix": {
+    "message": "Saved about"
+  },
+  "successSavedSuffix": {
+    "message": "of manual work"
+  },
+  "successSavedSeconds": {
+    "message": "$1 sec"
+  },
+  "successSavedMinutes": {
+    "message": "$1 min"
+  },
+  "successSavedHours": {
+    "message": "$1 hr"
   }
 }

@@ -5,6 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title data-i18n="settingsPageTitle">幕布导出工具 - 设置</title>
     <link rel="stylesheet" href="settings.css">
+    <link rel="stylesheet" href="ui/export-controls.css">
+    <link rel="stylesheet" href="ui/confetti.css">
+    <link rel="stylesheet" href="select-export.css">
 </head>
 <body>
     <div class="wrapper">
@@ -14,13 +17,20 @@
                 <span data-i18n="sidebarTitle">幕布导出工具</span>
             </header>
             <nav class="sidebar-nav">
-                <a href="#" class="nav-item active" data-section="general">
+                <a href="#general" class="nav-item active" data-section="general">
                     <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 18a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"/>
                     </svg>
                     <span data-i18n="navGeneral">通用设置</span>
                 </a>
-                <a href="#" class="nav-item" data-section="performance">
+                <a href="#select-export" class="nav-item" data-section="select-export">
+                    <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M20 20H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5l2 2h9a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2Z"/>
+                        <path d="m9 13 2 2 4-4"/>
+                    </svg>
+                    <span data-i18n="selectionHeading">选择导出内容</span>
+                </a>
+                <a href="#performance" class="nav-item" data-section="performance">
                     <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
                         <path d="m14 10-2 2-2-2"/>
@@ -28,7 +38,7 @@
                     </svg>
                     <span data-i18n="navPerformance">性能监控</span>
                 </a>
-                <a href="#" class="nav-item" data-section="about">
+                <a href="#about" class="nav-item" data-section="about">
                     <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zM12 8v4M12 16h.01"/>
                     </svg>
@@ -74,6 +84,82 @@
                         <div id="downloadSettingsStatus" class="status" role="status" aria-live="polite" style="opacity: 0;">&nbsp;</div>
                     </div>
                 </div>
+            </section>
+            <section id="select-export" class="content-section">
+    <header class="section-header selection-header">
+      <div><h2 data-i18n="selectionHeading">选择导出内容</h2>
+        <p data-i18n="selectionIntro">勾选文件夹或文档，保留原目录层级导出。</p></div>
+    </header>
+    <section class="selection-workspace">
+      <section class="form-card catalog-panel" aria-labelledby="catalog-heading">
+        <div class="card-heading"><h3 id="catalog-heading" data-i18n="selectionCatalog">文档目录</h3><span id="counts"></span></div>
+        <div class="toolbar">
+          <button id="select-all" class="btn" type="button" data-i18n="selectionAll">全选</button>
+          <button id="clear" class="btn" type="button" data-i18n="selectionClear">清空选择</button>
+          <button id="refresh" class="btn" type="button">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M6.1 7a7 7 0 0 1 11.6-1.2L20 8M4 16l2.3 2.2A7 7 0 0 0 17.9 17"/></svg>
+            <span data-i18n="selectionRefresh">刷新列表</span>
+          </button>
+        </div>
+        <p id="selection-save-error" class="warning" role="alert" hidden></p>
+        <p id="catalog-warning" class="warning" role="status" hidden></p>
+        <div id="tree" class="tree-container" aria-label="文档目录"></div>
+      </section>
+      <aside class="form-card task-panel">
+        <h3 data-i18n="selectionExport">导出选中文档</h3>
+    <div class="form-group select-group">
+      <label for="format">📄 <span data-i18n="exportFormatLabel">导出格式:</span></label>
+      <div class="select-container has-icon has-selection">
+        <img
+          id="selectionFormatIcon"
+          class="select-icon is-visible"
+          src="../asserts/markdown.png"
+          data-i18n-alt="exportFormatIconAlt"
+          alt="导出格式图标"
+        />
+        <select id="format">
+          <option value="md" data-icon="../asserts/markdown.png">Markdown (.md)</option>
+          <option value="opml" data-icon="../asserts/opml.png">OPML (.opml)</option>
+          <option value="mm" data-icon="../asserts/xmind.png">Freemind (.mm)</option>
+          <option value="html" data-icon="../asserts/html.png">HTML (.html)</option>
+          <option value="docx" data-icon="../asserts/word.png">Word (.doc)</option>
+          <option value="pdf" data-icon="../asserts/pdf.png">PDF (.pdf)</option>
+          <option value="json" data-icon="../asserts/json.png" data-i18n="formatJson">原始结构 (.json)</option>
+        </select>
+        <button
+          type="button"
+          id="selectionFormatTrigger"
+          class="select-trigger"
+          aria-haspopup="listbox"
+          aria-controls="selectionFormatOptions"
+          aria-expanded="false"
+          hidden
+        >
+          <span id="selectionFormatLabel" class="select-trigger-text">Markdown (.md)</span>
+        </button>
+        <ul id="selectionFormatOptions" class="select-options" role="listbox" hidden></ul>
+      </div>
+    </div>
+        <button id="start" class="btn btn-start" type="button" disabled data-i18n="selectionStart">导出选中文档</button>
+        <p class="hint" data-i18n="selectionNewTaskHint">每次开始都创建新任务。同名文件自动另存副本；修改选择不会改变已创建的任务。</p>
+        <hr>
+        <p id="task-error" class="task-error" role="alert" hidden></p>
+        <h3 data-i18n="selectionCurrentTask">本次任务</h3>
+        <p id="task-state" role="status"></p>
+        <p id="task-config" class="hint"></p>
+        <progress id="progress" max="1" value="0" aria-label="本次任务进度"></progress>
+        <p id="task-counts" class="task-counts"></p>
+        <p id="recovery" class="warning" hidden></p>
+        <div class="task-actions">
+          <button id="pause" class="btn btn-pause" type="button" hidden data-i18n="pauseExport">暂停导出</button>
+          <button id="resume" class="btn btn-primary" type="button" hidden data-i18n="resumeExport">继续导出</button>
+          <button id="retry" class="btn btn-retry" type="button" hidden data-i18n="retryFailedFiles">重试失败文档</button>
+        </div>
+        <p class="hint" data-i18n="selectionPauseHint">暂停在当前文档处理结束后生效。关闭此页面不会取消后台任务。</p>
+        <p class="hint" data-i18n="selectionDownloadHint">当前成功数沿用下载任务创建结果，请同时检查浏览器下载记录。</p>
+      </aside>
+    </section>
+
             </section>
             <section id="performance" class="content-section">
                 <header class="section-header">
@@ -171,6 +257,35 @@
             </div>
         </aside>
     </div>
-    <script src="settings.js"></script>
+    <dialog id="export-success" class="export-success" aria-labelledby="export-success-title" aria-describedby="export-success-summary">
+        <div class="export-success-card">
+            <div class="export-success-mark" aria-hidden="true">
+                <svg viewBox="0 0 48 48" fill="none"><path d="m13 25 7 7 15-16" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h2 id="export-success-title" data-i18n="successCongratulations">恭喜，导出成功！</h2>
+            <p id="export-success-summary" class="export-success-summary"></p>
+            <p class="export-success-hint" data-i18n="successDownloadHint">可以到下载目录查看文件。</p>
+            <div id="export-success-savings" class="export-success-savings" hidden>
+                <p><span data-i18n="successSavedPrefix">约省下</span> <strong id="export-success-saved-time"></strong> <span data-i18n="successSavedSuffix">手动操作时间</span></p>
+            </div>
+            <button id="export-success-done" type="button" class="export-success-done" data-success-close autofocus data-i18n="successDone">完成</button>
+            <div class="export-success-stars" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg>
+                <svg viewBox="0 0 24 24"><path d="m12 3 2.78 5.63 6.22.91-4.5 4.39 1.06 6.2L12 17.2l-5.56 2.93 1.06-6.2L3 9.54l6.22-.91Z"/></svg>
+            </div>
+            <div id="export-success-review" class="export-success-review">
+                <p id="export-success-review-hint" data-i18n="successReviewHint" hidden>如果这次导出帮到了你，欢迎留个评价。</p>
+                <div class="export-success-review-actions">
+                    <button id="export-success-rate" type="button" data-i18n="successReviewAction">去评价 ↗</button>
+                    <button id="export-success-dismiss" type="button" data-i18n="successDismissReview" hidden>不再提示评价</button>
+                </div>
+            </div>
+            <p id="export-success-error" class="export-success-error" role="status"></p>
+        </div>
+    </dialog>
+    <script type="module" src="settings.js"></script>
 </body>
 </html>

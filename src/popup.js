@@ -18,9 +18,11 @@ import { initSponsorInteractions } from './ui/sponsor.js';
 import { initRatingModal } from './ui/rating.js';
 import { initRuntimeMessaging } from './ui/messaging.js';
 import { applyI18n } from './ui/i18n.js';
+import { initAccountMenu } from './ui/account.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
   applyI18n();
+  initAccountMenu();
   cacheDomElements();
   setStartButtonLabel(START_BUTTON_DEFAULT_TEXT());
   if (domRefs.exportTypeSelect) {
@@ -57,7 +59,7 @@ async function restorePersistedState() {
 
 function bindEventListeners() {
   document.getElementById('selectExportContent')?.addEventListener('click', () => {
-    chrome.tabs.create({ url: chrome.runtime.getURL('src/select-export.html') });
+    chrome.tabs.create({ url: chrome.runtime.getURL('src/settings.html#select-export') });
   });
   const {
     getInfoBtn,
@@ -66,7 +68,6 @@ function bindEventListeners() {
     exportTypeSelect,
     resetBtn,
     settingsBtn,
-    loginBtn,
     retryFailedBtn
   } = domRefs;
 
@@ -78,10 +79,6 @@ function bindEventListeners() {
 
   settingsBtn?.addEventListener('click', () => {
     chrome.runtime.openOptionsPage();
-  });
-
-  loginBtn?.addEventListener('click', () => {
-    chrome.tabs.create({ url: 'https://mubu.com/login' });
   });
 
   retryFailedBtn?.addEventListener('click', handleRetryFailed);

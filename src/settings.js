@@ -1,3 +1,5 @@
+import { initSelectExport } from './select-export.js';
+
 function applyI18nSettings() {
     document.querySelectorAll('[data-i18n]').forEach(el => {
         const key = el.getAttribute('data-i18n');
@@ -30,30 +32,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const navItems = document.querySelectorAll('.nav-item');
     const contentSections = document.querySelectorAll('.content-section');
 
-    navItems.forEach(item => {
-        item.addEventListener('click', (e) => {
-            e.preventDefault();
-
-            const sectionId = item.dataset.section;
-
-            if (sectionId === 'performance') {
-                loadPerformanceData();
-            }
-
-            // Update nav item active class
-            navItems.forEach(nav => nav.classList.remove('active'));
-            item.classList.add('active');
-
-            // Show the corresponding section
-            contentSections.forEach(section => {
-                if (section.id === sectionId) {
-                    section.classList.add('active');
-                } else {
-                    section.classList.remove('active');
-                }
-            });
+    let selectionInitialized = false;
+    function showSection() {
+        const requested = window.location.hash.slice(1);
+        const sectionId = [...contentSections].some(section => section.id === requested) ? requested : 'general';
+        navItems.forEach(item => {
+            const active = item.dataset.section === sectionId;
+            item.classList.toggle('active', active);
+            if (active) item.setAttribute('aria-current', 'page');
+            else item.removeAttribute('aria-current');
         });
-    });
+        contentSections.forEach(section => section.classList.toggle('active', section.id === sectionId));
+        requestAnimationFrame(() => window.scrollTo(0, 0));
+        if (sectionId === 'performance') loadPerformanceData();
+        if (sectionId === 'select-export' && !selectionInitialized) {
+            selectionInitialized = true;
+            void initSelectExport(document.getElementById('select-export'));
+        }
+    }
+    window.addEventListener('hashchange', showSection);
+    showSection();
 
     // --- Settings Logic ---
     const subfolderInput = document.getElementById('subfolder');

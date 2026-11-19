@@ -5,14 +5,31 @@
   <meta name="viewport" content="width=372, height=600, user-scalable=no">
   <title data-i18n="popupTitle">幕布导出工具</title>
   <link rel="stylesheet" href="popup.css">
+  <link rel="stylesheet" href="ui/export-controls.css">
+    <link rel="stylesheet" href="ui/confetti.css">
 </head>
 <body>
 
   <div class="container" tabindex="-1" autofocus>
     <div class="header-actions">
-      <button id="login-btn" class="top-right-btn" data-i18n-title="loginToMubu" title="前往幕布登录页">
+      <button id="login-btn" type="button" class="top-right-btn" data-i18n-title="loginToMubu" title="前往幕布登录页" aria-haspopup="dialog" aria-controls="account-panel" aria-expanded="false">
         <img src="../asserts/login.svg" data-i18n-alt="loginAlt" alt="登录" class="btn-icon login-icon">
+        <img id="account-avatar" class="account-avatar" alt="" referrerpolicy="no-referrer" hidden>
+        <span id="account-initial" class="account-initial" aria-hidden="true" hidden></span>
       </button>
+      <section id="account-panel" class="account-panel" role="dialog" tabindex="-1" data-i18n-aria-label="accountDetails" hidden>
+        <div class="account-caption" data-i18n="accountDetails">幕布账号</div>
+        <div id="account-details" hidden>
+          <div id="account-name" class="account-name"></div>
+          <span id="account-membership" class="account-membership"></span>
+          <div id="account-expiry" class="account-expiry" hidden></div>
+        </div>
+        <p id="account-status" role="status"></p>
+        <div class="account-panel-actions">
+          <button id="account-retry" type="button" data-i18n="accountRetry" hidden>重试</button>
+          <button id="account-login" type="button" data-i18n="accountLogin" hidden>前往登录</button>
+        </div>
+      </section>
       <button id="sponsor-btn" class="top-right-btn" data-i18n-title="sponsorSupport" title="❤️支持开发者">
         <img src="../asserts/sponsors.png" data-i18n-alt="sponsorAlt" alt="赞助" class="btn-icon sponsor-icon">
       </button>
@@ -79,16 +96,15 @@
     </div>
 
     <div class="form-group action-buttons">
-      <button id="startExport" type="button" class="btn btn-start">
-        <span data-i18n="startExport">🚀 开始导出</span>
-      </button>
-      <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;">
-        <span data-i18n="pauseExport">暂停导出</span>
-      </button>
-    </div>
-
-    <div class="form-group">
-      <button id="selectExportContent" type="button" class="btn btn-primary" data-i18n="selectionHeading">选择导出内容</button>
+      <div class="export-task-actions">
+        <button id="startExport" type="button" class="btn btn-start">
+          <span data-i18n="startExport">🚀 全量导出</span>
+        </button>
+        <button id="pauseExport" type="button" class="btn btn-pause" style="display: none;">
+          <span data-i18n="pauseExport">暂停导出</span>
+        </button>
+      </div>
+      <button id="selectExportContent" type="button" class="btn btn-select-export" data-i18n="selectionHeading">选择导出内容</button>
     </div>
     <p id="taskSummary" class="task-summary" role="status"></p>
 

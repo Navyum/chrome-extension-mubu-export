@@ -42,9 +42,12 @@ test('树只渲染展开分支，文件夹及单篇复选框联动并显示半�
   input('folder:a').dispatch('change');
   assert.deepEqual([...selected], ['a-doc', 'child-doc']);
   const folderRow = input('folder:a').parent.parent;
+  assert.equal(folderRow.children.at(-1).textContent, '2 个文档');
   folderRow.children[0].dispatch('click');
   assert.equal(input('folder:child').checked, true);
   assert.equal(input('folder:empty').disabled, true);
+  assert.equal(input('folder:child').parent.parent.children.at(-1).textContent, '1 个文档');
+  assert.equal(input('folder:empty').parent.parent.children.at(-1).textContent, '0 个文档');
   input('doc:a-doc').checked = false;
   input('doc:a-doc').dispatch('change');
   assert.equal(input('folder:a').indeterminate, true);
@@ -68,7 +71,8 @@ test('数千篇折叠文档不创建 DOM，展开后分批加载；标题仅作�
   nodes().find(node => node.className === 'tree-more').dispatch('click');
   assert.equal(nodes().filter(node => node.type === 'checkbox').length, 201);
   assert.ok(nodes().some(node => node.textContent === hostile));
-  assert.equal(nodes().some(node => node.tagName === 'img'), false);
+  assert.ok(nodes().filter(node => node.tagName === 'img').every(node =>
+    ['../asserts/tree-folder.svg', '../asserts/tree-folder-open.svg', '../asserts/tree-document.svg'].includes(node.src)));
 });
 
 test('根目录文档也分批加载，禁选模式保留目录浏览', () => {
@@ -127,6 +131,8 @@ test('折叠时变更选择，稍后展开的子目录与文档使用最新统�
   input('folder:a').parent.parent.children[0].dispatch('click');
   assert.equal(input('folder:child').checked, true);
   assert.equal(input('folder:empty').disabled, true);
+  assert.equal(input('folder:child').parent.parent.children.at(-1).textContent, '1 个文档');
+  assert.equal(input('folder:empty').parent.parent.children.at(-1).textContent, '0 个文档');
   input('folder:child').parent.parent.children[0].dispatch('click');
   assert.equal(input('doc:child-doc').checked, true);
   tree.setSelection(['a-doc']);

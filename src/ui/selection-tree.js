@@ -77,7 +77,11 @@ export function createSelectionTree(container, catalog, {
     appendBatch();
   }
   function renderNode(node) {
-    const item = element('li', 'tree-item');
+    const item = element('li', `tree-item tree-${node.kind}`);
+    const icon = element('img', 'tree-node-icon');
+    icon.src = node.kind === 'document' ? '../asserts/tree-document.svg' : '../asserts/tree-folder.svg';
+    icon.alt = '';
+    icon.setAttribute('aria-hidden', 'true');
     const row = element('div', 'tree-row');
     item.appendChild(row);
     let children;
@@ -92,6 +96,7 @@ export function createSelectionTree(container, catalog, {
       expand.addEventListener('click', () => {
         children.hidden = !children.hidden;
         expand.textContent = children.hidden ? '▸' : '▾';
+        icon.src = children.hidden ? '../asserts/tree-folder.svg' : '../asserts/tree-folder-open.svg';
         expand.setAttribute('aria-expanded', String(!children.hidden));
         if (!rendered && !children.hidden) { rendered = true; renderList(children, node.children); }
       });
@@ -113,9 +118,15 @@ export function createSelectionTree(container, catalog, {
       });
       label.appendChild(input);
     }
+    label.appendChild(icon);
     label.appendChild(element('span', 'tree-title', node.kind === 'document' ? node.title :
       node.kind === 'folder' ? node.name : labels.unresolved));
     row.appendChild(label);
+    if (node.kind === 'folder') {
+      const total = folderCounts.get(node).total;
+      const count = labels.documentCount ? labels.documentCount(total) : `${total} 个文档`;
+      row.appendChild(element('span', 'tree-document-count', count));
+    }
     if (children) item.appendChild(children);
     return item;
   }

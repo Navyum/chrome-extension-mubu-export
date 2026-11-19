@@ -2,8 +2,10 @@ import { registerRuntimeHandlers, maybeResumeExport } from './core/exporter.js';
 import { initDownloadHooks } from './core/downloads.js';
 import { loadState } from './core/state.js';
 import { sendLog } from './core/messaging.js';
+import { registerAccountHandler } from './core/account.js';
 
 initDownloadHooks();
+registerAccountHandler();
 
 // Override Origin/Referer for all Mubu API requests
 // (browser ignores Origin set via fetch headers for extension requests)

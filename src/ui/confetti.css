@@ -1,0 +1,30 @@
+/* 撒花庆祝效果 */
+.confetti-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9999;
+  overflow: hidden;
+}
+
+.confetti {
+  position: absolute;
+  top: -10px;
+  width: 8px;
+  height: 8px;
+  opacity: 0;
+  animation: confettiFall 3s ease-in forwards;
+}
+
+.confetti:nth-child(odd) { border-radius: 50%; }
+.confetti:nth-child(even) { border-radius: 2px; }
+
+@keyframes confettiFall {
+  0% { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  80% { opacity: 1; }
+  100% { opacity: 0; transform: translateY(calc(100vh + 20px)) rotate(720deg) scale(0.3); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti-container { display: none; }
+}

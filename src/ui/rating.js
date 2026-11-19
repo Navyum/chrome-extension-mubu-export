@@ -1,8 +1,8 @@
 import { domRefs } from './dom.js';
 import { toggleSponsorModal } from './ui.js';
 import { i18n } from './i18n.js';
+import { REVIEW_URL } from './constants.js';
 
-const REVIEW_URL = 'https://chromewebstore.google.com/detail/ddlgkdckclmnfmolnadnjanbnkfepkmp/reviews';
 const SHOW_DELAY_MS = 2500;
 
 export function showRatingModalAfterExport() {

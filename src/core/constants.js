@@ -1,4 +1,5 @@
 export const MUBU_API = {
+  USER_PROFILE: 'https://api2.mubu.com/v3/api/user/profile',
   LIST: 'https://api2.mubu.com/v3/api/list/get_all_documents_page',
   LIST_GET: 'https://api2.mubu.com/v3/api/list/get',
   LIST_GET_FOLDER: 'https://api2.mubu.com/v3/api/list/get_folder',
