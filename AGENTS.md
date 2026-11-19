@@ -39,7 +39,11 @@ Watch build during extension development:
 npm run build:watch
 ```
 
-There is no real test suite configured. `npm test` is a placeholder and exits with an error.
+Run the Node.js test suite for catalog, selection, state migration, and export flows:
+
+```bash
+npm test
+```
 
 For static docs/blog work, opening files under `docs/` is usually enough. If a local server is useful:
 

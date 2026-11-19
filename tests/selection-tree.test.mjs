@@ -80,3 +80,58 @@ test('根目录文档也分批加载，禁选模式保留目录浏览', () => {
   assert.ok(inputs.every(input => input.disabled));
   assert.ok(nodes().some(node => node.className === 'tree-more'));
 });
+
+test('多文件夹大目录的选择更新只需线性读取，进度刷新不重复扫描目录', () => {
+  const { root, nodes } = dom();
+  const catalog = createCatalog(
+    Array.from({ length: 100 }, (_, index) => ({ id: `f${index}`, folderId: '0' })),
+    Array.from({ length: 10000 }, (_, index) => ({ id: `d${index}`, folderId: `f${index % 100}` })),
+    { revision: 'large' }
+  );
+  let documentReads = 0;
+  const ids = catalog.documents.map(doc => doc.id);
+  for (const doc of catalog.documents) {
+    const id = doc.id;
+    Object.defineProperty(doc, 'id', { enumerable: true, get() { documentReads++; return id; } });
+  }
+  const tree = createSelectionTree(root, catalog);
+  documentReads = 0;
+  tree.setSelection(ids);
+  // A complexity budget avoids machine-dependent timing assertions. Re-reading
+  // every document for each visible folder exceeds this budget by two orders.
+  assert.ok(documentReads <= ids.length * 5, `Unexpected full-directory scans: ${documentReads}`);
+  const inputs = nodes().filter(node => node.type === 'checkbox');
+  assert.equal(inputs.length, 100);
+  assert.ok(inputs.every(input => input.checked && !input.indeterminate));
+  documentReads = 0;
+  tree.setDisabled(false);
+  tree.setDisabled(true);
+  tree.setDisabled(true);
+  tree.setDisabled(false);
+  assert.equal(documentReads, 0);
+  tree.setSelection(ids.slice(1));
+  const first = inputs.find(input => input.dataset.nodeKey === 'folder:f0');
+  assert.equal(first.checked, false);
+  assert.equal(first.indeterminate, true);
+  assert.ok(inputs.filter(input => input !== first).every(input => input.checked));
+  tree.setSelection([]);
+  assert.ok(inputs.every(input => !input.checked && !input.indeterminate));
+});
+
+test('折叠时变更选择，稍后展开的子目录与文档使用最新统计', () => {
+  const { root, nodes } = dom();
+  const tree = createSelectionTree(root, sampleCatalog());
+  const input = key => nodes().find(node => node.dataset.nodeKey === key);
+  tree.setSelection(['child-doc']);
+  assert.equal(input('folder:a').indeterminate, true);
+  input('folder:a').parent.parent.children[0].dispatch('click');
+  assert.equal(input('folder:child').checked, true);
+  assert.equal(input('folder:empty').disabled, true);
+  input('folder:child').parent.parent.children[0].dispatch('click');
+  assert.equal(input('doc:child-doc').checked, true);
+  tree.setSelection(['a-doc']);
+  assert.equal(input('folder:a').indeterminate, true);
+  assert.equal(input('folder:child').checked, false);
+  assert.equal(input('doc:child-doc').checked, false);
+  assert.equal(input('doc:a-doc').checked, true);
+});

@@ -1,6 +1,6 @@
 import { buildCatalogTree } from '../core/catalog.js';
 import {
-  normalizeSelection, setDocumentSelected, setFolderSelected, getFolderSelectionState
+  normalizeSelection, setDocumentSelected, setFolderSelected
 } from '../core/selection.js';
 
 // Build data in memory, but create DOM only for expanded branches, 100 siblings
@@ -11,6 +11,34 @@ export function createSelectionTree(container, catalog, {
 } = {}) {
   const tree = buildCatalogTree(catalog);
   let selected = normalizeSelection(catalog, selectedIds);
+  // Index branches once for this catalog. Children precede their parents when
+  // iterating backwards, so selection counts need only one pass over the tree.
+  const branches = [tree];
+  for (let index = 0; index < branches.length; index++) {
+    for (const child of branches[index].children) {
+      if (child.kind !== 'document') branches.push(child);
+    }
+  }
+  const folderCounts = new Map();
+  function updateCounts() {
+    for (let index = branches.length - 1; index >= 0; index--) {
+      const branch = branches[index];
+      let total = 0;
+      let checked = 0;
+      for (const child of branch.children) {
+        if (child.kind === 'document') {
+          total++;
+          if (selected.has(child.id)) checked++;
+        } else {
+          const counts = folderCounts.get(child);
+          total += counts.total;
+          checked += counts.checked;
+        }
+      }
+      folderCounts.set(branch, { total, checked });
+    }
+  }
+  updateCounts();
   const checkboxes = new Map();
   const document = container.ownerDocument;
   const element = (tag, className, text) => {
@@ -25,10 +53,10 @@ export function createSelectionTree(container, catalog, {
         input.checked = selected.has(node.id);
         input.disabled = disabled;
       } else {
-        const state = getFolderSelectionState(catalog, selected, node.id);
-        input.checked = state.checked;
-        input.indeterminate = state.indeterminate;
-        input.disabled = disabled || state.disabled;
+        const { total, checked } = folderCounts.get(node);
+        input.checked = total > 0 && checked === total;
+        input.indeterminate = checked > 0 && checked < total;
+        input.disabled = disabled || total === 0;
       }
     }
   }
@@ -79,6 +107,7 @@ export function createSelectionTree(container, catalog, {
         selected = node.kind === 'document'
           ? setDocumentSelected(catalog, selected, node.id, input.checked)
           : setFolderSelected(catalog, selected, node.id, input.checked);
+        updateCounts();
         sync();
         onChange(new Set(selected));
       });
@@ -95,8 +124,18 @@ export function createSelectionTree(container, catalog, {
   container.appendChild(list);
   renderList(list, tree.children);
   return {
-    setSelection(ids) { selected = normalizeSelection(catalog, ids); sync(); },
-    setDisabled(value) { disabled = value; sync(); },
+    setSelection(ids) {
+      const next = normalizeSelection(catalog, ids);
+      if (next.size === selected.size && [...next].every(id => selected.has(id))) return;
+      selected = next;
+      updateCounts();
+      sync();
+    },
+    setDisabled(value) {
+      if (disabled === value) return;
+      disabled = value;
+      sync();
+    },
     getSelection() { return new Set(selected); }
   };
 }
